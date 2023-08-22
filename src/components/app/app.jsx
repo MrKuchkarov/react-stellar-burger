@@ -1,3 +1,4 @@
+import React from "react";
 import styles from "./app.module.css";
 import { data } from "../../utils/data";
 
