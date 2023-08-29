@@ -1,0 +1,14 @@
+.total_price_container {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 20px;
+    align-items: center;
+
+}
+
+.price {
+    margin-right: 40px;
+    display: flex;
+    column-gap: 8px;
+    align-items: center;
+}

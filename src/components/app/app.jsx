@@ -5,13 +5,21 @@ import AppHeader from "../app-header/app-header";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 
+
 function App() {
   return (
     <div className={styles.app}>
     <AppHeader />
+      <div className={styles.container}>
+      <div>
     <BurgerIngredients />
-    <BurgerConstructor />
+      </div>
+      <div>
+        <BurgerConstructor />
+      </div>
+      </div>
     </div>
+
   );
 }
 

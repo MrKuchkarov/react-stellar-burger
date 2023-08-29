@@ -1,0 +1,19 @@
+.elements {
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.title {
+
+}
+
+.column {
+    display: flex;
+}
+
+.title_buns {
+    margin: 0;
+}
+

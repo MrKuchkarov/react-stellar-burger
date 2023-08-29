@@ -1,16 +1,13 @@
 import React from 'react';
-import styles from "./header-button"
-import { NavLink } from 'react-router-dom';
+import style from "./header-button.module.css"
 
 
-function HeaderButton(text) {
+
+function HeaderButton({children}) {
   return (
-    <NavLink
-      className={`${styles.link} text text_type_main-default text_color_inactive`}
-      activeClassName={styles.link__active}
-    >
-      {text}
-    </NavLink>
+      <a className={`${style.menu_buttons} p-5`}>
+        <div className={`${style.menu_text} text text_type_main-default`}>{children}</div>
+      </a>
   );
 };
 

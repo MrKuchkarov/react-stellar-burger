@@ -1,0 +1,15 @@
+
+.menu_buttons {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    cursor: pointer;
+}
+
+
+.menu_text {
+    display: flex;
+    gap: 8px;
+    border: none;
+    color: #F2F2F3;
+}

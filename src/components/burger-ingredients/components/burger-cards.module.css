@@ -1,0 +1,62 @@
+.body {
+
+}
+.container {
+    display: flex;
+    width: 600px;
+    flex-wrap: wrap;
+    gap: 32px 24px;
+    list-style-type: none;
+    margin: 0 auto;
+    padding: 0;
+    max-height: 700px;
+    overflow: auto;
+    padding: 0 10px 10px 10px;
+}
+
+.scroll_bar{
+
+}
+
+.title_buns {
+    margin: 0;
+}
+.cards_list {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    list-style-type: none;
+    margin: 0 auto;
+    gap: 32px 24px;
+
+}
+
+.cards {
+    width: 272px;
+    margin: 0 auto;
+}
+
+.cards_photo {
+    width: 240px;
+    height: 120px;
+
+}
+
+.container_price {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cards_price {
+    max-width: 100px;
+    height: 24px;
+
+}
+
+.cards_description {
+    width: 272px;
+    height: 24px;
+    margin: 0;
+    text-align: center;
+}

@@ -1,10 +1,13 @@
 import React from "react";
-import style from "./burger-ingredients";
+import IngredientsMune from "./components/ingredients-menu";
+import BurgerCards from "./components/burger-cards";
+
 
 function BurgerIngredients() {
     return (
         <div>
-
+            <IngredientsMune />
+            <BurgerCards />
         </div>
     )
 }

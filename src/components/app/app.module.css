@@ -4,4 +4,19 @@
   height: 100vh;
   background-color: #131316;
   color: #f2f2f3;
+
+
 }
+
+.container {
+  display: flex;
+  max-width: 1280px;
+  margin: 0 auto;
+  column-gap: 40px;
+}
+
+/*.scroll {*/
+/*  max-height: 700px;*/
+/*  overflow: auto;*/
+/*  padding: 10px;*/
+/*}*/

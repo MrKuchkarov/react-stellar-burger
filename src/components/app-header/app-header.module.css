@@ -1,8 +1,6 @@
 .header {
     max-width: 1920px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin: 0 auto;
 
 }
 
@@ -11,45 +9,18 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 auto;
 }
 
 .navigation {
-    
-
-}
-
-.menu {
     display: flex;
+    margin: 0;
+    padding: 0;
 }
 
-.menu__items {
-    display: flex;
-    align-items: center;
-    list-style-type: none;
-}
-
-.burger_icon {
-    border: none;
-    background-color: transparent;
-    color: #F2F2F3;
-}
-.burger_icon:hover {
-    border: none;
-    background-color: transparent;
-    color: #8585AD;
-}
-
-.menu_list {
-    composes: burger_icon;
-}
 
 .user_container {
     display: flex;
     align-items: center;
-}
-
-.user_login {
-    composes: burger_icon;
+    margin-left: 100px;
 }
 
