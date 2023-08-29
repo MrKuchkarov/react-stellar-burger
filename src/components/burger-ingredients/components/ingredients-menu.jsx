@@ -2,6 +2,7 @@ import React from "react";
 import style from "./ingredients-mune.module.css"
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 
+
 const IngredientsMune = () => {
     const [current, setCurrent] = React.useState('one')
     return (

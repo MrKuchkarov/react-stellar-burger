@@ -5,3 +5,9 @@
     list-style-type: none;
     padding: 0;
 }
+
+.scroll {
+    max-height: 700px;
+    overflow: auto;
+    padding: 0 10px 10px 10px;
+}

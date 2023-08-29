@@ -5,11 +5,11 @@ import {data} from "../../../utils/data";
 
 
 
-function BurgerCards() {
+function BurgerCards({children}) {
     return (
         <div className={style.body}>
-        <h2 className={`${style.title_buns} pt-10 pb-5 text text_type_main-medium`}>Булки</h2>
-        <ul className={`${style.container} custom-scroll`}>
+        <h2 className={`${style.title_buns} pt-10 pb-5 text text_type_main-medium`}>{children}</h2>
+        <ul className={`${style.container}`}>
         {data.map(card => (
             <li className={`${style.cards}`}>
                 <img className={`${style.cards_photo} pl-4 pr-4`} src={card.image} alt=""/>
