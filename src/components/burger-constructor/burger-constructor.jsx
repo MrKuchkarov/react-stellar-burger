@@ -1,15 +1,14 @@
 import React from "react";
-import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import bun2 from "../../images/constructor/ingredient item/bun2.png"
 import BurgerFillings from "./components/burger-fillings";
 import style from "./burger-constructor.module.css"
-import burgerFillings from "./components/burger-fillings";
 import BurgerTotalPrice from "./components/burger-total-price";
 
 const BurgerConstructor = () => {
     return (
-         <div className={`${style.container}`}>
-            <div className={style.constructor_container}>
+         <section className={`${style["main-container"]}`}>
+            <div className={style["constructor-container"]}>
             <ConstructorElement
                 type="top"
                 isLocked={true}
@@ -18,19 +17,10 @@ const BurgerConstructor = () => {
                 thumbnail={bun2}
             />
             </div>
-             <ul className={`${style.burger_fillings} custom-scroll`}>
-                 <BurgerFillings />
-                 <BurgerFillings />
-                 <BurgerFillings />
-                 <BurgerFillings />
-                 <BurgerFillings />
-                 <BurgerFillings />
-                 <BurgerFillings />
-                 <BurgerFillings />
-                 <BurgerFillings />
+             <ul className={`${style["burger-fillings"]} custom-scroll`}>
                  <BurgerFillings />
              </ul>
-             <div className={style.constructor_container}>
+             <div className={style["constructor-container"]}>
             <ConstructorElement
                 type="bottom"
                 isLocked={true}
@@ -40,7 +30,7 @@ const BurgerConstructor = () => {
             />
                  <BurgerTotalPrice />
              </div>
-        </div>
+        </section>
 
     )
 }

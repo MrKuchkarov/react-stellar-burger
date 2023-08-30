@@ -1,5 +1,5 @@
 
-.menu_buttons {
+.menu-links {
     display: flex;
     align-items: center;
     list-style-type: none;
@@ -7,7 +7,7 @@
 }
 
 
-.menu_text {
+.menu-links-text {
     display: flex;
     gap: 8px;
     border: none;

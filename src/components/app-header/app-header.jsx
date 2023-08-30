@@ -11,7 +11,7 @@ import HeaderButton from "./components/header-button";
 function AppHeader() {
   return (
     <header className={style.header}>
-      <div className={style.header__container}>
+      <div className={style["header-container"]}>
         <nav className={style.navigation}>
             <HeaderButton>
               <BurgerIcon />

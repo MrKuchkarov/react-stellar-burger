@@ -1,6 +1,9 @@
-.body {
-
+.scroll-ingredients {
+    max-height: 700px;
+    overflow: auto;
+    padding: 0 10px 10px 10px;
 }
+
 .container {
     display: flex;
     width: 600px;
@@ -11,10 +14,10 @@
     padding: 0;
 }
 
-.title_buns {
+.title-buns {
     margin: 0;
 }
-.cards_list {
+.cards-list {
     display: flex;
     flex-wrap: wrap;
     padding: 0;
@@ -29,25 +32,24 @@
     margin: 0 auto;
 }
 
-.cards_photo {
+.cards-photo {
     width: 240px;
     height: 120px;
-
 }
 
-.container_price {
+.container-price {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.cards_price {
+.cards-price {
     max-width: 100px;
     height: 24px;
 
 }
 
-.cards_description {
+.cards-description {
     width: 272px;
     height: 24px;
     margin: 0;

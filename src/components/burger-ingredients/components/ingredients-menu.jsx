@@ -6,9 +6,9 @@ import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 const IngredientsMune = () => {
     const [current, setCurrent] = React.useState('one')
     return (
-        <section className={`${style.elements}`}>
-            <h1 className={`${style.title} mt-10 mb-5 text text_type_main-large`}>Соберите бургер</h1>
-            <div className={`${style.column}`}>
+        <div className={`${style["ingredients-elements"]} mt-10 mb-10`}>
+            <h1 className={`${style["title-ingredients"]} mb-5 text text_type_main-large`}>Соберите бургер</h1>
+            <div className={`${style["ingredients-column"]}`}>
                 <Tab value="one" active={current === 'one'} onClick={setCurrent}>
                     Булка
                 </Tab>
@@ -19,7 +19,7 @@ const IngredientsMune = () => {
                     Начинка
                 </Tab>
             </div>
-        </section>
+        </div>
     )
 }
 export default IngredientsMune;

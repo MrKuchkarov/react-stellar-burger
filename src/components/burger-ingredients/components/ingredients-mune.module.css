@@ -1,14 +1,13 @@
-.elements {
+.ingredients-elements {
     width: 600px;
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
 }
-.column {
+.ingredients-column {
     display: flex;
 }
 
-.title_buns {
-    margin: 0;
+.title-ingredients {
+
 }
 

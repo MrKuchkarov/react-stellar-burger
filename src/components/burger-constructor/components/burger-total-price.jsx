@@ -6,8 +6,8 @@ import iconPrice from "../../../images/constructor/icon 36x36.svg";
 const BurgerTotalPrice = () => {
     return (
         <div>
-            <div className={`${style.total_price_container} mt-10`}>
-                <div className={`${style.price}`}>
+            <div className={`${style["total-price-container"]} mt-10`}>
+                <div className={`${style["total-price"]}`}>
                     <span className={"text text_type_digits-medium"}>
                         610
                     </span>

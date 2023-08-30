@@ -5,14 +5,10 @@ import style from "./burger-ingredients.module.css"
 
 function BurgerIngredients() {
     return (
-        <div>
+        <section>
             <IngredientsMune />
-            <div className={`${style.scroll} custom-scroll`}>
-            <BurgerCards>Булки</BurgerCards>
-            <BurgerCards>Соусы</BurgerCards>
-            <BurgerCards>Начинки</BurgerCards>
-            </div>
-        </div>
+            <BurgerCards />
+        </section>
     )
 }
 
