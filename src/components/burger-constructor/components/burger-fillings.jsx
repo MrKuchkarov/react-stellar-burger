@@ -8,8 +8,9 @@ function BurgerFillings() {
 
     return (
         <>
+            <ul className={`${style["burger-fillings"]} custom-scroll`}>
             {data.map(card => (
-                <li className={`${style["fillings-container"]} mt-4 mb-4`}>
+                <li key={card._id} className={`${style["fillings-container"]} mt-4 mb-4`}>
                     <DragIcon/>
                     <div className={`${style["filling-composition"]} pt-4 pr-6 pb-4 pl-6`}>
                         <img src={card.image} alt="" className={`${style["composition-images"]}`}/>
@@ -26,6 +27,7 @@ function BurgerFillings() {
                     </div>
                 </li>
             ))}
+            </ul>
         </>
     )
 }

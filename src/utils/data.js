@@ -209,5 +209,19 @@ export const data = [
      "image_large":"https://code.s3.yandex.net/react/code/cheese-large.png",
      "__v":0
   },
+   {
+      "_id":"60666c42cc7b410827a1a9bf",
+      "name":"Сыр с астероидной плесенью",
+      "type":"main",
+      "proteins":84,
+      "fat":48,
+      "carbohydrates":420,
+      "calories":3377,
+      "price":4142,
+      "image":"https://code.s3.yandex.net/react/code/cheese.png",
+      "image_mobile":"https://code.s3.yandex.net/react/code/cheese-mobile.png",
+      "image_large":"https://code.s3.yandex.net/react/code/cheese-large.png",
+      "__v":0
+   },
 
 ]

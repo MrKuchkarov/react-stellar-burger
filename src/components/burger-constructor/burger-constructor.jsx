@@ -9,25 +9,23 @@ const BurgerConstructor = () => {
     return (
          <section className={`${style["main-container"]}`}>
             <div className={style["constructor-container"]}>
-            <ConstructorElement
-                type="top"
-                isLocked={true}
-                text="Краторная булка N-200i (верх)"
-                price={200}
-                thumbnail={bun2}
-            />
+                <ConstructorElement
+                    type="top"
+                    isLocked={true}
+                    text="Краторная булка N-200i (верх)"
+                    price={200}
+                    thumbnail={bun2}
+                />
             </div>
-             <ul className={`${style["burger-fillings"]} custom-scroll`}>
                  <BurgerFillings />
-             </ul>
              <div className={style["constructor-container"]}>
-            <ConstructorElement
-                type="bottom"
-                isLocked={true}
-                text="Краторная булка N-200i (низ)"
-                price={200}
-                thumbnail={bun2}
-            />
+                <ConstructorElement
+                    type="bottom"
+                    isLocked={true}
+                    text="Краторная булка N-200i (низ)"
+                    price={200}
+                    thumbnail={bun2}
+                />
                  <BurgerTotalPrice />
              </div>
         </section>
