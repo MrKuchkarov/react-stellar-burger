@@ -10,9 +10,9 @@ function HeaderButton({children}) {
         <div className={`${style["menu-links-text"]} text text_type_main-default`}>{children}</div>
       </a>
   );
-};
+}
 
-HeaderButton.prototype = {
+HeaderButton.propTypes = {
     children: PropTypes.string
 };
 

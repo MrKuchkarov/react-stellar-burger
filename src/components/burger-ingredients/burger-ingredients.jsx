@@ -6,7 +6,6 @@ import style from "./burger-ingredients.module.css"
 function BurgerIngredients() {
     return (
         <section>
-            <IngredientsMune />
             <BurgerCards />
         </section>
     )
