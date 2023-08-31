@@ -4,16 +4,16 @@ import PropTypes from "prop-types";
 
 
 
-function HeaderButton({children}) {
+function HeaderButton(props) {
   return (
       <a className={`${style["menu-links"]} p-5`}>
-        <div className={`${style["menu-links-text"]} text text_type_main-default`}>{children}</div>
+        <div className={`${style["menu-links-text"]} text text_type_main-default`}>{props.children}</div>
       </a>
   );
 }
 
 HeaderButton.propTypes = {
-    children: PropTypes.string
+    children: PropTypes.array
 };
 
 export default HeaderButton;
