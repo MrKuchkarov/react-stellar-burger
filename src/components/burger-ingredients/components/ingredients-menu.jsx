@@ -9,13 +9,13 @@ const IngredientsMune = () => {
         <div className={`${style["ingredients-elements"]} mt-10 mb-10`}>
             <h1 className={`${style["title-ingredients"]} mb-5 text text_type_main-large`}>Соберите бургер</h1>
             <div className={`${style["ingredients-column"]}`}>
-                <Tab value="one" active={current === 'one'} onClick={setCurrent}>
+                <Tab value="1" active={current === '1'} onClick={setCurrent}>
                     Булка
                 </Tab>
-                <Tab value="two" active={current === 'two'} onClick={setCurrent}>
+                <Tab value="2" active={current === '2'} onClick={setCurrent}>
                     Соус
                 </Tab>
-                <Tab value="three" active={current === 'three'} onClick={setCurrent}>
+                <Tab value="3" active={current === '3'} onClick={setCurrent}>
                     Начинка
                 </Tab>
             </div>

@@ -5,6 +5,9 @@
     max-width: 635px;
 }
 
+.card-container {
+    max-width: 600px;
+}
 .title-buns {
     margin: 0;
 }

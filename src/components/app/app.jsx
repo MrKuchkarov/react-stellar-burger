@@ -7,7 +7,7 @@ import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 
 function App() {
   return (
-    <div className={styles["app"]}>
+    <section className={styles["app"]}>
     <AppHeader />
       <div className={styles["app-container"]}>
       <div>
@@ -17,7 +17,7 @@ function App() {
         <BurgerConstructor />
       </div>
       </div>
-    </div>
+    </section>
 
   );
 }
