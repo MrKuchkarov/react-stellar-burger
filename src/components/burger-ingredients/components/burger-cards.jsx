@@ -1,14 +1,15 @@
 import React, {useMemo} from "react";
 import style from "./burger-cards.module.css"
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {data} from "../../../utils/data";
 import IngredientsMenu from "./ingredients-menu";
 
-const BurgerCards = () => {
-    const ingredientsTypes = [...new Set(data.map((card) => card.type))];
-    const buns = useMemo(() => data.filter((item) => item.type === 'bun'), [data]);
-    const mains = useMemo(() => data.filter((item) => item.type === 'main'), [data]);
-    const sauces = useMemo(() => data.filter((item) => item.type === 'sauce'), [data]);
+const BurgerCards = ({ ingredients }) => {
+    const ingredientsTypes = [...new Set(ingredients.map((card) => card.type))];
+    const buns = useMemo(() => ingredients.filter((item) => item.type === 'bun'), [ingredients]);
+    const sauces = useMemo(() => ingredients.filter((item) => item.type === 'sauce'), [ingredients]);
+    const mains = useMemo(() => ingredients.filter((item) => item.type === 'main'), [ingredients]);
+
+
     return (
         <>
             <IngredientsMenu />
@@ -37,7 +38,7 @@ const BurgerCards = () => {
                                 </p>
                             </li>
                         ))}
-                        {type === "main" && mains.map((card) => (
+                        {type === "sauce" && sauces.map((card) => (
                             <li key={card._id} className={`${style["cards"]}`}>
                                 <img
                                     className={`${style["cards-photo"]} pl-4 pr-4`}
@@ -55,7 +56,7 @@ const BurgerCards = () => {
                                 </p>
                             </li>
                         ))}
-                        {type === "sauce" && sauces.map((card) => (
+                        {type === "main" && mains.map((card) => (
                             <li key={card._id} className={`${style["cards"]}`}>
                                 <img
                                     className={`${style["cards-photo"]} pl-4 pr-4`}

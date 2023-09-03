@@ -1,15 +1,13 @@
 import React from 'react';
 import {CurrencyIcon, DeleteIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./burger-fillings.module.css"
-import {data} from "../../../utils/data";
 
-function BurgerFillings() {
-
+function BurgerFillings({ ingredients }) {
 
     return (
         <>
             <ul className={`${style["burger-fillings"]} custom-scroll`}>
-            {data.map(card => (
+            {ingredients.map(card => (
                 <li key={card._id} className={`${style["fillings-container"]} mt-4 mb-4`}>
                     <DragIcon/>
                     <div className={`${style["filling-composition"]} pt-4 pr-6 pb-4 pl-6`}>

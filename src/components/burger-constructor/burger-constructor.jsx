@@ -5,7 +5,8 @@ import BurgerFillings from "./components/burger-fillings";
 import style from "./burger-constructor.module.css"
 import BurgerTotalPrice from "./components/burger-total-price";
 
-const BurgerConstructor = () => {
+const BurgerConstructor = ({ ingredients }) => {
+
     return (
          <section className={`${style["main-container"]}`}>
             <div className={style["constructor-container"]}>
@@ -17,7 +18,7 @@ const BurgerConstructor = () => {
                     thumbnail={bun2}
                 />
             </div>
-                 <BurgerFillings />
+                 <BurgerFillings ingredients={ingredients}/>
              <div className={style["constructor-container"]}>
                 <ConstructorElement
                     type="bottom"
