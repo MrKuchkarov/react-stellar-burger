@@ -3,46 +3,40 @@ import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-const ApiUrl = "https://norma.nomoreparties.space/api/ingredients"
+import Modal from "../modal/modal";
+import {fetchIngredients} from "../../utils/ApiService";
+
 function App() {
   const [ingredients, setIngredients] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Функция для выполнения запроса к API
-    const fetchIngredients = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch(ApiUrl);
+        const data = await fetchIngredients(); // Вызываем функцию для запроса
 
-        if (!response.ok) {
-          throw new Error('Ошибка при запросе к API');
-        }
-
-        const result = await response.json();
-
-        // Проверяем, что result - объект с полем "data", которое является массивом
-        if (result && result.success && Array.isArray(result.data)) {
-          setIngredients(result.data);
-          setIsLoading(false);
-        } else {
-          throw new Error('Неверный формат данных');
-        }
+        setIngredients(data);
+        setIsLoading(false);
       } catch (err) {
         setError(err.message);
         setIsLoading(false);
       }
     };
 
-    // Вызов функции при монтировании компонента
-    fetchIngredients();
+    fetchData(); // Вызываем функцию при монтировании компонента
   }, []);
+
   const showLoading = isLoading;
   const showIngredients = !isLoading && ingredients.length > 0;
   const showNoIngredients = !isLoading && ingredients.length === 0;
 
+
   return (
       <section className={styles["app"]}>
+        <Modal title={"Детали ингредиентов"}>
+
+        </Modal>
         <AppHeader />
         <div className={styles["app-container"]}>
           <div>
