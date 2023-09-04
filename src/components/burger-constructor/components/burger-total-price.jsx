@@ -1,9 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./burger-total-price.module.css"
 import iconPrice from "../../../images/constructor/icon 36x36.svg";
+import Modal from "../../modal/modal";
 
 const BurgerTotalPrice = () => {
+    const [totalModal, setTotalModal] = useState(false);
+
+
+    const handleOpenModal = (card) => {
+        setTotalModal(true);
+    }
+
+    const handleCloseModal = () => {
+        setTotalModal(false);
+    }
     return (
         <div>
             <div className={`${style["total-price-container"]} mt-10`}>
@@ -13,10 +24,14 @@ const BurgerTotalPrice = () => {
                     </span>
                     <img src={iconPrice} alt=""/>
                 </div>
-                    <Button htmlType="button" type="primary" size="large">
+                    <Button htmlType="button" type="primary" size="large" onClick={handleOpenModal}>
                         Нажми на меня
                     </Button>
             </div>
+            {totalModal &&
+                <Modal closeModal={handleCloseModal} >
+
+                </Modal>}
         </div>
     );
 };

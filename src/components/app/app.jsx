@@ -6,10 +6,13 @@ import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import Modal from "../modal/modal";
 import {fetchIngredients} from "../../utils/ApiService";
 
+
 function App() {
   const [ingredients, setIngredients] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,11 +35,10 @@ function App() {
   const showNoIngredients = !isLoading && ingredients.length === 0;
 
 
+
+console.log()
   return (
       <section className={styles["app"]}>
-        <Modal title={"Детали ингредиентов"}>
-
-        </Modal>
         <AppHeader />
         <div className={styles["app-container"]}>
           <div>

@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {CurrencyIcon, DeleteIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./burger-fillings.module.css"
+import Modal from "../../modal/modal";
+import IngredientDetails from "../../ingredient-details/ingredient-details";
 
 function BurgerFillings({ ingredients }) {
 

@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import  style from "./modal.module.css"
 import ReactDOM from "react-dom";
 import CloseButton from "../close-button/close-button";
+import ModalOverlay from "../modal-overlay/modal-overlay";
 
 const modalRoot = document.getElementById('react-modals');
 const Modal = ({ title, closeModal, children }) => {
@@ -16,19 +17,18 @@ const Modal = ({ title, closeModal, children }) => {
             document.removeEventListener('keydown', onEscKeydown);
         };
     }, []);
-
     return ReactDOM.createPortal(
         <>
             <div className={style.modal}>
                 <section className={`${style["modal-container"]}`}>
-                    <header className={`${style["header"]} pt-10 pr-10 pl-10`}>
-                        <h3 className={`text text_type_main-medium`}>{title}</h3>
+                    <header className={`${style["header"]} pt-10 pr-10 pl-10 `}>
+                        <h3 className={`text text_type_main-large`}>{title}</h3>
                         <CloseButton onClick={closeModal} />
                     </header>
                     {children}
                 </section>
             </div>
-            {/*<ModalOverlay onClick={closeModal} />*/}
+            <ModalOverlay onClick={closeModal} />
         </>,
         modalRoot,
     );

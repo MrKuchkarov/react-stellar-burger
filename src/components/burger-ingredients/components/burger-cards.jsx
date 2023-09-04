@@ -2,13 +2,25 @@ import React, {useMemo, useState} from "react";
 import style from "./burger-cards.module.css"
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientsMenu from "./ingredients-menu";
+import Modal from "../../modal/modal";
+import IngredientDetails from "../../ingredient-details/ingredient-details";
 
 const BurgerCards = ({ ingredients }) => {
     const ingredientsTypes = [...new Set(ingredients.map((card) => card.type))];
     const buns = useMemo(() => ingredients.filter((item) => item.type === 'bun'), [ingredients]);
     const sauces = useMemo(() => ingredients.filter((item) => item.type === 'sauce'), [ingredients]);
     const mains = useMemo(() => ingredients.filter((item) => item.type === 'main'), [ingredients]);
+    const [visible, setVisible] = useState(false);
+    const [selectedCard, setSelectedCard] = useState(null);
 
+    const handleOpenModal = (card) => {
+        setSelectedCard(card);
+        setVisible(true);
+    }
+
+    const handleCloseModal = () => {
+        setVisible(false);
+    }
 
     return (
         <>
@@ -21,7 +33,7 @@ const BurgerCards = ({ ingredients }) => {
                         {type === 'bun' ? 'Булки' : type === 'sauce' ? 'Соусы' : 'Начинки'}</h2>
                     <ul className={`${style["cards-list"]} `}>
                         {type === "bun" && buns.map((card) => (
-                            <li key={card._id} className={`${style["cards"]}`}>
+                            <li key={card._id} className={`${style["cards"]}`} onClick={() => handleOpenModal(card)}>
                                 <img
                                     className={`${style["cards-photo"]} pl-4 pr-4`}
                                     src={card.image}
@@ -39,7 +51,7 @@ const BurgerCards = ({ ingredients }) => {
                             </li>
                         ))}
                         {type === "sauce" && sauces.map((card) => (
-                            <li key={card._id} className={`${style["cards"]}`}>
+                            <li key={card._id} className={`${style["cards"]}`} onClick={() => handleOpenModal(card)}>
                                 <img
                                     className={`${style["cards-photo"]} pl-4 pr-4`}
                                     src={card.image}
@@ -57,7 +69,7 @@ const BurgerCards = ({ ingredients }) => {
                             </li>
                         ))}
                         {type === "main" && mains.map((card) => (
-                            <li key={card._id} className={`${style["cards"]}`}>
+                            <li key={card._id} className={`${style["cards"]}`} onClick={() => handleOpenModal(card)}>
                                 <img
                                     className={`${style["cards-photo"]} pl-4 pr-4`}
                                     src={card.image}
@@ -78,6 +90,11 @@ const BurgerCards = ({ ingredients }) => {
                 </div>
             ))}
         </div>
+            {visible &&
+            <Modal title={"Детали ингредиентов"} closeModal={handleCloseModal} >
+
+                <IngredientDetails data={selectedCard}></IngredientDetails>
+            </Modal>}
         </>
     );
 };
