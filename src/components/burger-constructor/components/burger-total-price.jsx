@@ -3,6 +3,7 @@ import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-comp
 import style from "./burger-total-price.module.css"
 import iconPrice from "../../../images/constructor/icon 36x36.svg";
 import Modal from "../../modal/modal";
+import OrderDetails from "../../oreder-details/order-details";
 
 const BurgerTotalPrice = () => {
     const [totalModal, setTotalModal] = useState(false);
@@ -30,7 +31,7 @@ const BurgerTotalPrice = () => {
             </div>
             {totalModal &&
                 <Modal closeModal={handleCloseModal} >
-
+                    <OrderDetails></OrderDetails>
                 </Modal>}
         </div>
     );
