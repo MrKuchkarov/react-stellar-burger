@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React from "react";
 import BurgerCards from "./components/burger-cards";
-import Modal from "../modal/modal";
+import PropTypes from "prop-types";
 
 
 function BurgerIngredients({ ingredients }) {
@@ -12,4 +12,7 @@ function BurgerIngredients({ ingredients }) {
     )
 }
 
+BurgerIngredients.propTypes = {
+    ingredients: PropTypes.array.isRequired
+}
 export default BurgerIngredients;
