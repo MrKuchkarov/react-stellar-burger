@@ -11,6 +11,7 @@ const Modal = ({ title, closeModal, children }) => {
         closeModal();
     }, [closeModal]);
 
+
     useEffect(() => {
         const onEscKeydown = (evt) => {
             evt.key === 'Escape' && handleCloseModal();

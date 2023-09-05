@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./burger-total-price.module.css"
 import iconPrice from "../../../images/constructor/icon 36x36.svg";
 import Modal from "../../modal/modal";
@@ -30,7 +30,7 @@ const BurgerTotalPrice = () => {
                     </Button>
             </div>
             {totalModal &&
-                <Modal closeModal={handleCloseModal} >
+                <Modal closeModal={handleCloseModal} title={""}>
                     <OrderDetails></OrderDetails>
                 </Modal>}
         </div>

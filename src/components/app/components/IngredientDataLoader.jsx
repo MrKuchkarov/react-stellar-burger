@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 function IngredientDataLoader({ onDataLoaded, onError }) {
     const [isLoading, setIsLoading] = useState(true);
 
+    console.log(onError)
     useEffect(() => {
         const fetchData = async () => {
             try {
