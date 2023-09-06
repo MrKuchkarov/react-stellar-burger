@@ -1,6 +1,7 @@
 import React from 'react';
 import style from "./ingredient-details.module.css"
 import PropTypes from "prop-types";
+import { BurgerIngredientsPropTypes } from '../../utils/burger-components-propTypes';
 
 const IngredientDetails = ({ data }) => {
     if (!data) return null;
@@ -25,14 +26,6 @@ const IngredientDetails = ({ data }) => {
 };
 
 
-IngredientDetails.propTypes = {
-    data: PropTypes.shape({
-        image: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        calories: PropTypes.number.isRequired,
-        proteins: PropTypes.number.isRequired,
-        fat: PropTypes.number.isRequired,
-        carbohydrates: PropTypes.number.isRequired,
-    }).isRequired,
-};
+IngredientDetails.propTypes = BurgerIngredientsPropTypes;
+
 export default IngredientDetails;
