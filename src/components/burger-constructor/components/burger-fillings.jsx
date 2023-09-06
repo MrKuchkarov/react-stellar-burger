@@ -1,7 +1,7 @@
 import React from 'react';
 import {CurrencyIcon, DeleteIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./burger-fillings.module.css"
-import PropTypes from "prop-types";
+import BurgerComponentsPropTypes from '../../../utils/burger-components-propTypes';
 
 function BurgerFillings({ ingredients }) {
 
@@ -31,7 +31,6 @@ function BurgerFillings({ ingredients }) {
     )
 }
 
-BurgerFillings.propTypes = {
-    ingredients: PropTypes.array.isRequired
-}
+BurgerFillings.propTypes = BurgerComponentsPropTypes;
+
 export default BurgerFillings;

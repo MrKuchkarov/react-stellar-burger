@@ -12,13 +12,13 @@ const IngredientsMune = () => {
         <div className={`${style["ingredients-elements"]} mt-10 mb-10`}>
             <h1 className={`${style["title-ingredients"]} mb-5 text text_type_main-large`}>Соберите бургер</h1>
             <div className={`${style["ingredients-column"]}`}>
-                <Tab value="1" onClick={() => scrollToSection("bunSection")}>
+                <Tab value="bunSection" onClick={scrollToSection}>
                     Булка
                 </Tab>
-                <Tab value="2" onClick={() => scrollToSection("sauceSection")}>
+                <Tab value="sauceSection" onClick={scrollToSection}>
                     Соус
                 </Tab>
-                <Tab value="3" onClick={() => scrollToSection("mainSection")}>
+                <Tab value="mainSection" onClick={scrollToSection}>
                     Начинка
                 </Tab>
             </div>

@@ -4,7 +4,7 @@ import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientsMenu from "./ingredients-menu";
 import Modal from "../../modal/modal";
 import IngredientDetails from "../../ingredient-details/ingredient-details";
-import PropTypes from "prop-types";
+import BurgerComponentsPropTypes from "../../../utils/burger-components-propTypes";
 
 const BurgerCards = ({ ingredients }) => {
     const ingredientsTypes = [...new Set(ingredients.map((card) => card.type))];
@@ -100,8 +100,7 @@ const BurgerCards = ({ ingredients }) => {
     );
 };
 
-BurgerCards.propTypes = {
-    ingredients: PropTypes.array.isRequired
-}
+BurgerCards.propTypes = BurgerComponentsPropTypes;
+
 export default BurgerCards;
 

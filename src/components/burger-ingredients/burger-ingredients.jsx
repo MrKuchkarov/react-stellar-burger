@@ -1,6 +1,6 @@
 import React from "react";
 import BurgerCards from "./components/burger-cards";
-import PropTypes from "prop-types";
+import BurgerComponentsPropTypes from "../../utils/burger-components-propTypes";
 
 
 function BurgerIngredients({ ingredients }) {
@@ -12,7 +12,7 @@ function BurgerIngredients({ ingredients }) {
     )
 }
 
-BurgerIngredients.propTypes = {
-    ingredients: PropTypes.array.isRequired
-}
+
+BurgerIngredients.propTypes = BurgerComponentsPropTypes;
+
 export default BurgerIngredients;

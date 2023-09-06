@@ -4,7 +4,7 @@ import bun2 from "../../images/constructor/ingredient item/bun2.png"
 import BurgerFillings from "./components/burger-fillings";
 import style from "./burger-constructor.module.css"
 import BurgerTotalPrice from "./components/burger-total-price";
-import PropTypes from "prop-types";
+import BurgerComponentsPropTypes from "../../utils/burger-components-propTypes";
 
 const BurgerConstructor = ({ ingredients }) => {
 
@@ -35,8 +35,7 @@ const BurgerConstructor = ({ ingredients }) => {
     )
 }
 
-BurgerConstructor.propTypes = {
-    ingredients: PropTypes.array.isRequired
-}
+BurgerConstructor.propTypes = BurgerComponentsPropTypes;
+
 
 export default BurgerConstructor;

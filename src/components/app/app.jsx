@@ -5,7 +5,6 @@ import BurgerConstructor from "../burger-constructor/burger-constructor";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import IngredientDataLoader from "./components/IngredientDataLoader";
 
-
 function App() {
   const [ingredients, setIngredients] = useState([]);
   const [error, setError] = useState(null);
