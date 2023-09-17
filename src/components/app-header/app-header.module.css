@@ -1,0 +1,19 @@
+.header {
+    max-width: 1920px;
+    margin: 0 auto;
+}
+
+.header-container {
+    width: 1280px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navigation {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+

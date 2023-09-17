@@ -1,0 +1,50 @@
+.scroll-ingredients {
+    max-height: 700px;
+    overflow: auto;
+    padding: 0 10px 10px 10px;
+    max-width: 635px;
+}
+
+.card-container {
+    max-width: 600px;
+}
+.title-buns {
+    margin: 0;
+}
+.cards-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0;
+    list-style-type: none;
+    margin: 0 auto;
+    gap: 32px 24px;
+}
+
+.cards {
+    width: 272px;
+}
+
+.cards-photo {
+    width: 240px;
+    height: 120px;
+}
+
+.container-price {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cards-price {
+    max-width: 100px;
+    height: 24px;
+
+}
+
+.cards-description {
+    width: 272px;
+    height: 24px;
+    margin: 0;
+    text-align: center;
+}

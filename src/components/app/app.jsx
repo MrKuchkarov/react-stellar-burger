@@ -1,16 +1,40 @@
+import React, {useCallback, useState} from "react";
 import styles from "./app.module.css";
-import { data } from "../../utils/data";
+import AppHeader from "../app-header/app-header";
+import BurgerConstructor from "../burger-constructor/burger-constructor";
+import BurgerIngredients from "../burger-ingredients/burger-ingredients";
+import IngredientDataLoader from "./components/IngredientDataLoader";
 
 function App() {
+  const [ingredients, setIngredients] = useState([]);
+  const [error, setError] = useState(null);
+
+  const handleDataLoaded = useCallback((data) => {
+    setIngredients(data);
+  },[]);
+
+  const handleError = useCallback((errorMessage) => {
+    setError(errorMessage);
+  }, []);
+
   return (
-    <div className={styles.app}>
-      <pre style={{
-      	margin: "auto",
-      	fontSize: "1.5rem"
-      }}>
-      	Измените src/components/app/app.jsx и сохраните для обновления.
-      </pre>
-    </div>
+      <section className={styles["app"]}>
+        <AppHeader />
+        <div className={styles["app-container"]}>
+          <IngredientDataLoader
+              onDataLoaded={handleDataLoaded}
+              onError={handleError}
+          />
+          <div>
+            {error && <p>{error}</p>}
+            {!error && ingredients.length === 0 && <p>Ингредиенты не доступны</p>}
+            {ingredients.length > 0 && <BurgerIngredients ingredients={ingredients} />}
+          </div>
+          <div>
+            <BurgerConstructor ingredients={ingredients} />
+          </div>
+        </div>
+      </section>
   );
 }
 

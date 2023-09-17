@@ -1,0 +1,8 @@
+
+.container {
+    display: flex;
+    width: 600px;
+    list-style-type: none;
+    padding: 0;
+}
+

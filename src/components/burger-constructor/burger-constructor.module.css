@@ -1,0 +1,11 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 100px;
+}
+
+.constructor-container {
+    margin-left: 42px;
+}
+
