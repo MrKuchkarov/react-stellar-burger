@@ -4,8 +4,11 @@ import bun2 from "../../images/constructor/ingredient item/bun2.png";
 import BurgerFillings from "./components/burger-fillings";
 import style from "./burger-constructor.module.css";
 import BurgerTotalPrice from "./components/burger-total-price";
+import { BurgerContext } from "../..";
 
 const BurgerConstructor = () => {
+  const { selectedIngredients } = React.useContext(BurgerContext);
+
   return (
     <section className={`${style["main-container"]}`}>
       <div className={style["constructor-container"]}>

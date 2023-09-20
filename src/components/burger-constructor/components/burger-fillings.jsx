@@ -1,15 +1,15 @@
 import React from 'react';
 import {CurrencyIcon, DeleteIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./burger-fillings.module.css"
-import { BurgerContext } from '../../app/app';
+import { BurgerContext } from '../../..';
 
 const BurgerFillings = () => {
-  const { ingredients } = React.useContext(BurgerContext);
+  const { selectedIngredients } = React.useContext(BurgerContext);
 
   return (
     <>
       <ul className={`${style["burger-fillings"]} custom-scroll`}>
-        {ingredients.map(card => (
+        {selectedIngredients.map(card => (
             <li key={card._id} className={`${style["fillings-container"]} mt-4 mb-4`}>
               <DragIcon/>
                 <div className={`${style["filling-composition"]} pt-4 pr-6 pb-4 pl-6`}>

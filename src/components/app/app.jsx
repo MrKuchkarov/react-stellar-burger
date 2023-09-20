@@ -4,12 +4,13 @@ import AppHeader from "../app-header/app-header";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import IngredientDataLoader from "./components/IngredientDataLoader";
+import { BurgerContext } from "../..";
 
-export const BurgerContext = React.createContext();
 
 function App() {
-  const [ingredients, setIngredients] = useState([]);
+  // const [ingredients, setIngredients] = useState([]);
   const [error, setError] = useState(null);
+  const { ingredients, setIngredients } = React.useContext(BurgerContext);
 
   const handleDataLoaded = useCallback((data) => {
     setIngredients(data);
@@ -21,7 +22,6 @@ function App() {
 
   return (
     <section className={styles["app"]}>
-      <BurgerContext.Provider value={{ ingredients }}>
         <AppHeader />
         <div className={styles["app-container"]}>
           <IngredientDataLoader
@@ -39,7 +39,6 @@ function App() {
             <BurgerConstructor />
           </div>
         </div>
-      </BurgerContext.Provider>
     </section>
   );
 }

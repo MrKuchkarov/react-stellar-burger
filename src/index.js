@@ -1,12 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./components/app/app";
 import reportWebVitals from "./reportWebVitals";
 
+export const BurgerContext = React.createContext();
+
+export const BurgerProvider = ({ children }) => {
+  const [selectedIngredients, setSelectedIngredients] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
+  return (
+    <BurgerContext.Provider value={{ selectedIngredients, setSelectedIngredients, ingredients, setIngredients }}>
+      {children}
+    </BurgerContext.Provider>
+  );
+};
+
 ReactDOM.render(
   <React.StrictMode>
+    <BurgerProvider>
       <App />
+    </BurgerProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

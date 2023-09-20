@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { fetchIngredients } from "../../../utils/ApiService";
 import PropTypes from "prop-types";
 
+
 function IngredientDataLoader({ onDataLoaded, onError }) {
     const [isLoading, setIsLoading] = useState(true);
 
