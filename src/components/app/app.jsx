@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, { useCallback, useState } from "react";
 import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
@@ -13,32 +13,34 @@ function App() {
 
   const handleDataLoaded = useCallback((data) => {
     setIngredients(data);
-  },[]);
+  }, []);
 
   const handleError = useCallback((errorMessage) => {
     setError(errorMessage);
   }, []);
 
   return (
-      <section className={styles["app"]}>
-        <BurgerContext.Provider value={{ ingredients }}>
-          <AppHeader />
-            <div className={styles["app-container"]}>
-              <IngredientDataLoader
-                  onDataLoaded={handleDataLoaded}
-                  onError={handleError}
-              />
-              <div>
-                {error && <p>{error}</p>}
-                {!error && ingredients.length === 0 && <p>Ингредиенты не доступны</p>}
-                {ingredients.length > 0 && <BurgerIngredients />}
-              </div>
-              <div>
-                <BurgerConstructor />
-              </div>
-            </div>
-        </BurgerContext.Provider>
-      </section>
+    <section className={styles["app"]}>
+      <BurgerContext.Provider value={{ ingredients }}>
+        <AppHeader />
+        <div className={styles["app-container"]}>
+          <IngredientDataLoader
+            onDataLoaded={handleDataLoaded}
+            onError={handleError}
+          />
+          <div>
+            {error && <p>{error}</p>}
+            {!error && ingredients.length === 0 && (
+              <p>Ингредиенты не доступны</p>
+            )}
+            {ingredients.length > 0 && <BurgerIngredients />}
+          </div>
+          <div>
+            <BurgerConstructor />
+          </div>
+        </div>
+      </BurgerContext.Provider>
+    </section>
   );
 }
 

@@ -4,16 +4,22 @@ import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientsMenu from "./ingredients-menu";
 import Modal from "../../modal/modal";
 import IngredientDetails from "../../ingredient-details/ingredient-details";
-import BurgerComponentsPropTypes from "../../../utils/burger-components-propTypes";
 import { BurgerContext } from "../../app/app";
 
 const BurgerCards = () => {
     const { ingredients } = React.useContext(BurgerContext);
-    
+
     const ingredientsTypes = [...new Set(ingredients.map((card) => card.type))];
-    const buns = useMemo(() => ingredients.filter((item) => item.type === 'bun'), [ingredients]);
-    const sauces = useMemo(() => ingredients.filter((item) => item.type === 'sauce'), [ingredients]);
-    const mains = useMemo(() => ingredients.filter((item) => item.type === 'main'), [ingredients]);
+
+    const buns = useMemo(() => 
+        ingredients.filter((item) => item.type === 'bun'), [ingredients]);
+
+    const sauces = useMemo(() => 
+        ingredients.filter((item) => item.type === 'sauce'), [ingredients]);
+        
+    const mains = useMemo(() => 
+        ingredients.filter((item) => item.type === 'main'), [ingredients]);
+
     const [visible, setVisible] = useState(false);
     const [selectedCard, setSelectedCard] = useState(null);
 
@@ -34,7 +40,8 @@ const BurgerCards = () => {
                 <div key={type} className={`${style["card-container"]}`}>
                     <h2 id={type === 'bun' ? 'bunSection' : type === 'sauce' ? 'sauceSection' : 'mainSection'}
                         className={`${style["title-buns"]} pt-10 pb-5 text text_type_main-medium`}>
-                        {type === 'bun' ? 'Булки' : type === 'sauce' ? 'Соусы' : 'Начинки'}</h2>
+                        {type === 'bun' ? 'Булки' : type === 'sauce' ? 'Соусы' : 'Начинки'}
+                    </h2>
                     <ul className={`${style["cards-list"]} `}>
                         {type === "bun" && buns.map((card) => (
                             <li key={card._id} className={`${style["cards"]}`} onClick={() => handleOpenModal(card)}>
