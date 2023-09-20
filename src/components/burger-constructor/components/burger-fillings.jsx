@@ -2,9 +2,11 @@ import React from 'react';
 import {CurrencyIcon, DeleteIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./burger-fillings.module.css"
 import BurgerComponentsPropTypes from '../../../utils/burger-components-propTypes';
+import { BurgerContext } from '../../app/app';
 
-function BurgerFillings({ ingredients }) {
-
+const BurgerFillings = () => {
+    const { ingredients } = React.useContext(BurgerContext);
+    
     return (
         <>
             <ul className={`${style["burger-fillings"]} custom-scroll`}>
@@ -31,6 +33,6 @@ function BurgerFillings({ ingredients }) {
     )
 }
 
-BurgerFillings.propTypes = BurgerComponentsPropTypes;
+
 
 export default BurgerFillings;

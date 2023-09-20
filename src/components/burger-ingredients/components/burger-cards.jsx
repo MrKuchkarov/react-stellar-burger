@@ -1,12 +1,15 @@
-import React, {useMemo, useState} from "react";
+import React, {useMemo, useState, useContext} from "react";
 import style from "./burger-cards.module.css"
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientsMenu from "./ingredients-menu";
 import Modal from "../../modal/modal";
 import IngredientDetails from "../../ingredient-details/ingredient-details";
 import BurgerComponentsPropTypes from "../../../utils/burger-components-propTypes";
+import { BurgerContext } from "../../app/app";
 
-const BurgerCards = ({ ingredients }) => {
+const BurgerCards = () => {
+    const { ingredients } = React.useContext(BurgerContext);
+    
     const ingredientsTypes = [...new Set(ingredients.map((card) => card.type))];
     const buns = useMemo(() => ingredients.filter((item) => item.type === 'bun'), [ingredients]);
     const sauces = useMemo(() => ingredients.filter((item) => item.type === 'sauce'), [ingredients]);
@@ -100,7 +103,7 @@ const BurgerCards = ({ ingredients }) => {
     );
 };
 
-BurgerCards.propTypes = BurgerComponentsPropTypes;
+
 
 export default BurgerCards;
 

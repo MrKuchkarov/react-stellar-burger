@@ -5,8 +5,10 @@ import BurgerFillings from "./components/burger-fillings";
 import style from "./burger-constructor.module.css"
 import BurgerTotalPrice from "./components/burger-total-price";
 import BurgerComponentsPropTypes from "../../utils/burger-components-propTypes";
+import BurgerContext from "../app/app";
 
-const BurgerConstructor = ({ ingredients }) => {
+
+const BurgerConstructor = () => {
 
     return (
          <section className={`${style["main-container"]}`}>
@@ -19,7 +21,7 @@ const BurgerConstructor = ({ ingredients }) => {
                     thumbnail={bun2}
                 />
             </div>
-                 <BurgerFillings ingredients={ingredients}/>
+                 <BurgerFillings />
              <div className={style["constructor-container"]}>
                 <ConstructorElement
                     type="bottom"
@@ -35,7 +37,6 @@ const BurgerConstructor = ({ ingredients }) => {
     )
 }
 
-BurgerConstructor.propTypes = BurgerComponentsPropTypes;
 
 
 export default BurgerConstructor;

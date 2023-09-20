@@ -1,18 +1,16 @@
-import React from "react";
+import React, { useContext }  from "react";
 import BurgerCards from "./components/burger-cards";
-import BurgerComponentsPropTypes from "../../utils/burger-components-propTypes";
 
-
-function BurgerIngredients({ ingredients }) {
+const BurgerIngredients = () => {
 
     return (
         <section>
-            <BurgerCards ingredients={ingredients} />
+            <BurgerCards />
         </section>
     )
 }
 
 
-BurgerIngredients.propTypes = BurgerComponentsPropTypes;
+
 
 export default BurgerIngredients;
