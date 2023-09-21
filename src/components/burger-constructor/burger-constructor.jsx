@@ -1,35 +1,63 @@
-import React from "react";
+import React, {useReducer} from "react";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-import bun2 from "../../images/constructor/ingredient item/bun2.png";
 import BurgerFillings from "./components/burger-fillings";
 import style from "./burger-constructor.module.css";
 import BurgerTotalPrice from "./components/burger-total-price";
 import { BurgerContext } from "../..";
 
+  // Созданиеreducer для обновления состояния стоимости
+  const priceReducer = (state, action) => {
+    switch (action.type) {
+      case "ADD_INGREDIENT":
+        return state + action.payload.price;
+      case "REMOVE_INGREDIENT":
+        return state - action.payload.price;
+      default:
+        return state;
+    }
+  };
+
 const BurgerConstructor = () => {
+
+  // Используется useReducer для управления состоянием стоимости
+  const [totalPrice, dispatch] = useReducer(priceReducer, 0);
+
+  //Извлечение список ингредиентов из контекста
   const { selectedIngredients } = React.useContext(BurgerContext);
 
+  const bunItems = selectedIngredients.filter((item) => item.type === "bun");
+  // const fillingItems = selectedIngredients.filter((item) => item.type !== "bun");
+
+  // Вычисление общую стоимость бургера
+  const burgerPrice = selectedIngredients.reduce((acc, bun) => acc + bun.price, 0);
+
   return (
-    <section className={`${style["main-container"]}`}>
+    <section className={style["main-container"]}>
       <div className={style["constructor-container"]}>
-        <ConstructorElement
-          type="top"
-          isLocked={true}
-          text="Краторная булка N-200i (верх)"
-          price={200}
-          thumbnail={bun2}
-        />
+        {bunItems.map((item ) => (
+          <ConstructorElement
+            key={item._id}
+            type="bun"
+            isLocked={true}
+            text={`(${item.name}) (верх)`}
+            price={item.price}
+            thumbnail={item.image}
+          />
+        ))}
       </div>
       <BurgerFillings />
       <div className={style["constructor-container"]}>
-        <ConstructorElement
-          type="bottom"
-          isLocked={true}
-          text="Краторная булка N-200i (низ)"
-          price={200}
-          thumbnail={bun2}
-        />
-        <BurgerTotalPrice />
+        {bunItems.map((item) => (
+          <ConstructorElement
+            key={item._id}
+            type="bun"
+            isLocked={true}
+            text={`(${item.name}) (низ)`}
+            price={item.price}
+            thumbnail={item.image}
+          />
+        ))}
+        <BurgerTotalPrice totalPrice={burgerPrice}/>
       </div>
     </section>
   );

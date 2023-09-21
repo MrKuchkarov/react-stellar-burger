@@ -4,11 +4,11 @@ import style from "./burger-total-price.module.css";
 import iconPrice from "../../../images/constructor/icon 36x36.svg";
 import Modal from "../../modal/modal";
 import OrderDetails from "../../oreder-details/order-details";
-
-const BurgerTotalPrice = () => {
+import PropTypes from "prop-types";
+const BurgerTotalPrice = ({totalPrice}) => {
   const [totalModal, setTotalModal] = useState(false);
 
-  const handleOpenModal = (card) => {
+  const handleOpenModal = () => {
     setTotalModal(true);
   };
 
@@ -19,7 +19,7 @@ const BurgerTotalPrice = () => {
     <div>
       <div className={`${style["total-price-container"]} mt-10`}>
         <div className={`${style["total-price"]}`}>
-          <span className={"text text_type_digits-medium"}>610</span>
+          <span className={"text text_type_digits-medium"}>{totalPrice}</span>
           <img src={iconPrice} alt="" />
         </div>
         <Button
@@ -40,4 +40,8 @@ const BurgerTotalPrice = () => {
   );
 };
 
+
+BurgerTotalPrice.propTypes = {
+  totalPrice: PropTypes.number.isRequired,
+};
 export default BurgerTotalPrice;

@@ -4,7 +4,13 @@ import style from "./burger-fillings.module.css"
 import { BurgerContext } from '../../..';
 
 const BurgerFillings = () => {
-  const { selectedIngredients } = React.useContext(BurgerContext);
+  const { selectedIngredients, setSelectedIngredients } = React.useContext(BurgerContext);
+  
+    // Функция для удаления булки по ID
+    const removeIngredients = (ingredientsId) => {
+      const updatedIngredients = selectedIngredients.filter((ingredient) => ingredient._id !== ingredientsId);
+      setSelectedIngredients(updatedIngredients);
+    };
 
   return (
     <>
@@ -23,7 +29,7 @@ const BurgerFillings = () => {
                     </span>
                         <CurrencyIcon type="primary"/>
                     </div>
-                    <DeleteIcon type="primary"/>
+                    <DeleteIcon type="primary" onClick={() => removeIngredients(card._id)} />
                 </div>
             </li>
             ))}
