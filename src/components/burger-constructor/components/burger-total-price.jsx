@@ -5,7 +5,9 @@ import iconPrice from "../../../images/constructor/icon 36x36.svg";
 import Modal from "../../modal/modal";
 import OrderDetails from "../../oreder-details/order-details";
 import PropTypes from "prop-types";
-const BurgerTotalPrice = ({totalPrice}) => {
+
+
+const BurgerTotalPrice = ({ totalPrice }) => {
   const [totalModal, setTotalModal] = useState(false);
 
   const handleOpenModal = () => {
@@ -41,7 +43,7 @@ const BurgerTotalPrice = ({totalPrice}) => {
 };
 
 
-BurgerTotalPrice.propTypes = {
-  totalPrice: PropTypes.number.isRequired,
-};
+// BurgerTotalPrice.propTypes = {
+//   ingredientsTotalPrice: PropTypes.number.isRequired,
+// };
 export default BurgerTotalPrice;
