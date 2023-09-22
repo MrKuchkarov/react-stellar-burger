@@ -38,7 +38,6 @@ const BurgerConstructor = () => {
   const bunItems = selectedIngredients.filter((item) => item.type === "bun");
   // const fillingItems = selectedIngredients.filter((item) => item.type !== "bun");
 
-console.log(ingredientsTotalPrice)
   return (
     <section className={style["main-container"]}>
       <div className={style["constructor-container"]}>

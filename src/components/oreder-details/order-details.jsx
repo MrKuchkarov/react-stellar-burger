@@ -1,12 +1,13 @@
 import React from 'react';
 import style from "./order-details.module.css"
 import done from "../../images/constructor/ingredient item/done.svg"
+import PropTypes from "prop-types";
 
-const OrderDetails = () => {
+const OrderDetails = ({orderNumber}) => {
     return (
         <section className={`${style["order-details"]} `}>
             <h2 className={`${style["title"]} text text_type_digits-large pt-10`}>
-                034536
+            {orderNumber || 'Номер заказа не указан'}
             </h2>
             <p className={`${style["order-number"]} text text_type_main-medium pt-8 pb-15`}>
                 идентификатор заказа
@@ -22,4 +23,7 @@ const OrderDetails = () => {
     );
 };
 
+OrderDetails.propTypes = {
+    orderNumber: PropTypes.number.isRequired,
+  };
 export default OrderDetails;

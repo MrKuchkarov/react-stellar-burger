@@ -6,9 +6,7 @@ import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import IngredientDataLoader from "./components/IngredientDataLoader";
 import { BurgerContext } from "../..";
 
-
 function App() {
-  // const [ingredients, setIngredients] = useState([]);
   const [error, setError] = useState(null);
   const { ingredients, setIngredients } = React.useContext(BurgerContext);
 
@@ -22,23 +20,21 @@ function App() {
 
   return (
     <section className={styles["app"]}>
-        <AppHeader />
-        <div className={styles["app-container"]}>
-          <IngredientDataLoader
-            onDataLoaded={handleDataLoaded}
-            onError={handleError}
-          />
-          <div>
-            {error && <p>{error}</p>}
-            {!error && ingredients.length === 0 && (
-              <p>Ингредиенты не доступны</p>
-            )}
-            {ingredients.length > 0 && <BurgerIngredients />}
-          </div>
-          <div>
-            <BurgerConstructor />
-          </div>
+      <AppHeader />
+      <div className={styles["app-container"]}>
+        <IngredientDataLoader
+          onDataLoaded={handleDataLoaded}
+          onError={handleError}
+        />
+        <div>
+          {error && <p>{error}</p>}
+          {!error && ingredients.length === 0 && <p>Ингредиенты не доступны</p>}
+          {ingredients.length > 0 && <BurgerIngredients />}
         </div>
+        <div>
+          <BurgerConstructor />
+        </div>
+      </div>
     </section>
   );
 }
