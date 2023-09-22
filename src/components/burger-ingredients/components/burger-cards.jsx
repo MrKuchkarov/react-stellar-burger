@@ -28,8 +28,21 @@ const BurgerCards = () => {
     const handleOpenModal = (card) => {
         setSelectedCard(card);
         setVisible(true);
-        setSelectedIngredients((prevSelectedIngredients) => [...prevSelectedIngredients, card]);
-    }
+        
+        // Проверка, является ли карта булкой (тип 'bun')
+        if (card.type === 'bun') {
+          setSelectedIngredients((prevSelectedIngredients) => ({
+            ...prevSelectedIngredients,
+            bun: card, // Установка булку только в поле 'bun'
+          }));
+        } else {
+          setSelectedIngredients((prevSelectedIngredients) => ({
+            ...prevSelectedIngredients,
+            other: [...prevSelectedIngredients.other, card], // Добавить другие ингредиенты в массив 'other'
+          }));
+        }
+      };
+      
 
     const handleCloseModal = () => {
         setVisible(false);

@@ -7,7 +7,10 @@ import reportWebVitals from "./reportWebVitals";
 export const BurgerContext = React.createContext();
 
 export const BurgerProvider = ({ children }) => {
-  const [selectedIngredients, setSelectedIngredients] = useState([]);
+  const [selectedIngredients, setSelectedIngredients] = useState({
+    bun: null,
+    other: []
+  });
   const [ingredients, setIngredients] = useState([]);
   return (
     <BurgerContext.Provider value={{ selectedIngredients, setSelectedIngredients, ingredients, setIngredients }}>

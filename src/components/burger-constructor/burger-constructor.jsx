@@ -1,70 +1,51 @@
-import React, {useEffect, useReducer} from "react";
+import React from "react";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerFillings from "./components/burger-fillings";
 import style from "./burger-constructor.module.css";
 import BurgerTotalPrice from "./components/burger-total-price";
 import { BurgerContext } from "../..";
-// import priceReducer from "../../services/reducers";
-// import {useBurgerPrice} from "../../services/reducers";
 
 const BurgerConstructor = () => {
-  //Извлечение список ингредиентов из контекста
   const { selectedIngredients } = React.useContext(BurgerContext);
 
-  // const { burgerPrice, setBurgerPrice } = useBurgerPrice(); // Используем хук для установки и получения стоимости
+  // Проверка, есть ли выбранная булка
+  const bun = selectedIngredients.bun || null;
+  const otherIngredients = selectedIngredients.other || [];
 
-  // // Обновляем стоимость бургера при добавлении или удалении ингредиентов
-  // const updateBurgerPrice = () => {
-  //   const bunPrice = bunItems.length > 0 ? bunItems[0].price * 2 : 0;
-  //   // Дополнительно вычисляем стоимость остальных ингредиентов и добавляем к bunPrice
-  //   // ...
+  // Вычисление общей стоимости бургера
+  const ingredientsTotalPrice = [bun, ...otherIngredients].reduce(
+    (acc, ingredient) => acc + (ingredient ? ingredient.price : 0),
+    0
+  );
 
-  //   setBurgerPrice(bunPrice);
-  // };
-
-  // // Вызываем функцию обновления стоимости при монтировании компонента
-  // useEffect(() => {
-  //   updateBurgerPrice();
-  // }, [selectedIngredients]);
-
-
-  // // Используется useReducer для управления состоянием стоимости
-  // const [totalPrice, dispatch] = useReducer(priceReducer, 0);
-
-  // Вычисление общую стоимость бургера
-  const ingredientsTotalPrice = selectedIngredients.reduce((acc, bun) => acc + bun.price, 0);
-
-  //Фильтрация список игредиентов(булок)
-  const bunItems = selectedIngredients.filter((item) => item.type === "bun");
-  // const fillingItems = selectedIngredients.filter((item) => item.type !== "bun");
 
   return (
     <section className={style["main-container"]}>
       <div className={style["constructor-container"]}>
-        {bunItems.map((item ) => (
+        {bun && (
           <ConstructorElement
-            key={item._id}
+            key={bun._id}
             type="bun"
             isLocked={true}
-            text={`(${item.name}) (верх)`}
-            price={item.price}
-            thumbnail={item.image}
+            text={`(${bun.name}) (верх)`}
+            price={bun.price}
+            thumbnail={bun.image}
           />
-        ))}
+        )}
       </div>
       <BurgerFillings />
       <div className={style["constructor-container"]}>
-        {bunItems.map((item) => (
+        {bun && (
           <ConstructorElement
-            key={item._id}
+            key={bun._id}
             type="bun"
             isLocked={true}
-            text={`(${item.name}) (низ)`}
-            price={item.price}
-            thumbnail={item.image}
+            text={`(${bun.name}) (низ)`}
+            price={bun.price}
+            thumbnail={bun.image}
           />
-        ))}
-        <BurgerTotalPrice totalPrice={ingredientsTotalPrice}/>
+        )}
+        <BurgerTotalPrice totalPrice={ingredientsTotalPrice} />
       </div>
     </section>
   );

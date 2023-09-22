@@ -10,14 +10,15 @@ import { BurgerContext } from "../../../index";
 
 const BurgerTotalPrice = ({ totalPrice }) => {
   //Контекст все ингредиентов
-  const { selectedIngredients } = React.useContext(BurgerContext);
+  const { ingredients } = React.useContext(BurgerContext);
   const [totalModal, setTotalModal] = useState(false);
   //Состояние номера заказов
   const [orderNumber, setOrderNumber] = useState(null);
 
+ 
   const handleOpenModal = async () => {
     try {
-      const ingredientIds = selectedIngredients.map(
+      const ingredientIds = ingredients.map(
         (ingredient) => ingredient._id
       );
       const number = await makeOrder(ingredientIds);
