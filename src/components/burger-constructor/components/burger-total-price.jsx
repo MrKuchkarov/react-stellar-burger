@@ -6,11 +6,12 @@ import Modal from "../../modal/modal";
 import OrderDetails from "../../oreder-details/order-details";
 import PropTypes from "prop-types";
 import makeOrder from "../../../utils/ApiService";
-import { BurgerContext } from "../../../index";
+import { BurgerContext } from "../../..";
 
 const BurgerTotalPrice = ({ totalPrice }) => {
   //Контекст все ингредиентов
   const { ingredients } = React.useContext(BurgerContext);
+  
   const [totalModal, setTotalModal] = useState(false);
   //Состояние номера заказов
   const [orderNumber, setOrderNumber] = useState(null);

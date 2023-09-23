@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerFillings from "./components/burger-fillings";
 import style from "./burger-constructor.module.css";
@@ -13,10 +13,12 @@ const BurgerConstructor = () => {
   const otherIngredients = selectedIngredients.other || [];
 
   // Вычисление общей стоимости бургера
-  const ingredientsTotalPrice = [bun, ...otherIngredients].reduce(
+  const ingredientsTotalPrice = useMemo(() => { 
+    return [bun, ...otherIngredients].reduce(
     (acc, ingredient) => acc + (ingredient ? ingredient.price : 0),
     0
   );
+}, [bun, otherIngredients]);
 
   return (
     <section className={style["main-container"]}>

@@ -4,7 +4,7 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import IngredientsMenu from "./ingredients-menu";
 import Modal from "../../modal/modal";
 import IngredientDetails from "../../ingredient-details/ingredient-details";
-import { BurgerContext } from "../../../index";
+import { BurgerContext } from "../../..";
 
 const BurgerCards = () => {
   const { ingredients, setSelectedIngredients } =
@@ -12,20 +12,15 @@ const BurgerCards = () => {
 
   const ingredientsTypes = [...new Set(ingredients.map((card) => card.type))];
 
-  const buns = useMemo(
-    () => ingredients.filter((item) => item.type === "bun"),
-    [ingredients]
-  );
-
-  const sauces = useMemo(
-    () => ingredients.filter((item) => item.type === "sauce"),
-    [ingredients]
-  );
-
-  const mains = useMemo(
-    () => ingredients.filter((item) => item.type === "main"),
-    [ingredients]
-  );
+  //Фильтрация игрениентов по катигориям 
+  const categorizedIngredients = useMemo(() => {
+    const result = {
+      buns: ingredients.filter((item) => item.type === "bun"),
+      sauces: ingredients.filter((item) => item.type === "sauce"),
+      mains: ingredients.filter((item) => item.type === "main"),
+    };
+    return result;
+  }, [ingredients]);
 
   const [visible, setVisible] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
@@ -76,7 +71,7 @@ const BurgerCards = () => {
             </h2>
             <ul className={`${style["cards-list"]} `}>
               {type === "bun" &&
-                buns.map((card) => (
+                categorizedIngredients.buns.map((card) => (
                   <li
                     key={card._id}
                     className={`${style["cards"]}`}
@@ -103,7 +98,7 @@ const BurgerCards = () => {
                   </li>
                 ))}
               {type === "sauce" &&
-                sauces.map((card) => (
+                categorizedIngredients.sauces.map((card) => (
                   <li
                     key={card._id}
                     className={`${style["cards"]}`}
@@ -130,7 +125,7 @@ const BurgerCards = () => {
                   </li>
                 ))}
               {type === "main" &&
-                mains.map((card) => (
+                categorizedIngredients.mains.map((card) => (
                   <li
                     key={card._id}
                     className={`${style["cards"]}`}
