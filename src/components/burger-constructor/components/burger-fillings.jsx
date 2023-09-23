@@ -6,6 +6,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./burger-fillings.module.css";
 import { BurgerContext } from "../../..";
+import { v4 as uuidv4 } from "uuid";
 
 const BurgerFillings = () => {
   const { selectedIngredients, setSelectedIngredients } =
@@ -41,7 +42,7 @@ const BurgerFillings = () => {
       <ul className={`${style["burger-fillings"]} custom-scroll`}>
         {ingredientsList.map((ingredient) => (
           <li
-            key={ingredient._id}
+            key={uuidv4()}
             className={`${style["fillings-container"]} mt-4 mb-4`}
           >
             <DragIcon />
