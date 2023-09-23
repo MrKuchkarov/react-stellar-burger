@@ -9,11 +9,19 @@ export const BurgerContext = React.createContext();
 export const BurgerProvider = ({ children }) => {
   const [selectedIngredients, setSelectedIngredients] = useState({
     bun: null,
-    other: []
+    other: [],
   });
   const [ingredients, setIngredients] = useState([]);
+  
   return (
-    <BurgerContext.Provider value={{ selectedIngredients, setSelectedIngredients, ingredients, setIngredients }}>
+    <BurgerContext.Provider
+      value={{
+        selectedIngredients,
+        setSelectedIngredients,
+        ingredients,
+        setIngredients,
+      }}
+    >
       {children}
     </BurgerContext.Provider>
   );

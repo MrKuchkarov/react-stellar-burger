@@ -13,20 +13,20 @@ function AppHeader() {
     <header className={style.header}>
       <div className={style["header-container"]}>
         <nav className={style.navigation}>
-            <HeaderButton>
-              <BurgerIcon />
-              Конструктор
-            </HeaderButton>
-            <HeaderButton>
-              <ListIcon />
-              Лента заказов
-            </HeaderButton>
+          <HeaderButton>
+            <BurgerIcon />
+            Конструктор
+          </HeaderButton>
+          <HeaderButton>
+            <ListIcon />
+            Лента заказов
+          </HeaderButton>
         </nav>
         <Logo />
-            <HeaderButton>
-              <ProfileIcon />
-              Личный кабинет
-            </HeaderButton>
+        <HeaderButton>
+          <ProfileIcon />
+          Личный кабинет
+        </HeaderButton>
       </div>
     </header>
   );

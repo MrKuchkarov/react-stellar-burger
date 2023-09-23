@@ -1,5 +1,6 @@
 import axios from "axios";
-const ApiGetTheIngredients = "https://norma.nomoreparties.space/api/ingredients";
+const ApiGetTheIngredients =
+  "https://norma.nomoreparties.space/api/ingredients";
 const ApiOrderDetails = "https://norma.nomoreparties.space/api/orders";
 
 //Запрос для получения ингредиентов

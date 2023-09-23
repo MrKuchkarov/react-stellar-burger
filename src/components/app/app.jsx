@@ -12,11 +12,11 @@ function App() {
 
   const handleDataLoaded = useCallback((data) => {
     setIngredients(data);
-  }, []);
+  }, [setIngredients]);
 
   const handleError = useCallback((errorMessage) => {
     setError(errorMessage);
-  }, []);
+  }, [setError]);
 
   return (
     <section className={styles["app"]}>

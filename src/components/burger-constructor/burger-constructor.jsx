@@ -18,7 +18,6 @@ const BurgerConstructor = () => {
     0
   );
 
-
   return (
     <section className={style["main-container"]}>
       <div className={style["constructor-container"]}>

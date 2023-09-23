@@ -15,12 +15,9 @@ const BurgerTotalPrice = ({ totalPrice }) => {
   //Состояние номера заказов
   const [orderNumber, setOrderNumber] = useState(null);
 
- 
   const handleOpenModal = async () => {
     try {
-      const ingredientIds = ingredients.map(
-        (ingredient) => ingredient._id
-      );
+      const ingredientIds = ingredients.map((ingredient) => ingredient._id);
       const number = await makeOrder(ingredientIds);
       setOrderNumber(number);
       setTotalModal(true);
