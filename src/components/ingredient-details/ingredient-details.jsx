@@ -1,8 +1,9 @@
 import React from "react";
 import style from "./ingredient-details.module.css";
-import { BurgerIngredientsPropTypes } from "../../utils/burger-components-propTypes";
-
-const IngredientDetails = ({ data }) => {
+import { useSelector } from "react-redux";
+const IngredientDetails = () => {
+  const data = useSelector((state) => state.ingredients.selectedCard);
+  
   if (!data) return null;
   return (
     <>
@@ -54,6 +55,6 @@ const IngredientDetails = ({ data }) => {
   );
 };
 
-IngredientDetails.propTypes = BurgerIngredientsPropTypes;
+
 
 export default IngredientDetails;

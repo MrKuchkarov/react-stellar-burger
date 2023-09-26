@@ -4,10 +4,12 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import IngredientsMenu from "./ingredients-menu";
 import Modal from "../../modal/modal";
 import IngredientDetails from "../../ingredient-details/ingredient-details";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedCard } from "../../../services/ingredientsSlice/ingredientsSlice";
 
 const BurgerCards = () => {
   const ingredients = useSelector((state) => state.ingredients.ingredients);
+  const dispatch = useDispatch();
   const ingredientsTypes = [...new Set(ingredients.map((card) => card.type))];
 
   // Фильтрация игрениентов по катигориям
@@ -21,10 +23,9 @@ const BurgerCards = () => {
   }, [ingredients]);
 
   const [visible, setVisible] = useState(false);
-  const [selectedCard, setSelectedCard] = useState(null);
 
   const handleOpenModal = (card) => {
-    setSelectedCard(card);
+    dispatch(setSelectedCard(card));
     setVisible(true);
 
     // Проверка, является ли карта булкой (тип 'bun')
@@ -35,7 +36,8 @@ const BurgerCards = () => {
     }
   };
 
-  const handleCloseModal = () => {
+  const handleCloseModal = (card) => {
+    // dispatch(resetSelectedCard(card));
     setVisible(false);
   };
 
@@ -149,7 +151,7 @@ const BurgerCards = () => {
       </div>
       {visible && (
         <Modal title={"Детали ингредиентов"} closeModal={handleCloseModal}>
-          <IngredientDetails data={selectedCard}></IngredientDetails>
+          <IngredientDetails></IngredientDetails>
         </Modal>
       )}
     </>
