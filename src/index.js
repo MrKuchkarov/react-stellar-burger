@@ -3,7 +3,8 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./components/app/app";
 import reportWebVitals from "./reportWebVitals";
-
+import { store } from "./services/store/store";
+import { Provider } from "react-redux";
 export const BurgerContext = React.createContext();
 
 export const BurgerProvider = ({ children }) => {
@@ -29,9 +30,11 @@ export const BurgerProvider = ({ children }) => {
 
 ReactDOM.render(
   <React.StrictMode>
-    <BurgerProvider>
-      <App />
-    </BurgerProvider>
+    <Provider store={store}>
+      <BurgerProvider>
+        <App />
+      </BurgerProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

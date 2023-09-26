@@ -4,15 +4,13 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import IngredientsMenu from "./ingredients-menu";
 import Modal from "../../modal/modal";
 import IngredientDetails from "../../ingredient-details/ingredient-details";
-import { BurgerContext } from "../../..";
+import { useSelector } from "react-redux";
 
 const BurgerCards = () => {
-  const { ingredients, setSelectedIngredients } =
-    React.useContext(BurgerContext);
-
+  const ingredients = useSelector((state) => state.ingredients.ingredients);
   const ingredientsTypes = [...new Set(ingredients.map((card) => card.type))];
 
-  //Фильтрация игрениентов по катигориям 
+  // Фильтрация игрениентов по катигориям
   const categorizedIngredients = useMemo(() => {
     const result = {
       buns: ingredients.filter((item) => item.type === "bun"),
@@ -31,15 +29,9 @@ const BurgerCards = () => {
 
     // Проверка, является ли карта булкой (тип 'bun')
     if (card.type === "bun") {
-      setSelectedIngredients((prevSelectedIngredients) => ({
-        ...prevSelectedIngredients,
-        bun: card, // Установка булку только в поле 'bun'
-      }));
+      // Здесь можете применить логику обработки булки
     } else {
-      setSelectedIngredients((prevSelectedIngredients) => ({
-        ...prevSelectedIngredients,
-        other: [...prevSelectedIngredients.other, card], // Добавить другие ингредиенты в массив 'other'
-      }));
+      // Здесь можете применить логику обработки других ингредиентов
     }
   };
 

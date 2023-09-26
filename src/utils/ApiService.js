@@ -1,28 +1,31 @@
 import axios from "axios";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 const ApiGetTheIngredients =
   "https://norma.nomoreparties.space/api/ingredients";
 const ApiOrderDetails = "https://norma.nomoreparties.space/api/orders";
 
-//Запрос для получения ингредиентов
-export const fetchIngredients = async () => {
-  try {
-    const response = await fetch(ApiGetTheIngredients);
+export const fetchIngredients = createAsyncThunk(
+  'ingredients/fetchIngredients',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await fetch(ApiGetTheIngredients);
 
-    if (!response.ok) {
-      throw new Error("Ошибка при запросе к API");
+      if (!response.ok) {
+        throw new Error('Ошибка при запросе к API');
+      }
+
+      const result = await response.json();
+
+      if (result && result.success && Array.isArray(result.data)) {
+        return result.data;
+      } else {
+        throw new Error('Неверный формат данных');
+      }
+    } catch (err) {
+      return rejectWithValue(err.message);
     }
-
-    const result = await response.json();
-
-    if (result && result.success && Array.isArray(result.data)) {
-      return result.data;
-    } else {
-      throw new Error("Неверный формат данных");
-    }
-  } catch (err) {
-    throw err;
   }
-};
+);
 
 //Запрос для получения номера заказов
 const makeOrder = async (ingredientIds) => {

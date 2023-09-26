@@ -1,29 +1,38 @@
-import React, { useEffect, useState } from "react";
-import { fetchIngredients } from "../../../utils/ApiService";
-import PropTypes from "prop-types";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchIngredients } from '../../../utils/ApiService';
+import PropTypes from 'prop-types';
 
-function IngredientDataLoader({ onDataLoaded, onError }) {
-  const [isLoading, setIsLoading] = useState(true);
+function IngredientDataLoader({ onDataLoaded }) {
+  const dispatch = useDispatch();
+  const ingredients = useSelector((state) => state.ingredients.ingredients);
+  const error = useSelector((state) => state.ingredients.error);
+  const isLoading = useSelector((state) => state.ingredients.isLoading);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await fetchIngredients();
+    dispatch(fetchIngredients())
+      .unwrap()
+      .then((data) => {
         onDataLoaded(data);
-        setIsLoading(false);
-      } catch (err) {
-        onError(err.message);
-        setIsLoading(false);
-      }
-    };
+      });
+  }, [dispatch, onDataLoaded]);
 
-    fetchData();
-  }, [onDataLoaded, onError]);
+  if (isLoading) {
+    return <p>Загрузка...</p>;
+  }
 
-  return isLoading ? <p>Загрузка...</p> : null;
+  if (error) {
+    return <p>{error}</p>;
+  }
+
+  // Если данные успешно загружены, можно передать их обратно в родительский компонент
+  // через колбэк onDataLoaded(data)
+  
+  return null;
 }
 
 IngredientDataLoader.propTypes = {
   onDataLoaded: PropTypes.func.isRequired,
 };
+
 export default IngredientDataLoader;
