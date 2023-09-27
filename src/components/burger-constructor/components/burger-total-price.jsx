@@ -7,10 +7,11 @@ import OrderDetails from "../../oreder-details/order-details";
 import PropTypes from "prop-types";
 import makeOrder from "../../../utils/ApiService";
 import { BurgerContext } from "../../..";
+import { useSelector } from "react-redux";
 
 const BurgerTotalPrice = ({ totalPrice }) => {
   //Контекст все ингредиентов
-  const { ingredients } = React.useContext(BurgerContext);
+  const { ingredients } = useSelector((state) => state.ingredients.ingredients)
   
   const [totalModal, setTotalModal] = useState(false);
   //Состояние номера заказов
@@ -44,7 +45,7 @@ const BurgerTotalPrice = ({ totalPrice }) => {
           size="large"
           onClick={handleOpenModal}
         >
-          Нажми на меня
+          Оформить заказ
         </Button>
       </div>
       {totalModal && (

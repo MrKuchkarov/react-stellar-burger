@@ -6,6 +6,8 @@ import Modal from "../../modal/modal";
 import IngredientDetails from "../../ingredient-details/ingredient-details";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedCard } from "../../../services/ingredientsSlice/ingredientsSlice";
+import { setBun, addOtherIngredient } from "../../../services/constructorSlice/constructorSlice";
+
 
 const BurgerCards = () => {
   const ingredients = useSelector((state) => state.ingredients.ingredients);
@@ -24,15 +26,17 @@ const BurgerCards = () => {
 
   const [visible, setVisible] = useState(false);
 
+
   const handleOpenModal = (card) => {
     dispatch(setSelectedCard(card));
     setVisible(true);
 
-    // Проверка, является ли карта булкой (тип 'bun')
     if (card.type === "bun") {
-      // Здесь можете применить логику обработки булки
+      // Логика для булок
+      dispatch(setBun(card)); // Используйте новое действие для установки булки
     } else {
-      // Здесь можете применить логику обработки других ингредиентов
+      // Логика для других ингредиентов
+      dispatch(addOtherIngredient(card)); // Используйте новое действие для добавления других ингредиентов
     }
   };
 

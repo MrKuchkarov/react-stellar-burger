@@ -3,22 +3,24 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import BurgerFillings from "./components/burger-fillings";
 import style from "./burger-constructor.module.css";
 import BurgerTotalPrice from "./components/burger-total-price";
-import { BurgerContext } from "../..";
+
+import { useSelector } from "react-redux";
 
 const BurgerConstructor = () => {
-  const { selectedIngredients } = React.useContext(BurgerContext);
+  const setBun = useSelector((state) => state.filling.bun);
+  const setOther = useSelector((state) => state.filling.other);
 
-  // Проверка, есть ли выбранная булка
-  const bun = selectedIngredients.bun || null;
-  const otherIngredients = selectedIngredients.other || [];
+  // Проверка, есть ли выбранная булка и другие ингредиенты
+  const bun = setBun || null;
+  const otherIngredients = setOther || [];
 
   // Вычисление общей стоимости бургера
-  const ingredientsTotalPrice = useMemo(() => { 
+  const ingredientsTotalPrice = useMemo(() => {
     return [bun, ...otherIngredients].reduce(
-    (acc, ingredient) => acc + (ingredient ? ingredient.price : 0),
-    0
-  );
-}, [bun, otherIngredients]);
+      (acc, ingredient) => acc + (ingredient ? ingredient.price : 0),
+      0
+    );
+  }, [bun, otherIngredients]);
 
   return (
     <section className={style["main-container"]}>
@@ -34,7 +36,11 @@ const BurgerConstructor = () => {
           />
         )}
       </div>
+      {otherIngredients.length === 0 ? (
+          <p>Добавьте ингредиенты, чтобы создать бургер</p>
+        ) : (
       <BurgerFillings />
+      )}
       <div className={style["constructor-container"]}>
         {bun && (
           <ConstructorElement
@@ -46,7 +52,7 @@ const BurgerConstructor = () => {
             thumbnail={bun.image}
           />
         )}
-        <BurgerTotalPrice totalPrice={ingredientsTotalPrice} />
+          <BurgerTotalPrice totalPrice={ingredientsTotalPrice} />
       </div>
     </section>
   );

@@ -5,37 +5,24 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./burger-fillings.module.css";
-import { BurgerContext } from "../../..";
 import { v4 as uuidv4 } from "uuid";
+import { removeOtherIngredient, setBun } from "../../../services/constructorSlice/constructorSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const BurgerFillings = () => {
-  const { selectedIngredients, setSelectedIngredients } =
-    React.useContext(BurgerContext);
+  const dispatch = useDispatch();
+  const bun = useSelector((state) => state.filling.bun);
+  const otherIngredients = useSelector((state) => state.filling.other);
 
-  // Извлечь булочку и другие ингредиенты из выбранного объекта Ingredients
-  const { bun, other } = selectedIngredients;
-
-  // Функция удаления ингредиента по идентификатору
   const removeIngredient = (ingredientId) => {
     if (bun && bun._id === ingredientId) {
-      // Если ингредиентом является булочка, обнуляем ее
-      setSelectedIngredients((prevIngredients) => ({
-        ...prevIngredients,
-        bun: null,
-      }));
+      dispatch(setBun(null));
     } else {
-      // Если ингредиент не является булочкой, удаляем его из списка "other"
-      setSelectedIngredients((prevIngredients) => ({
-        ...prevIngredients,
-        other: prevIngredients.other.filter(
-          (ingredient) => ingredient._id !== ingredientId
-        ),
-      }));
+      dispatch(removeOtherIngredient(ingredientId));
     }
   };
 
-  // Распределить по булочкам и другим ингредиентам
-  const ingredientsList = [bun, ...other].filter(Boolean);
+  const ingredientsList = [...otherIngredients].filter(Boolean);
 
   return (
     <>
