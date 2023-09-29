@@ -20,7 +20,7 @@ const BurgerConstructor = () => {
   // Вычисление общей стоимости ингредиентов
   const ingredientsTotalPrice = useMemo(() => {
     const bunPrice = (topBun ? topBun.price : 0) + (bottomBun ? bottomBun.price : 0);
-    const otherIngredientsPrice = otherIngredients.reduce(
+    const otherIngredientsPrice = [...otherIngredients].reduce(
       (acc, ingredient) => acc + (ingredient ? ingredient.price : 0),
       0
     );
