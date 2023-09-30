@@ -23,6 +23,7 @@
 
 .cards {
     width: 272px;
+    position: relative;
 }
 
 .cards-photo {

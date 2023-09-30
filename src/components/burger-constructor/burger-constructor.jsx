@@ -43,6 +43,7 @@ const BurgerConstructor = () => {
         {!topBun && (
           <div className={`${style["top-buns-container"]}`}>
             {/* Ваш контейнер, который отображается, когда topBun равно null */}
+            Добавьте булку, чтобы создать бургер
           </div>
         )}
       </div>
@@ -65,6 +66,7 @@ const BurgerConstructor = () => {
         {!bottomBun && (
           <div className={`${style["bottom-buns-container"]}`}>
             {/* Ваш контейнер, который отображается, когда bottomBun равно null */}
+            Добавьте булку, чтобы создать бургер
           </div>
         )}
         <BurgerTotalPrice totalPrice={ingredientsTotalPrice} />

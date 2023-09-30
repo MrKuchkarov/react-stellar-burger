@@ -7,13 +7,13 @@ import IngredientDetails from "../../ingredient-details/ingredient-details";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedCard } from "../../../services/ingredientsSlice/ingredientsSlice";
 import { setBun, addOtherIngredient } from "../../../services/constructorSlice/constructorSlice";
-
+import IngredientsCounts from "./Ingredients-counts";
 
 const BurgerCards = () => {
   const ingredients = useSelector((state) => state.ingredients.ingredients);
   const dispatch = useDispatch();
   const ingredientsTypes = [...new Set(ingredients.map((card) => card.type))];
-
+  
   // Фильтрация игрениентов по катигориям
   const categorizedIngredients = useMemo(() => {
     const result = {
@@ -75,6 +75,7 @@ const BurgerCards = () => {
                     className={`${style["cards"]}`}
                     onClick={() => handleOpenModal(card)}
                   >
+                    <IngredientsCounts ingredientId={card._id}/>
                     <img
                       className={`${style["cards-photo"]} pl-4 pr-4`}
                       src={card.image}
@@ -102,6 +103,7 @@ const BurgerCards = () => {
                     className={`${style["cards"]}`}
                     onClick={() => handleOpenModal(card)}
                   >
+                    <IngredientsCounts ingredientId={card._id}/>
                     <img
                       className={`${style["cards-photo"]} pl-4 pr-4`}
                       src={card.image}
@@ -129,6 +131,7 @@ const BurgerCards = () => {
                     className={`${style["cards"]}`}
                     onClick={() => handleOpenModal(card)}
                   >
+                    <IngredientsCounts ingredientId={card._id}/>
                     <img
                       className={`${style["cards-photo"]} pl-4 pr-4`}
                       src={card.image}

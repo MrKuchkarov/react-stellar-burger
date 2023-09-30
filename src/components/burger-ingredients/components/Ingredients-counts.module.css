@@ -1,0 +1,16 @@
+.ingredients-counts {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #4C4CFF;
+    border-radius: 50px;
+    position: absolute;
+    left: 80%;
+    font-family: Iceland;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    
+}
