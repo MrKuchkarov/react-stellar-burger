@@ -5,31 +5,32 @@ import iconPrice from "../../../images/constructor/icon 36x36.svg";
 import Modal from "../../modal/modal";
 import OrderDetails from "../../oreder-details/order-details";
 import PropTypes from "prop-types";
-import makeOrder from "../../../utils/ApiService";
-import { BurgerContext } from "../../..";
-import { useSelector } from "react-redux";
+import { makeOrder } from "../../../utils/ApiService";
+import { useSelector, useDispatch } from "react-redux";
 
 const BurgerTotalPrice = ({ totalPrice }) => {
-  //Контекст все ингредиентов
-  const { ingredients } = useSelector((state) => state.ingredients.ingredients)
-  
-  const [totalModal, setTotalModal] = useState(false);
-  //Состояние номера заказов
-  const [orderNumber, setOrderNumber] = useState(null);
+  const otherIngredients = useSelector((state) => state.filling.other);
+  const bunIngredients = useSelector((state) => state.filling.bun);
+  const orderNumber = useSelector((state) => state.order.orderNumber);
 
-  const handleOpenModal = async () => {
-    try {
-      const ingredientIds = ingredients.map((ingredient) => ingredient._id);
-      const number = await makeOrder(ingredientIds);
-      setOrderNumber(number);
-      setTotalModal(true);
-    } catch (error) {
-      console.error("Ошибка при оформлении заказа:", error);
+  const dispatch = useDispatch();
+  const [totalModal, setTotalModal] = useState(false);
+
+  const handleOpenModal = () => {
+    const ingredientIds = otherIngredients.map((ingredient) => ingredient._id);
+
+    // Проверяем, есть ли bun (bunIngredients), и добавляем его _id в начало и конец массива с помощью spread оператора
+    if (bunIngredients) {
+      ingredientIds.unshift(bunIngredients._id); // Добавляем bun в начало массива
+      ingredientIds.push(bunIngredients._id); // Добавляем bun в конец массива
     }
+
+    dispatch(makeOrder(ingredientIds));
+    setTotalModal(true); // Открываем модальное окно
   };
 
   const handleCloseModal = () => {
-    setTotalModal(false);
+    setTotalModal(false); // Закрываем модальное окно
   };
 
   return (

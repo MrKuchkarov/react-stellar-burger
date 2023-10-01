@@ -19,7 +19,8 @@ const BurgerConstructor = () => {
 
   // Вычисление общей стоимости ингредиентов
   const ingredientsTotalPrice = useMemo(() => {
-    const bunPrice = (topBun ? topBun.price : 0) + (bottomBun ? bottomBun.price : 0);
+    const bunPrice =
+      (topBun ? topBun.price : 0) + (bottomBun ? bottomBun.price : 0);
     const otherIngredientsPrice = [...otherIngredients].reduce(
       (acc, ingredient) => acc + (ingredient ? ingredient.price : 0),
       0
@@ -48,7 +49,9 @@ const BurgerConstructor = () => {
         )}
       </div>
       {otherIngredients.length === 0 ? (
-        <div className={`${style["other-ingredients-container"]}`}>Добавьте ингредиенты, чтобы создать бургер</div>
+        <div className={`${style["other-ingredients-container"]}`}>
+          Добавьте ингредиенты, чтобы создать бургер
+        </div>
       ) : (
         <BurgerFillings />
       )}
@@ -73,5 +76,5 @@ const BurgerConstructor = () => {
       </div>
     </section>
   );
-}
+};
 export default BurgerConstructor;

@@ -1,9 +1,8 @@
-
+import { fetchIngredients } from '../../utils/ApiService';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   ingredients: [],
-  selectedCard: null,
   isLoading: true,
   error: null,
 };
@@ -14,22 +13,27 @@ const ingredientsSlice = createSlice({
   reducers: {
     setIngredients(state, action) {
       state.ingredients = action.payload;
-      state.isLoading = false;
-      state.error = null;
     },
-    setError(state, action) {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
-    setSelectedCard: (state, action) => {
-      state.selectedCard = action.payload;
-    },
-    // resetSelectedCard: (state) => {
-    //   state.selectedCard = null;
-    // },
   },
-});
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchIngredients.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchIngredients.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.ingredients = action.payload;
+      })
+      .addCase(fetchIngredients.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      });
+  },
 
-export const { setIngredients, setError, setSelectedCard, resetSelectedCard } = ingredientsSlice.actions;
+})
+
+
+export const { setIngredients, setSelectedCard } = ingredientsSlice.actions;
 
 export default ingredientsSlice.reducer;

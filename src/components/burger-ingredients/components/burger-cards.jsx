@@ -5,7 +5,7 @@ import IngredientsMenu from "./ingredients-menu";
 import Modal from "../../modal/modal";
 import IngredientDetails from "../../ingredient-details/ingredient-details";
 import { useDispatch, useSelector } from "react-redux";
-import { setSelectedCard } from "../../../services/ingredientsSlice/ingredientsSlice";
+import { ingredientsDetails } from "../../../services/ingredientDetailsSlice/ingredientDetailsSlice";
 import { setBun, addOtherIngredient } from "../../../services/constructorSlice/constructorSlice";
 import IngredientsCounts from "./Ingredients-counts";
 
@@ -28,7 +28,7 @@ const BurgerCards = () => {
 
 
   const handleOpenModal = (card) => {
-    dispatch(setSelectedCard(card));
+    dispatch(ingredientsDetails(card));
     setVisible(true);
 
     if (card.type === "bun") {

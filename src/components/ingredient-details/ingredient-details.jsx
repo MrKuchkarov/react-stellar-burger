@@ -1,8 +1,9 @@
 import React from "react";
 import style from "./ingredient-details.module.css";
 import { useSelector } from "react-redux";
+
 const IngredientDetails = () => {
-  const data = useSelector((state) => state.ingredients.selectedCard);
+  const data = useSelector((state) => state.details.ingredientsDetails);
   
   if (!data) return null;
   return (

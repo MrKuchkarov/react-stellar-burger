@@ -6,7 +6,10 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./burger-fillings.module.css";
 import { v4 as uuidv4 } from "uuid";
-import { removeOtherIngredient, setBun } from "../../../services/constructorSlice/constructorSlice";
+import {
+  removeOtherIngredient,
+  setBun,
+} from "../../../services/constructorSlice/constructorSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const BurgerFillings = () => {

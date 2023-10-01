@@ -1,13 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  bun: null,
+  bun: null, // Массив для хранения булок
   other: [], // Массив для хранения ингредиентов
   ingredientCounts: {}, // Объект для хранения количества каждого ингредиента
 };
 
 const constructorSlice = createSlice({
-  name: 'constructorSlice',
+  name: "constructorSlice",
   initialState,
   reducers: {
     setBun: (state, action) => {
@@ -16,7 +16,7 @@ const constructorSlice = createSlice({
 
       // Уменьшаем счетчик старой булки, если она была выбрана
       if (oldBun) {
-        state.ingredientCounts[oldBun._id]-= 2;
+        state.ingredientCounts[oldBun._id] -= 2;
         if (state.ingredientCounts[oldBun._id] === 0) {
           delete state.ingredientCounts[oldBun._id];
         }
@@ -27,7 +27,7 @@ const constructorSlice = createSlice({
         if (!state.ingredientCounts[newBun._id]) {
           state.ingredientCounts[newBun._id] = 2;
         } else {
-          state.ingredientCounts[newBun._id]+= 2;
+          state.ingredientCounts[newBun._id] += 2;
         }
       }
 
@@ -39,10 +39,10 @@ const constructorSlice = createSlice({
 
       // Увеличиваем счетчик для данного ингредиента
       if (!state.ingredientCounts[ingredient._id]) {
-      state.ingredientCounts[ingredient._id] = 1;
-    } else {
-      state.ingredientCounts[ingredient._id]++;
-    }
+        state.ingredientCounts[ingredient._id] = 1;
+      } else {
+        state.ingredientCounts[ingredient._id]++;
+      }
     },
     removeOtherIngredient: (state, action) => {
       const ingredientId = action.payload;
@@ -53,7 +53,9 @@ const constructorSlice = createSlice({
 
         // Если счетчик достиг нуля, удаляем ингредиент из массива
         if (state.ingredientCounts[ingredientId] === 0) {
-          state.other = state.other.filter((ingredient) => ingredient._id !== ingredientId);
+          state.other = state.other.filter(
+            (ingredient) => ingredient._id !== ingredientId
+          );
           delete state.ingredientCounts[ingredientId];
         }
       }
@@ -66,6 +68,11 @@ const constructorSlice = createSlice({
   },
 });
 
-export const { setBun, addOtherIngredient, removeOtherIngredient, clearIngredients } = constructorSlice.actions;
+export const {
+  setBun,
+  addOtherIngredient,
+  removeOtherIngredient,
+  clearIngredients,
+} = constructorSlice.actions;
 
 export default constructorSlice.reducer;
