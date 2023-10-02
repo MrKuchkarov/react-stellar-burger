@@ -6,14 +6,15 @@ import Modal from "../../modal/modal";
 import IngredientDetails from "../../ingredient-details/ingredient-details";
 import { useDispatch, useSelector } from "react-redux";
 import { ingredientsDetails } from "../../../services/ingredientDetailsSlice/ingredientDetailsSlice";
-import { setBun, addOtherIngredient } from "../../../services/constructorSlice/constructorSlice";
+import constructorSlice, { setBun, addOtherIngredient } from "../../../services/constructorSlice/constructorSlice";
 import IngredientsCounts from "./Ingredients-counts";
+import { hideModal, showModal } from "../../../services/ingredientsSlice/ingredientsSlice";
 
 const BurgerCards = () => {
   const ingredients = useSelector((state) => state.ingredients.ingredients);
+  const visible = useSelector((state) => state.ingredients.visible)
   const dispatch = useDispatch();
   const ingredientsTypes = [...new Set(ingredients.map((card) => card.type))];
-  
   // Фильтрация игрениентов по катигориям
   const categorizedIngredients = useMemo(() => {
     const result = {
@@ -24,12 +25,9 @@ const BurgerCards = () => {
     return result;
   }, [ingredients]);
 
-  const [visible, setVisible] = useState(false);
-
-
   const handleOpenModal = (card) => {
     dispatch(ingredientsDetails(card));
-    setVisible(true);
+    dispatch(showModal());
 
     if (card.type === "bun") {
       // Логика для булок
@@ -41,8 +39,7 @@ const BurgerCards = () => {
   };
 
   const handleCloseModal = (card) => {
-    // dispatch(resetSelectedCard(card));
-    setVisible(false);
+    dispatch(hideModal());
   };
 
   return (

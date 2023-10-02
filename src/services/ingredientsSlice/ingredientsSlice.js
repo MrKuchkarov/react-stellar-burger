@@ -5,6 +5,7 @@ const initialState = {
   ingredients: [],
   isLoading: true,
   error: null,
+  visible: false,
 };
 
 const ingredientsSlice = createSlice({
@@ -14,6 +15,12 @@ const ingredientsSlice = createSlice({
     setIngredients(state, action) {
       state.ingredients = action.payload;
     },
+    showModal(state, action) {
+      state.visible = true;
+    },
+    hideModal(state, action) {
+      state.visible = false;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -34,6 +41,6 @@ const ingredientsSlice = createSlice({
 })
 
 
-export const { setIngredients, setSelectedCard } = ingredientsSlice.actions;
+export const { setIngredients, setSelectedCard, showModal, hideModal } = ingredientsSlice.actions;
 
 export default ingredientsSlice.reducer;

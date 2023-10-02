@@ -25,6 +25,7 @@ export const fetchIngredients = createAsyncThunk(
         throw new Error("Неверный формат данных");
       }
     } catch (err) {
+      console.error(err);
       return rejectWithValue(err.message);
     }
   }
@@ -60,6 +61,7 @@ export const makeOrder = createAsyncThunk(
         throw new Error("Ошибка при запросе к API или при оформлении заказа");
       }
     } catch (error) {
+      console.error(error);
       dispatch(setError(error.message));
       return rejectWithValue(error.message);
     } finally {

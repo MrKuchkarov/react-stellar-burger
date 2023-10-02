@@ -12,14 +12,14 @@ const orderDeatailsSlice = createSlice({
   reducers: {
     setOrderNumber: (state, action) => {
       state.orderNumber = action.payload;
-      state.isLoading = false;
+      state.isLoading = true;
       state.error = null;
     },
     setLoading: (state, action) => {
       state.isLoading = action.payload;
     },
     setError: (state, action) => {
-      state.isLoading = false;
+      state.isLoading = true;
       state.error = action.payload;
     },
   },
