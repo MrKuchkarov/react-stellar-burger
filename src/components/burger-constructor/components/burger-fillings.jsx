@@ -12,7 +12,7 @@ import {
 } from "../../../services/constructorSlice/constructorSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-const BurgerFillings = () => {
+const BurgerFillings = ({ otherRef }) => {
   const dispatch = useDispatch();
   const bun = useSelector((state) => state.filling.bun);
   const otherIngredients = useSelector((state) => state.filling.other);

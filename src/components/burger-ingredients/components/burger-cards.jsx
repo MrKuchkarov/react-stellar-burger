@@ -9,6 +9,7 @@ import { ingredientsDetails } from "../../../services/ingredientDetailsSlice/ing
 import constructorSlice, { setBun, addOtherIngredient } from "../../../services/constructorSlice/constructorSlice";
 import IngredientsCounts from "./Ingredients-counts";
 import { hideModal, showModal } from "../../../services/ingredientsSlice/ingredientsSlice";
+import {useDrag} from "react-dnd";
 
 const BurgerCards = () => {
   const ingredients = useSelector((state) => state.ingredients.ingredients);
@@ -42,6 +43,18 @@ const BurgerCards = () => {
     dispatch(hideModal());
   };
 
+  // Функция для начала перетаскивания ингредиента булки
+  const [, bunDragRef] = useDrag({
+    type: "BUN",
+    item: { type: "bun" },
+  });
+
+  // Функция для начала перетаскивания ингредиента другого типа
+  const [, ingredientDragRef] = useDrag({
+    type: "INGREDIENT",
+    item: { type: "other" },
+  });
+
   return (
     <>
       <IngredientsMenu />
@@ -71,6 +84,7 @@ const BurgerCards = () => {
                     key={card._id}
                     className={`${style["cards"]}`}
                     onClick={() => handleOpenModal(card)}
+                    ref={bunDragRef}
                   >
                     <IngredientsCounts ingredientId={card._id}/>
                     <img
@@ -99,6 +113,7 @@ const BurgerCards = () => {
                     key={card._id}
                     className={`${style["cards"]}`}
                     onClick={() => handleOpenModal(card)}
+                    ref={ingredientDragRef}
                   >
                     <IngredientsCounts ingredientId={card._id}/>
                     <img

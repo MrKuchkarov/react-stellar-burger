@@ -3,14 +3,17 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import BurgerFillings from "./components/burger-fillings";
 import style from "./burger-constructor.module.css";
 import BurgerTotalPrice from "./components/burger-total-price";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {useDrop} from "react-dnd";
+import { addOtherIngredient, setBun } from "../../services/constructorSlice/constructorSlice";
 
 const BurgerConstructor = () => {
-  const setBun = useSelector((state) => state.filling.bun);
+  const seBun = useSelector((state) => state.filling.bun);
   const setOther = useSelector((state) => state.filling.other);
+  const dispatch = useDispatch();
 
   // Проверка, есть ли выбранная булка и другие ингредиенты
-  const bun = setBun || null;
+  const bun = seBun || null;
   const otherIngredients = setOther || [];
 
   // Получение верхней и нижней булки
@@ -28,9 +31,41 @@ const BurgerConstructor = () => {
     return bunPrice + otherIngredientsPrice;
   }, [topBun, bottomBun, otherIngredients]);
 
+console.log(setBun(bun))
+    // обработчик перетаскивания для булок
+    const [, topBunRef] = useDrop({
+        accept: "BUN",
+        drop: (item) => {
+            if (item.type === "bun") {
+                // Логика для булок
+                dispatch(setBun(item)); // Используйте новое действие для установки булки
+            }
+        },
+    });
+
+    const [, bottomBunRef] = useDrop({
+        accept: "BUN",
+        drop: (item) => {
+            if (item.type === "bun") {
+                // Логика для булок
+                dispatch(setBun(item)); // Используйте новое действие для установки булки
+            }
+        },
+    });
+
+    // обработчик перетаскивания для других ингредиентов
+    const [, otherRef] = useDrop({
+        accept: "INGREDIENT", //
+        drop: (item) => {
+            if (item.type === "other") {
+                // Логика для булок
+                dispatch(addOtherIngredient(item)); // Используйте новое действие для установки булки
+            }
+        },
+    });
   return (
-    <section className={style["main-container"]}>
-      <div className={style["constructor-container"]}>
+    <section className={style["main-container"]} >
+      <div className={style["constructor-container"]} ref={topBunRef}>
         {topBun && (
           <ConstructorElement
             key={topBun._id}
@@ -49,13 +84,13 @@ const BurgerConstructor = () => {
         )}
       </div>
       {otherIngredients.length === 0 ? (
-        <div className={`${style["other-ingredients-container"]}`}>
+        <div className={`${style["other-ingredients-container"]}`} ref={otherRef}>
           Добавьте ингредиенты, чтобы создать бургер
         </div>
       ) : (
-        <BurgerFillings />
+        <BurgerFillings otherRef={otherRef}/>
       )}
-      <div className={style["constructor-container"]}>
+      <div className={style["constructor-container"]} ref={bottomBunRef}>
         {bottomBun && (
           <ConstructorElement
             key={bottomBun._id}
