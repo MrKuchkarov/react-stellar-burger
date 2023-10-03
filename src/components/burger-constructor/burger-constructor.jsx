@@ -31,41 +31,32 @@ const BurgerConstructor = () => {
     return bunPrice + otherIngredientsPrice;
   }, [topBun, bottomBun, otherIngredients]);
 
-console.log(setBun(bun))
-    // обработчик перетаскивания для булок
-    const [, topBunRef] = useDrop({
-        accept: "BUN",
-        drop: (item) => {
-            if (item.type === "bun") {
-                // Логика для булок
-                dispatch(setBun(item)); // Используйте новое действие для установки булки
-            }
+
+    const [{ isOver, canDrop }, dropTarget] = useDrop({
+        accept: 'ingredient',
+        drop(ingredient) {
+            dispatch(
+                ingredient.type !== 'bun'
+                    ? addOtherIngredient(ingredient)
+                    : setBun(ingredient)
+            );
         },
+        collect: (monitor) => ({
+            isOver: monitor.isOver(),
+            canDrop: monitor.canDrop(),
+        }),
     });
 
-    const [, bottomBunRef] = useDrop({
-        accept: "BUN",
-        drop: (item) => {
-            if (item.type === "bun") {
-                // Логика для булок
-                dispatch(setBun(item)); // Используйте новое действие для установки булки
-            }
-        },
-    });
+    let border = 'transparent';
+    if (canDrop && isOver) {
+        border = '2px dashed green';
+    } else if (canDrop) {
+        border = '2px dashed #4c4cff';
+    }
 
-    // обработчик перетаскивания для других ингредиентов
-    const [, otherRef] = useDrop({
-        accept: "INGREDIENT", //
-        drop: (item) => {
-            if (item.type === "other") {
-                // Логика для булок
-                dispatch(addOtherIngredient(item)); // Используйте новое действие для установки булки
-            }
-        },
-    });
   return (
-    <section className={style["main-container"]} >
-      <div className={style["constructor-container"]} ref={topBunRef}>
+    <section className={style["main-container"]} ref={dropTarget} >
+      <div className={style["constructor-container"]} >
         {topBun && (
           <ConstructorElement
             key={topBun._id}
@@ -77,20 +68,20 @@ console.log(setBun(bun))
           />
         )}
         {!topBun && (
-          <div className={`${style["top-buns-container"]}`}>
+          <div className={`${style["top-buns-container"]}`} style={{ border }}>
             {/* Ваш контейнер, который отображается, когда topBun равно null */}
             Добавьте булку, чтобы создать бургер
           </div>
         )}
       </div>
       {otherIngredients.length === 0 ? (
-        <div className={`${style["other-ingredients-container"]}`} ref={otherRef}>
+        <div className={`${style["other-ingredients-container"]}`} >
           Добавьте ингредиенты, чтобы создать бургер
         </div>
       ) : (
-        <BurgerFillings otherRef={otherRef}/>
+        <BurgerFillings />
       )}
-      <div className={style["constructor-container"]} ref={bottomBunRef}>
+      <div className={style["constructor-container"]} >
         {bottomBun && (
           <ConstructorElement
             key={bottomBun._id}
@@ -102,7 +93,7 @@ console.log(setBun(bun))
           />
         )}
         {!bottomBun && (
-          <div className={`${style["bottom-buns-container"]}`}>
+          <div className={`${style["bottom-buns-container"]}`} style={{ border }}>
             {/* Ваш контейнер, который отображается, когда bottomBun равно null */}
             Добавьте булку, чтобы создать бургер
           </div>

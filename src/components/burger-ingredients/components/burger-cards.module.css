@@ -21,31 +21,8 @@
     gap: 32px 24px;
 }
 
-.cards {
-    width: 272px;
-    position: relative;
-}
 
-.cards-photo {
-    width: 240px;
-    height: 120px;
-}
 
-.container-price {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
-.cards-price {
-    max-width: 100px;
-    height: 24px;
 
-}
 
-.cards-description {
-    width: 272px;
-    height: 24px;
-    margin: 0;
-    text-align: center;
-}

@@ -12,7 +12,7 @@ import {
 } from "../../../services/constructorSlice/constructorSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-const BurgerFillings = ({ otherRef }) => {
+const BurgerFillings = ({ dropTarget }) => {
   const dispatch = useDispatch();
   const bun = useSelector((state) => state.filling.bun);
   const otherIngredients = useSelector((state) => state.filling.other);
@@ -34,6 +34,7 @@ const BurgerFillings = ({ otherRef }) => {
           <li
             key={uuidv4()}
             className={`${style["fillings-container"]} mt-4 mb-4`}
+            ref={dropTarget}
           >
             <DragIcon />
             <div
