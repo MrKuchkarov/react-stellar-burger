@@ -1,42 +1,19 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./components/app/app";
 import reportWebVitals from "./reportWebVitals";
-import { store } from "./services/store/store";
-import { Provider } from "react-redux";
-export const BurgerContext = React.createContext();
+import {store} from "./services/store/store";
+import {Provider} from "react-redux";
 
-export const BurgerProvider = ({ children }) => {
-  const [selectedIngredients, setSelectedIngredients] = useState({
-    bun: null,
-    other: [],
-  });
-  const [ingredients, setIngredients] = useState([]);
-  
-  return (
-    <BurgerContext.Provider
-      value={{
-        selectedIngredients,
-        setSelectedIngredients,
-        ingredients,
-        setIngredients,
-      }}
-    >
-      {children}
-    </BurgerContext.Provider>
-  );
-};
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <BurgerProvider>
-        <App />
-      </BurgerProvider>
-    </Provider>
-  </React.StrictMode>,
-  document.getElementById("root")
+    <React.StrictMode>
+        <Provider store={store}>
+            <App/>
+        </Provider>
+    </React.StrictMode>,
+    document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

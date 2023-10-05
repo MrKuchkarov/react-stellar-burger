@@ -1,92 +1,84 @@
 import React, {useRef} from "react";
 import {
-  ConstructorElement,
-  DragIcon,
+    ConstructorElement, DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "../burger-constructor.module.css";
 
 import {
-  moveCard,
-  removeOtherIngredient,
-  setBun,
+    moveCard, removeOtherIngredient, setBun,
 } from "../../../services/constructorSlice/constructorSlice";
-import { useDispatch, useSelector } from "react-redux";
-import {useDrag, useDrop } from "react-dnd";
+import {useDispatch, useSelector} from "react-redux";
+import {useDrag, useDrop} from "react-dnd";
 
 
-const BurgerFillings = ({ filling, index }) => {
-  const dispatch = useDispatch();
-  const bun = useSelector((state) => state.filling.bun);
-  // const otherIngredients = useSelector((state) => state.filling.other);
-  const ref = useRef(null);
-  const id = filling._id;
-  const removeIngredient = (ingredientId) => {
-    if (bun && bun._id === ingredientId) {
-      dispatch(setBun(null));
-    } else {
-      dispatch(removeOtherIngredient(ingredientId));
-    }
-  };
+const BurgerFillings = ({filling, index}) => {
+    const dispatch = useDispatch();
+    const bun = useSelector((state) => state.filling.bun);
+    const ref = useRef(null);
+    const id = filling._id;
+//Удаление ингредиентов
+    const removeIngredient = (ingredientId) => {
+        if (bun && bun._id === ingredientId) {
+            dispatch(setBun(null));
+        } else {
+            dispatch(removeOtherIngredient(ingredientId));
+        }
+    };
 
-  const [{ handlerId }, drop] = useDrop({
-    accept: 'constructor-item',
-    collect: ( monitor ) => ({
-      handlerId: monitor.getHandlerId(),
-    }),
-    hover(item, monitor) {
-      if (!ref.current) {
-        return
-      }
-      const dragIndex = item.index
-      const hoverIndex = index
-      if (dragIndex === hoverIndex) {
-        return
-      }
-      const hoverBoundingRect = ref.current?.getBoundingClientRect()
-      const hoverMiddleY =
-          (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
-      const clientOffset = monitor.getClientOffset()
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top
-      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-        return
-      }
-      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-        return
-      }
-      dispatch(moveCard(dragIndex, hoverIndex))
-      item.index = hoverIndex
-    },
-  });
+    //drop для сортировки ингредиентов
+    const [{handlerId}, drop] = useDrop({
+        accept: 'constructor-item', collect: (monitor) => ({
+            handlerId: monitor.getHandlerId(),
+        }), hover(item, monitor) {
+            if (!ref.current) {
+                return
+            }
+            const dragIndex = item.index
+            const hoverIndex = index
+            if (dragIndex === hoverIndex) {
+                return
+            }
+            const hoverBoundingRect = ref.current?.getBoundingClientRect()
+            const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
+            const clientOffset = monitor.getClientOffset()
+            const hoverClientY = clientOffset.y - hoverBoundingRect.top
+            if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+                return
+            }
+            if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+                return
+            }
+            dispatch(moveCard({dragIndex, hoverIndex}))
+            item.index = hoverIndex
+        },
+    });
 
-  const [{ isDragging }, drag] = useDrag({
-    type: 'constructor-item',
-    item: () => {
-      return { id, index };
-    },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  });
-  const opacity = isDragging ? 0 : 1;
-  drag(drop(ref));
+    //drag для сортировки ингредиентов
+    const [{isDragging}, drag] = useDrag({
+        type: 'constructor-item', item: () => {
+            return {id, index}
+        }, collect: (monitor) => ({
+            isDragging: monitor.isDragging(),
+        }),
+    })
+    const opacity = isDragging ? 0 : 1
+    drag(drop(ref))
 
-  return (
-      <li
-          className={`${style["fillings-container"]} mt-4 mb-4`}
-          ref={ref}
-          style={{ opacity }}
-          data-handler-id={handlerId}
-      >
-        <DragIcon type={'primary'} />
+    return (<li
+        className={`${style["fillings-container"]} mt-4 mb-4`}
+        ref={ref}
+        style={{opacity}}
+        data-handler-id={handlerId}
+    >
+        <DragIcon type={'primary'}/>
         <ConstructorElement
-          isLocked={false}
-          text={filling.name}
-          thumbnail={filling.image}
-          price={filling.price}
-          handleClose={() => removeIngredient(filling._id)}
+            isLocked={false}
+            text={filling.name}
+            thumbnail={filling.image}
+            price={filling.price}
+            handleClose={() => removeIngredient(filling._id)}
         />
-      </li>
-  );
+    </li>);
 };
 
 export default BurgerFillings;
