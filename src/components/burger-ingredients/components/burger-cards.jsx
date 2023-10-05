@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {hideModal} from "../../../services/ingredientsSlice/ingredientsSlice";
 import IngredientCard from "./IngredientCard";
 
-const BurgerCards = () => {
+const BurgerCards = ({bunRef, sauceRef, mainRef}) => {
     const ingredients = useSelector((state) => state.ingredients.ingredients);
     const visible = useSelector((state) => state.ingredients.visible)
     const ingredientsTypes = [...new Set(ingredients.map((card) => card.type))];
@@ -30,7 +30,7 @@ const BurgerCards = () => {
 
     return (
         <>
-            <IngredientsMenu/>
+            {/*<IngredientsMenu/>*/}
             <div className={`${style["scroll-ingredients"]} custom-scroll`}>
                 {ingredientsTypes.map((type) => (
                     <div key={type} className={`${style["card-container"]}`}>
@@ -55,6 +55,7 @@ const BurgerCards = () => {
                                 categorizedIngredients.buns.map((card) => (
                                     <li
                                         key={card._id}
+                                        ref={bunRef}
                                     >
                                         <IngredientCard card={card}/>
                                     </li>
@@ -63,6 +64,7 @@ const BurgerCards = () => {
                                 categorizedIngredients.sauces.map((card) => (
                                     <li
                                         key={card._id}
+                                        ref={sauceRef}
                                     >
                                         <IngredientCard card={card}/>
                                     </li>
@@ -71,6 +73,7 @@ const BurgerCards = () => {
                                 categorizedIngredients.mains.map((card) => (
                                     <li
                                         key={card._id}
+                                        ref={mainRef}
                                     >
                                         <IngredientCard card={card}/>
                                     </li>
