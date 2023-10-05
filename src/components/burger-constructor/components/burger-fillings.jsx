@@ -1,22 +1,25 @@
-import React from "react";
+import React, {useRef} from "react";
 import {
-  CurrencyIcon,
-  DeleteIcon,
+  ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import style from "./burger-fillings.module.css";
-import { v4 as uuidv4 } from "uuid";
+import style from "../burger-constructor.module.css";
+
 import {
+  moveCard,
   removeOtherIngredient,
   setBun,
 } from "../../../services/constructorSlice/constructorSlice";
 import { useDispatch, useSelector } from "react-redux";
+import {useDrag, useDrop } from "react-dnd";
 
-const BurgerFillings = ({ dropTarget }) => {
+
+const BurgerFillings = ({ filling, index }) => {
   const dispatch = useDispatch();
   const bun = useSelector((state) => state.filling.bun);
-  const otherIngredients = useSelector((state) => state.filling.other);
-
+  // const otherIngredients = useSelector((state) => state.filling.other);
+  const ref = useRef(null);
+  const id = filling._id;
   const removeIngredient = (ingredientId) => {
     if (bun && bun._id === ingredientId) {
       dispatch(setBun(null));
@@ -25,48 +28,64 @@ const BurgerFillings = ({ dropTarget }) => {
     }
   };
 
-  const ingredientsList = [...otherIngredients].filter(Boolean);
+  const [{ handlerId }, drop] = useDrop({
+    accept: 'constructor-item',
+    collect: ( monitor ) => ({
+      handlerId: monitor.getHandlerId(),
+    }),
+    hover(item, monitor) {
+      if (!ref.current) {
+        return
+      }
+      const dragIndex = item.index
+      const hoverIndex = index
+      if (dragIndex === hoverIndex) {
+        return
+      }
+      const hoverBoundingRect = ref.current?.getBoundingClientRect()
+      const hoverMiddleY =
+          (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
+      const clientOffset = monitor.getClientOffset()
+      const hoverClientY = clientOffset.y - hoverBoundingRect.top
+      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+        return
+      }
+      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+        return
+      }
+      dispatch(moveCard(dragIndex, hoverIndex))
+      item.index = hoverIndex
+    },
+  });
+
+  const [{ isDragging }, drag] = useDrag({
+    type: 'constructor-item',
+    item: () => {
+      return { id, index };
+    },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  });
+  const opacity = isDragging ? 0 : 1;
+  drag(drop(ref));
 
   return (
-    <>
-      <ul className={`${style["burger-fillings"]} custom-scroll`}>
-        {ingredientsList.map((ingredient) => (
-          <li
-            key={uuidv4()}
-            className={`${style["fillings-container"]} mt-4 mb-4`}
-            ref={dropTarget}
-          >
-            <DragIcon />
-            <div
-              className={`${style["filling-composition"]} pt-4 pr-6 pb-4 pl-6`}
-            >
-              <img
-                src={ingredient.image}
-                alt=""
-                className={`${style["composition-images"]}`}
-              />
-              <span
-                className={`${style["composition-title"]} text text_type_main-default mr-5`}
-              >
-                {ingredient.name}
-              </span>
-              <div className={`${style["container-price"]} mr-4`}>
-                <span
-                  className={`${style["filling-price"]} text text_type_digits-default`}
-                >
-                  {ingredient.price}
-                </span>
-                <CurrencyIcon type="primary" />
-              </div>
-              <DeleteIcon
-                type="primary"
-                onClick={() => removeIngredient(ingredient._id)}
-              />
-            </div>
-          </li>
-        ))}
-      </ul>
-    </>
+      <li
+          className={`${style["fillings-container"]} mt-4 mb-4`}
+          ref={ref}
+          style={{ opacity }}
+          data-handler-id={handlerId}
+      >
+        <DragIcon type={'primary'} />
+        <ConstructorElement
+          isLocked={false}
+          text={filling.name}
+          thumbnail={filling.image}
+          price={filling.price}
+          handleClose={() => removeIngredient(filling._id)}
+        />
+      </li>
   );
 };
 

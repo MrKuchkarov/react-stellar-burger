@@ -6,7 +6,7 @@ import BurgerTotalPrice from "./components/burger-total-price";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
 import { addOtherIngredient, setBun } from "../../services/constructorSlice/constructorSlice";
-
+import { v4 as uuidv4 }  from "uuid";
 const BurgerConstructor = () => {
   const seBun = useSelector((state) => state.filling.bun);
   const setOther = useSelector((state) => state.filling.other);
@@ -60,7 +60,7 @@ const BurgerConstructor = () => {
         {topBun && (
           <ConstructorElement
             key={topBun._id}
-            type="bun"
+            type="top"
             isLocked={true}
             text={`(${topBun.name}) (верх)`}
             price={topBun.price}
@@ -79,13 +79,21 @@ const BurgerConstructor = () => {
           Добавьте ингредиенты, чтобы создать бургер
         </div>
       ) : (
-        <BurgerFillings />
+          <ul className={`${style["burger-fillings"]} custom-scroll`}>
+              {otherIngredients.map((filling, index) => (
+                  <BurgerFillings
+                      key={uuidv4()}
+                      filling={filling}
+                      index={index}
+                  />
+              ))}
+          </ul>
       )}
       <div className={style["constructor-container"]} >
         {bottomBun && (
           <ConstructorElement
             key={bottomBun._id}
-            type="bun"
+            type="bottom"
             isLocked={true}
             text={`(${bottomBun.name}) (низ)`}
             price={bottomBun.price}

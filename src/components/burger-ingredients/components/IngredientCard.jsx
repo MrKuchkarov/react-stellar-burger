@@ -3,9 +3,8 @@ import style from "./IngredientCard.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientsCounts from "./Ingredients-counts";
 import {ingredientsDetails} from "../../../services/ingredientDetailsSlice/ingredientDetailsSlice";
-import {hideModal, showModal} from "../../../services/ingredientsSlice/ingredientsSlice";
-import {addOtherIngredient, setBun} from "../../../services/constructorSlice/constructorSlice";
-import {useDispatch, useSelector} from "react-redux";
+import {showModal} from "../../../services/ingredientsSlice/ingredientsSlice";
+import {useDispatch} from "react-redux";
 import {useDrag} from "react-dnd";
 
 const IngredientCard = ({ card }) => {

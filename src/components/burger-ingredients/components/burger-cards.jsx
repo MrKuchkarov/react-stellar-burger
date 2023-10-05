@@ -1,15 +1,10 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo} from "react";
 import style from "./burger-cards.module.css";
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientsMenu from "./ingredients-menu";
 import Modal from "../../modal/modal";
 import IngredientDetails from "../../ingredient-details/ingredient-details";
 import { useDispatch, useSelector } from "react-redux";
-import { ingredientsDetails } from "../../../services/ingredientDetailsSlice/ingredientDetailsSlice";
-import { setBun, addOtherIngredient } from "../../../services/constructorSlice/constructorSlice";
-import IngredientsCounts from "./Ingredients-counts";
-import { hideModal, showModal } from "../../../services/ingredientsSlice/ingredientsSlice";
-import {useDrag} from "react-dnd";
+import { hideModal } from "../../../services/ingredientsSlice/ingredientsSlice";
 import IngredientCard from "./IngredientCard";
 
 const BurgerCards = () => {

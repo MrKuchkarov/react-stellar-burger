@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import update from "immutability-helper";
 const initialState = {
   bun: null, // Массив для хранения булок
   other: [], // Массив для хранения ингредиентов
@@ -60,6 +60,18 @@ const constructorSlice = createSlice({
         }
       }
     },
+    moveCard(state, action) {
+      const dragIndex = action.payload;
+      const hoverIndex = action.payload;
+      const array = [...state.other];
+      const draggingItem = array[dragIndex];
+      state.other = update(array, {
+        $splice: [
+          [dragIndex, 1],
+          [hoverIndex, 0, draggingItem],
+        ],
+      });
+    },
     clearIngredients: (state) => {
       state.bun = null;
       state.other = [];
@@ -73,6 +85,7 @@ export const {
   addOtherIngredient,
   removeOtherIngredient,
   clearIngredients,
+  moveCard,
 } = constructorSlice.actions;
 
 export default constructorSlice.reducer;
