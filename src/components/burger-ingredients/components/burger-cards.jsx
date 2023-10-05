@@ -1,6 +1,5 @@
 import React, {useMemo} from "react";
 import style from "./burger-cards.module.css";
-import IngredientsMenu from "./ingredients-menu";
 import Modal from "../../modal/modal";
 import IngredientDetails from "../../ingredient-details/ingredient-details";
 import {useDispatch, useSelector} from "react-redux";
@@ -30,7 +29,6 @@ const BurgerCards = ({bunRef, sauceRef, mainRef}) => {
 
     return (
         <>
-            {/*<IngredientsMenu/>*/}
             <div className={`${style["scroll-ingredients"]} custom-scroll`}>
                 {ingredientsTypes.map((type) => (
                     <div key={type} className={`${style["card-container"]}`}>
