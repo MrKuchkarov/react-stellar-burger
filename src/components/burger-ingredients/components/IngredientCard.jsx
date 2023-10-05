@@ -16,6 +16,7 @@ const IngredientCard = ({card}) => {
         dispatch(showModal());
     };
 
+    //drag для добавление ингредиентов в конструктор
     const [{isDrag}, ingredientDragRef] = useDrag({
         type: 'ingredient',
         item: card,

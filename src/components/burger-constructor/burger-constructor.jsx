@@ -32,7 +32,7 @@ const BurgerConstructor = () => {
         return bunPrice + otherIngredientsPrice;
     }, [topBun, bottomBun, otherIngredients]);
 
-
+    //drop для добавление ингредиентов в конструктор
     const [{isOver, canDrop}, dropTarget] = useDrop({
         accept: 'ingredient',
         drop(ingredient) {
@@ -76,7 +76,7 @@ const BurgerConstructor = () => {
                 )}
             </div>
             {otherIngredients.length === 0 ? (
-                <div className={`${style["other-ingredients-container"]}`}>
+                <div className={`${style["other-ingredients-container"]}`} style={{border}}>
                     Добавьте ингредиенты, чтобы создать бургер
                 </div>
             ) : (
