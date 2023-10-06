@@ -10,10 +10,16 @@
 * Добавлять в карзинку и купить созданный вами космический бургер.
 ---
 Я сделал верстку, функциональность подсчета цены, дабавление ингредиентов в конструктор и удаление их от туда.
+При реализации функциональности проекта, я пользовался Redux-Toolkit и Redux-Thunk.
+Применены ряд библиотеки:
+- react-intersection-observer
+- react-DnD
+
+Они понадобелись чтобы реализовать перекидование(то есть DnD, добавление ингредиентов в конструктор) и сортировку списка ингредиентов.
 
 *[Ссылка](https://www.figma.com/file/ocw9a6hNGeAejl4F3G9fp8/React-_-%D0%9F%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%BD%D1%8B%D0%B5-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B8-(3-%D0%BC%D0%B5%D1%81%D1%8F%D1%86%D0%B0)_external_link?node-id=253%3A1053&mode=dev)* на макет проекта в Figma.
 
-*[Ссылка](https://code.s3.yandex.net/web-plus/checklists/checklist_pdf/checklist_7.pdf)* на чек-лист проекта.
+*[Ссылка](https://code.s3.yandex.net/web-plus/checklists/checklist_pdf/checklist_8.pdf)* на чек-лист проекта.
 
 ### Проект состоит из следующих основных и под блоков(компонентов):
 
@@ -29,6 +35,15 @@
 - Burger-ingredients
     - Burger-cards
     - Ingredients-menu
+- Close-button
+
+- Ingredient-details
+
+- Modal
+
+- Modal-overlay
+
+- Order-details
 
 ### Структура папок.
 
@@ -36,7 +51,8 @@
 - *CSS* файлы со cтилями сайта находятся: *src* *=>* *components* то есть там ж в модульной основе.
 - Папка c *JavaScript* файлами проекта *src* *=>* *components.*
 - Внутри папки *src* *=>* *images* можно найти все изображения, картинки и иконки проекта.
-- Папка *src* *=>* *utils* можно найти файлы с массивом *data*.
+- Папка *src* *=>* *utils* можно найти API запросы на сервер *ApiService*.
+- Внутри папки *src* *=>* *services* можно найти все слайсы и стор проекта.
 
 ---
 
