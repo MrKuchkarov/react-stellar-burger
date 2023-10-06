@@ -8,11 +8,10 @@ import PropTypes from "prop-types";
 import {makeOrder} from "../../../utils/ApiService";
 import {useSelector, useDispatch} from "react-redux";
 
-const BurgerTotalPrice = ({totalPrice}) => {
+const BurgerTotalPrice = ({totalPrice, isOrderButtonEnabled}) => {
     const otherIngredients = useSelector((state) => state.filling.other);
     const bunIngredients = useSelector((state) => state.filling.bun);
     const orderNumber = useSelector((state) => state.order.orderNumber);
-
     const dispatch = useDispatch();
     const [totalModal, setTotalModal] = useState(false);
 
@@ -33,6 +32,7 @@ const BurgerTotalPrice = ({totalPrice}) => {
         setTotalModal(false); // Закрываем модальное окно
     };
 
+
     return (
         <div>
             <div className={`${style["total-price-container"]} mt-10`}>
@@ -45,6 +45,7 @@ const BurgerTotalPrice = ({totalPrice}) => {
                     type="primary"
                     size="large"
                     onClick={handleOpenModal}
+                    disabled={!isOrderButtonEnabled}
                 >
                     Оформить заказ
                 </Button>
@@ -60,5 +61,6 @@ const BurgerTotalPrice = ({totalPrice}) => {
 
 BurgerTotalPrice.propTypes = {
     totalPrice: PropTypes.number.isRequired,
+    isOrderButtonEnabled: PropTypes.bool,
 };
 export default BurgerTotalPrice;

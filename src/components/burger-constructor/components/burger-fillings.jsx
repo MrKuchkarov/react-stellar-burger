@@ -9,6 +9,7 @@ import {
 } from "../../../services/constructorSlice/constructorSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrag, useDrop} from "react-dnd";
+import {BurgerIngredientsPropTypes} from "../../../utils/burger-components-propTypes";
 
 
 const BurgerFillings = ({filling, index}) => {
@@ -24,10 +25,11 @@ const BurgerFillings = ({filling, index}) => {
             dispatch(removeOtherIngredient(ingredientId));
         }
     };
-
+    
     //drop для сортировки ингредиентов
     const [{handlerId}, drop] = useDrop({
-        accept: 'constructor-item', collect: (monitor) => ({
+        accept: 'constructor-item',
+        collect: (monitor) => ({
             handlerId: monitor.getHandlerId(),
         }), hover(item, monitor) {
             if (!ref.current) {
@@ -61,24 +63,34 @@ const BurgerFillings = ({filling, index}) => {
             isDragging: monitor.isDragging(),
         }),
     })
-    const opacity = isDragging ? 0 : 1
+    const opacityStyles = {
+        opacity: isDragging ? 0 : 1,
+        transition: 'opacity 0.1s ease-in-out',
+    };
+    const hoverOpacityStyles = {
+        opacity: 0.4,
+        transition: 'opacity 0.1s ease-in-out',
+    };
     drag(drop(ref))
 
-    return (<li
-        className={`${style["fillings-container"]} mt-4 mb-4`}
-        ref={ref}
-        style={{opacity}}
-        data-handler-id={handlerId}
-    >
-        <DragIcon type={'primary'}/>
-        <ConstructorElement
-            isLocked={false}
-            text={filling.name}
-            thumbnail={filling.image}
-            price={filling.price}
-            handleClose={() => removeIngredient(filling._id)}
-        />
-    </li>);
+    return (
+        <li
+            className={`${style["fillings-container"]} mt-4 mb-4`}
+            ref={ref}
+            style={isDragging ? opacityStyles : hoverOpacityStyles}
+            data-handler-id={handlerId}
+        >
+            <DragIcon type={'primary'}/>
+            <ConstructorElement
+                isLocked={false}
+                text={filling.name}
+                thumbnail={filling.image}
+                price={filling.price}
+                handleClose={() => removeIngredient(filling._id)}
+            />
+        </li>
+    );
 };
 
+BurgerFillings.propTypes = BurgerIngredientsPropTypes;
 export default BurgerFillings;

@@ -1,5 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import update from "immutability-helper";
+import {v4 as uuidv4} from "uuid";
 
 const initialState = {
     bun: null, // Массив для хранения булок
@@ -36,7 +37,10 @@ const constructorSlice = createSlice({
         },
         addOtherIngredient: (state, action) => {
             const ingredient = action.payload;
-            state.other.push(ingredient);
+            const key = uuidv4();
+            const ingredientWithKey = {...ingredient, key};
+
+            state.other.push(ingredientWithKey);
 
             // Увеличиваем счетчик для данного ингредиента
             if (!state.ingredientCounts[ingredient._id]) {

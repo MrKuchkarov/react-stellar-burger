@@ -5,13 +5,14 @@ import IngredientDetails from "../../ingredient-details/ingredient-details";
 import {useDispatch, useSelector} from "react-redux";
 import {hideModal} from "../../../services/ingredientsSlice/ingredientsSlice";
 import IngredientCard from "./IngredientCard";
+import PropTypes from "prop-types";
 
 const BurgerCards = ({bunRef, sauceRef, mainRef}) => {
     const ingredients = useSelector((state) => state.ingredients.ingredients);
     const visible = useSelector((state) => state.ingredients.visible)
     const ingredientsTypes = [...new Set(ingredients.map((card) => card.type))];
     const dispatch = useDispatch();
-
+    
     // Фильтрация игрениентов по катигориям
     const categorizedIngredients = useMemo(() => {
         const result = {
@@ -87,6 +88,12 @@ const BurgerCards = ({bunRef, sauceRef, mainRef}) => {
             )}
         </>
     );
+};
+
+BurgerCards.propTypes = {
+    bunRef: PropTypes.func.isRequired,
+    sauceRef: PropTypes.func.isRequired,
+    mainRef: PropTypes.func.isRequired,
 };
 
 export default BurgerCards;

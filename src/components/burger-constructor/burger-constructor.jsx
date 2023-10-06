@@ -32,7 +32,10 @@ const BurgerConstructor = () => {
         return bunPrice + otherIngredientsPrice;
     }, [topBun, bottomBun, otherIngredients]);
 
-    //drop для добавление ингредиентов в конструктор
+    // Условие есть констурктор пустой, нельзя оформлять заказ.
+    const isOrderButtonEnabled = topBun && otherIngredients.length > 0;
+
+    //DROP для добавление ингредиентов в конструктор
     const [{isOver, canDrop}, dropTarget] = useDrop({
         accept: 'ingredient',
         drop(ingredient) {
@@ -52,7 +55,7 @@ const BurgerConstructor = () => {
     if (canDrop && isOver) {
         border = '2px dashed green';
     } else if (canDrop) {
-        border = '2px dashed #4c4cff';
+        border = '2px dashed aquamarine';
     }
 
     return (
@@ -107,7 +110,7 @@ const BurgerConstructor = () => {
                         Добавьте булку, чтобы создать бургер
                     </div>
                 )}
-                <BurgerTotalPrice totalPrice={ingredientsTotalPrice}/>
+                <BurgerTotalPrice totalPrice={ingredientsTotalPrice} isOrderButtonEnabled={isOrderButtonEnabled}/>
             </div>
         </section>
     );

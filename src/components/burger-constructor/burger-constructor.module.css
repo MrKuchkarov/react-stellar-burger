@@ -66,7 +66,7 @@
 .burger-fillings {
     max-height: 500px;
     overflow: auto;
-    padding: 0 10px ;
+    padding: 0 10px;
     margin: 0;
 }
 
@@ -76,3 +76,4 @@
     gap: 8px;
     padding: 0;
 }
+
