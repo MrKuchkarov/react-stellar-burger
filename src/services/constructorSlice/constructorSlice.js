@@ -35,19 +35,22 @@ const constructorSlice = createSlice({
 
             state.bun = newBun;
         },
-        addOtherIngredient: (state, action) => {
-            const ingredient = action.payload;
-            const key = uuidv4();
-            const ingredientWithKey = {...ingredient, key};
+        addOtherIngredient: {
+            reducer: (state, action) => {
+                const ingredient = action.payload;
+                state.other.push(ingredient);
 
-            state.other.push(ingredientWithKey);
-
-            // Увеличиваем счетчик для данного ингредиента
-            if (!state.ingredientCounts[ingredient._id]) {
-                state.ingredientCounts[ingredient._id] = 1;
-            } else {
-                state.ingredientCounts[ingredient._id]++;
-            }
+                // Увеличиваем счетчик для данного ингредиента
+                if (!state.ingredientCounts[ingredient._id]) {
+                    state.ingredientCounts[ingredient._id] = 1;
+                } else {
+                    state.ingredientCounts[ingredient._id]++;
+                }
+            },
+            prepare: (ingredient) => {
+                const uid = uuidv4(); // Генерирую уникальный идентификатор с помощью uuidv4
+                return {payload: {...ingredient, key: uid}}; // Добавлю поле 'key' с сгенерированным UID к объекту ингредиента
+            },
         },
         removeOtherIngredient: (state, action) => {
             const ingredientId = action.payload;

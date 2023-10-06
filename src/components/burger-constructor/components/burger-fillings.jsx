@@ -25,7 +25,7 @@ const BurgerFillings = ({filling, index}) => {
             dispatch(removeOtherIngredient(ingredientId));
         }
     };
-    
+
     //drop для сортировки ингредиентов
     const [{handlerId}, drop] = useDrop({
         accept: 'constructor-item',
