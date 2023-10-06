@@ -14,12 +14,12 @@ import {BurgerIngredientsPropTypes} from "../../../utils/burger-components-propT
 
 const BurgerFillings = ({filling, index}) => {
     const dispatch = useDispatch();
-    const bun = useSelector((state) => state.filling.bun);
+    const other = useSelector((state) => state.filling.other);
     const ref = useRef(null);
     const id = filling._id;
 //Удаление ингредиентов
     const removeIngredient = (ingredientId) => {
-        if (bun && bun._id === ingredientId) {
+        if (other && other._id === ingredientId) {
             dispatch(setBun(null));
         } else {
             dispatch(removeOtherIngredient(ingredientId));
