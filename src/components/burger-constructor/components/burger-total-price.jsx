@@ -7,6 +7,7 @@ import OrderDetails from "../../oreder-details/order-details";
 import PropTypes from "prop-types";
 import {makeOrder} from "../../../utils/ApiService";
 import {useSelector, useDispatch} from "react-redux";
+import {clearIngredients} from "../../../services/constructorSlice/constructorSlice";
 
 const BurgerTotalPrice = ({totalPrice, isOrderButtonEnabled}) => {
     const otherIngredients = useSelector((state) => state.filling.other);
@@ -26,6 +27,7 @@ const BurgerTotalPrice = ({totalPrice, isOrderButtonEnabled}) => {
 
         dispatch(makeOrder(ingredientIds));
         setTotalModal(true); // Открываем модальное окно
+        dispatch(clearIngredients())
     };
 
     const handleCloseModal = () => {

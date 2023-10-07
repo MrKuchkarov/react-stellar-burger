@@ -5,7 +5,6 @@ import {v4 as uuidv4} from "uuid";
 const initialState = {
     bun: null, // Массив для хранения булок
     other: [], // Массив для хранения ингредиентов
-    ingredientCounts: {}, // Объект для хранения количества каждого ингредиента
 };
 
 const constructorSlice = createSlice({
@@ -13,39 +12,12 @@ const constructorSlice = createSlice({
     initialState,
     reducers: {
         setBun: (state, action) => {
-            const newBun = action.payload;
-            const oldBun = state.bun;
-
-            // Уменьшаем счетчик старой булки, если она была выбрана
-            if (oldBun) {
-                state.ingredientCounts[oldBun._id] -= 2;
-                if (state.ingredientCounts[oldBun._id] === 0) {
-                    delete state.ingredientCounts[oldBun._id];
-                }
-            }
-
-            // Увеличиваем счетчик новой булки, если она добавлена
-            if (newBun) {
-                if (!state.ingredientCounts[newBun._id]) {
-                    state.ingredientCounts[newBun._id] = 2;
-                } else {
-                    state.ingredientCounts[newBun._id] += 2;
-                }
-            }
-
-            state.bun = newBun;
+            state.bun = action.payload; //Добавление булки
         },
         addOtherIngredient: {
             reducer: (state, action) => {
                 const ingredient = action.payload;
-                state.other.push(ingredient);
-
-                // Увеличиваем счетчик для данного ингредиента
-                if (!state.ingredientCounts[ingredient._id]) {
-                    state.ingredientCounts[ingredient._id] = 1;
-                } else {
-                    state.ingredientCounts[ingredient._id]++;
-                }
+                state.other.push(ingredient); //Добавление остальных ингредиентов
             },
             prepare: (ingredient) => {
                 const uid = uuidv4(); // Генерирую уникальный идентификатор с помощью uuidv4
@@ -53,20 +25,11 @@ const constructorSlice = createSlice({
             },
         },
         removeOtherIngredient: (state, action) => {
-            const ingredientId = action.payload;
+            const ingredient = action.payload;
 
-            // Уменьшаем счетчик для данного ингредиента
-            if (state.ingredientCounts[ingredientId]) {
-                state.ingredientCounts[ingredientId]--;
-
-                // Если счетчик достиг нуля, удаляем ингредиент из массива
-                if (state.ingredientCounts[ingredientId] === 0) {
-                    state.other = state.other.filter(
-                        (ingredient) => ingredient._id !== ingredientId
-                    );
-                    delete state.ingredientCounts[ingredientId];
-                }
-            }
+            state.other = state.other.filter(
+                (item) => item.key !== ingredient.key
+            )
         },
         moveCard(state, action) {
             const {dragIndex, hoverIndex} = action.payload;
@@ -82,7 +45,6 @@ const constructorSlice = createSlice({
         clearIngredients: (state) => {
             state.bun = null;
             state.other = [];
-            state.ingredientCounts = {}; // Сбрасываем счетчики при очистке ингредиентов
         },
     },
 });

@@ -5,25 +5,21 @@ import {
 import style from "../burger-constructor.module.css";
 
 import {
-    moveCard, removeOtherIngredient, setBun,
+    moveCard, removeOtherIngredient,
 } from "../../../services/constructorSlice/constructorSlice";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {useDrag, useDrop} from "react-dnd";
 import {BurgerIngredientsPropTypes} from "../../../utils/burger-components-propTypes";
 
 
 const BurgerFillings = ({filling, index}) => {
     const dispatch = useDispatch();
-    const other = useSelector((state) => state.filling.other);
     const ref = useRef(null);
     const id = filling._id;
-//Удаление ингредиентов
-    const removeIngredient = (ingredientId) => {
-        if (other && other._id === ingredientId) {
-            dispatch(setBun(null));
-        } else {
-            dispatch(removeOtherIngredient(ingredientId));
-        }
+
+    //Удаление ингредиентов
+    const removeIngredient = (ingredient) => {
+        dispatch(removeOtherIngredient(ingredient));
     };
 
     //drop для сортировки ингредиентов
@@ -86,7 +82,7 @@ const BurgerFillings = ({filling, index}) => {
                 text={filling.name}
                 thumbnail={filling.image}
                 price={filling.price}
-                handleClose={() => removeIngredient(filling._id)}
+                handleClose={() => removeIngredient(filling)}
             />
         </li>
     );

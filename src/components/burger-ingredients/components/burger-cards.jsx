@@ -12,7 +12,7 @@ const BurgerCards = ({bunRef, sauceRef, mainRef}) => {
     const visible = useSelector((state) => state.ingredients.visible)
     const ingredientsTypes = [...new Set(ingredients.map((card) => card.type))];
     const dispatch = useDispatch();
-    
+
     // Фильтрация игрениентов по катигориям
     const categorizedIngredients = useMemo(() => {
         const result = {
@@ -51,30 +51,30 @@ const BurgerCards = ({bunRef, sauceRef, mainRef}) => {
                         </h2>
                         <ul className={`${style["cards-list"]} `}>
                             {type === "bun" &&
-                                categorizedIngredients.buns.map((card) => (
+                                categorizedIngredients.buns.map((ingredients) => (
                                     <li
-                                        key={card._id}
+                                        key={ingredients._id}
                                         ref={bunRef}
                                     >
-                                        <IngredientCard card={card}/>
+                                        <IngredientCard ingredients={ingredients}/>
                                     </li>
                                 ))}
                             {type === "sauce" &&
-                                categorizedIngredients.sauces.map((card) => (
+                                categorizedIngredients.sauces.map((ingredients) => (
                                     <li
-                                        key={card._id}
+                                        key={ingredients._id}
                                         ref={sauceRef}
                                     >
-                                        <IngredientCard card={card}/>
+                                        <IngredientCard ingredients={ingredients}/>
                                     </li>
                                 ))}
                             {type === "main" &&
-                                categorizedIngredients.mains.map((card) => (
+                                categorizedIngredients.mains.map((ingredients) => (
                                     <li
-                                        key={card._id}
+                                        key={ingredients._id}
                                         ref={mainRef}
                                     >
-                                        <IngredientCard card={card}/>
+                                        <IngredientCard ingredients={ingredients}/>
                                     </li>
                                 ))}
                         </ul>

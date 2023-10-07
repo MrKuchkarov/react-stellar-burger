@@ -1,54 +1,66 @@
 import React from "react";
 import style from "./IngredientCard.module.css";
-import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import IngredientsCounts from "./Ingredients-counts";
+import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {ingredientsDetails} from "../../../services/ingredientDetailsSlice/ingredientDetailsSlice";
 import {showModal} from "../../../services/ingredientsSlice/ingredientsSlice";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
 
-const IngredientCard = ({card}) => {
+const IngredientCard = ({ingredients}) => {
     const dispatch = useDispatch();
-
-
-    const handleOpenModal = (card) => {
-        dispatch(ingredientsDetails(card));
+    const other = useSelector((state) => state.filling.other)
+    const bun = useSelector((state) => state.filling.bun)
+    let count = 0;
+    const handleOpenModal = (ingredients) => {
+        dispatch(ingredientsDetails(ingredients));
         dispatch(showModal());
     };
 
     //drag для добавление ингредиентов в конструктор
     const [{isDrag}, ingredientDragRef] = useDrag({
         type: 'ingredient',
-        item: card,
+        item: ingredients,
         collect: (monitor) => ({
             isDrag: monitor.isDragging(),
         }),
     });
 
+    //Счетчик для ингредиентов
+    if (ingredients.type === 'bun') {
+        if (bun !== null && bun._id === ingredients._id) {
+            count = 2;
+        }
+    } else {
+        other.forEach((filling) => {
+            if (filling._id === ingredients._id) {
+                count += 1;
+            }
+        });
+    }
 
     return (
         <>
             {!isDrag && (<div className={`${style["cards"]}`}
-                              onClick={() => handleOpenModal(card)}
+                              onClick={() => handleOpenModal(ingredients)}
                               ref={ingredientDragRef}>
-                    <IngredientsCounts ingredientId={card._id}/>
+                    {count > 0 && <Counter count={count}/>}
                     <img
                         className={`${style["cards-photo"]} pl-4 pr-4`}
-                        src={card.image}
-                        alt={card.name}
+                        src={ingredients.image}
+                        alt={ingredients.name}
                     />
                     <div className={style["container-price"]}>
                         <p
                             className={`${style["cards-price"]} pt-2 pb-2 pr-4 text text_type_digits-default`}
                         >
-                            {card.price}
+                            {ingredients.price}
                         </p>
                         <CurrencyIcon type="primary"/>
                     </div>
                     <p
                         className={`${style["cards-description"]} text text_type_main-default`}
                     >
-                        {card.name}
+                        {ingredients.name}
                     </p>
                 </div>
             )}
