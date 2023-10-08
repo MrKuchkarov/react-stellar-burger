@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React, {useCallback, useRef} from "react";
 import {
     ConstructorElement, DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -18,9 +18,9 @@ const BurgerFillings = ({filling, index}) => {
     const id = filling._id;
 
     //Удаление ингредиентов
-    const removeIngredient = (ingredient) => {
-        dispatch(removeOtherIngredient(ingredient));
-    };
+    const removeIngredient = useCallback(() => {
+        dispatch(removeOtherIngredient(filling));
+    }, [dispatch, filling]);
 
     //drop для сортировки ингредиентов
     const [{handlerId}, drop] = useDrop({

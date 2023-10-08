@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useMemo} from "react";
 import style from "./IngredientCard.module.css";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {ingredientsDetails} from "../../../services/ingredientDetailsSlice/ingredientDetailsSlice";
@@ -10,7 +10,7 @@ const IngredientCard = ({ingredients}) => {
     const dispatch = useDispatch();
     const other = useSelector((state) => state.filling.other)
     const bun = useSelector((state) => state.filling.bun)
-    let count = 0;
+
     const handleOpenModal = (ingredients) => {
         dispatch(ingredientsDetails(ingredients));
         dispatch(showModal());
@@ -26,17 +26,22 @@ const IngredientCard = ({ingredients}) => {
     });
 
     //Счетчик для ингредиентов
-    if (ingredients.type === 'bun') {
-        if (bun !== null && bun._id === ingredients._id) {
-            count = 2;
-        }
-    } else {
-        other.forEach((filling) => {
-            if (filling._id === ingredients._id) {
-                count += 1;
+    const count = useMemo(() => {
+        let count = 0;
+        if (ingredients.type === "bun") {
+            if (bun !== null && bun._id === ingredients._id) {
+                count = 2;
             }
-        });
-    }
+        } else {
+            other.forEach((filling) => {
+                if (filling._id === ingredients._id) {
+                    count += 1;
+                }
+            });
+        }
+        return count;
+    }, [ingredients.type, bun, other]);
+
 
     return (
         <>
