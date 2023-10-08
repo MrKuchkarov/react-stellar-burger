@@ -1,29 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { fetchIngredients } from "../../../utils/ApiService";
-import PropTypes from "prop-types";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchIngredients} from "../../../utils/ApiService";
 
-function IngredientDataLoader({ onDataLoaded, onError }) {
-    const [isLoading, setIsLoading] = useState(true);
+function IngredientDataLoader() {
+    const dispatch = useDispatch();
+    const {error, isLoading} = useSelector((state) => state.ingredients);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await fetchIngredients();
-                onDataLoaded(data);
-                setIsLoading(false);
-            } catch (err) {
-                onError(err.message);
-                setIsLoading(false);
-            }
-        };
+        dispatch(fetchIngredients());
+    }, [dispatch]);
 
-        fetchData();
-    }, [onDataLoaded, onError]);
+    if (isLoading) {
+        return <p>Загрузка...</p>;
+    }
 
-    return isLoading ? <p>Загрузка...</p> : null;
+    if (error) {
+        return <p>{error}</p>;
+    }
+
+    return null;
 }
 
-IngredientDataLoader.propTypes = {
-    onDataLoaded: PropTypes.func.isRequired
-}
 export default IngredientDataLoader;
