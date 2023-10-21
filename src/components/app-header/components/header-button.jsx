@@ -14,8 +14,8 @@ const HeaderButton = (props) => {
 };
 
 HeaderButton.propTypes = {
+    to: PropTypes.string,
     children: PropTypes.node.isRequired,
-    to: PropTypes.string.isRequired,
 };
 
 export default HeaderButton;

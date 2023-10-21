@@ -5,7 +5,7 @@ import style from "./login.module.css";
 
 const Login = () => {
 
-    const [value, setValue] = React.useState('bob@example.com')
+    const [value, setValue] = React.useState('')
     const onChange = e => {
         setValue(e.target.value)
     }
@@ -29,12 +29,12 @@ const Login = () => {
                         name={'password'}
                         extraClass="mb-6"
                     />
-                    <Button extraClass="mb-20" htmlType="button" type="primary" size="medium">
+                    <Button extraClass="mb-20" htmlType="submit" type="primary" size="medium">
                         Войти
                     </Button>
                     <div className={`${style["user-container"]} `}>
                         <div className={`${style["links"]} `}>
-                            <p className={`${style["paragraph"]} text text_type_main-default text_color_inactive`}>
+                            <p className={`${style["to-suggest-paragraph"]} text text_type_main-default text_color_inactive`}>
                                 Вы — новый пользователь?
                             </p>
                             <Link to="/register" className={`${style["link"]} text text_type_main-small`}>
@@ -42,7 +42,7 @@ const Login = () => {
                             </Link>
                         </div>
                         <div className={`${style["links"]} `}>
-                            <p className={`${style["paragraph"]} text text_type_main-default text_color_inactive`}>
+                            <p className={`${style["to-suggest-paragraph"]} text text_type_main-default text_color_inactive`}>
                                 Забыли пароль?
                             </p>
                             <Link to="/forgot-password"
