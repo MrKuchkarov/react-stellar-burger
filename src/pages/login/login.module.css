@@ -1,4 +1,4 @@
-.login-container {
+.container {
     width: 480px;
     height: 430px;
     margin: 0 auto;
@@ -6,7 +6,7 @@
 }
 
 
-.login-fieldset {
+.fieldset {
     border: none;
     padding: 0;
     display: flex;
@@ -15,7 +15,7 @@
     justify-content: center;
 }
 
-.login-user-container {
+.user-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,17 +23,17 @@
     gap: 4px;
 }
 
-.login-links {
+.links {
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-.login-regi-paragraph {
+.paragraph {
     margin: 0;
 }
 
-.login-regi-link {
+.link {
     color: #4C4CFF;
     text-decoration: none;
 }

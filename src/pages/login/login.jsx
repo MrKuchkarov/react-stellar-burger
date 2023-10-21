@@ -10,10 +10,10 @@ const Login = () => {
         setValue(e.target.value)
     }
     return (
-        <div className={`${style["login-container"]}`}>
-            <form action="" className={`${style["login-form"]}`}>
-                <fieldset className={`${style["login-fieldset"]}`}>
-                    <h1 className={`${style["login-title"]} text text_type_main-medium pb-6`}>
+        <div className={`${style["container"]}`}>
+            <form action="" className={`${style["form"]}`}>
+                <fieldset className={`${style["fieldset"]}`}>
+                    <h1 className={`${style["title"]} text text_type_main-medium pb-6`}>
                         Вход
                     </h1>
                     <EmailInput
@@ -32,21 +32,21 @@ const Login = () => {
                     <Button extraClass="mb-20" htmlType="button" type="primary" size="medium">
                         Войти
                     </Button>
-                    <div className={`${style["login-user-container"]} `}>
-                        <div className={`${style["login-links"]} `}>
-                            <p className={`${style["login-regi-paragraph"]} text text_type_main-default text_color_inactive`}>
+                    <div className={`${style["user-container"]} `}>
+                        <div className={`${style["links"]} `}>
+                            <p className={`${style["paragraph"]} text text_type_main-default text_color_inactive`}>
                                 Вы — новый пользователь?
                             </p>
-                            <Link to="/register" className={`${style["login-regi-link"]} text text_type_main-small`}>
+                            <Link to="/register" className={`${style["link"]} text text_type_main-small`}>
                                 Зарегистрироваться
                             </Link>
                         </div>
-                        <div className={`${style["login-links"]} `}>
-                            <p className={`${style["login-regi-paragraph"]} text text_type_main-default text_color_inactive`}>
+                        <div className={`${style["links"]} `}>
+                            <p className={`${style["paragraph"]} text text_type_main-default text_color_inactive`}>
                                 Забыли пароль?
                             </p>
                             <Link to="/forgot-password"
-                                  className={`${style["login-regi-link"]} text text_type_main-small`}>
+                                  className={`${style["link"]} text text_type_main-small`}>
                                 Восстановить
                                 пароль
                             </Link>
