@@ -23,7 +23,7 @@ function AppHeader() {
                     </HeaderButton>
                 </nav>
                 <Logo/>
-                <HeaderButton to="/profile">
+                <HeaderButton to="/login">
                     <ProfileIcon/>
                     Личный кабинет
                 </HeaderButton>
