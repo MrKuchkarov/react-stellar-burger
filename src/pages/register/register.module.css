@@ -1,0 +1,39 @@
+.register-container {
+    width: 480px;
+    height: 430px;
+    margin: 0 auto;
+    padding-top: 180px;
+}
+
+
+.register-fieldset {
+    border: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.register-user-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.register-links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.register-paragraph {
+    margin: 0;
+}
+
+.register-link {
+    color: #4C4CFF;
+    text-decoration: none;
+}

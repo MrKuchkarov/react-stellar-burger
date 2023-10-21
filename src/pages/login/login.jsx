@@ -13,7 +13,9 @@ const Login = () => {
         <div className={`${style["login-container"]}`}>
             <form action="" className={`${style["login-form"]}`}>
                 <fieldset className={`${style["login-fieldset"]}`}>
-                    <h1 className={`${style["login-title"]} text text_type_main-medium pb-6`}>Вход</h1>
+                    <h1 className={`${style["login-title"]} text text_type_main-medium pb-6`}>
+                        Вход
+                    </h1>
                     <EmailInput
                         onChange={onChange}
                         value={value}
