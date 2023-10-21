@@ -1,36 +1,29 @@
 import React from "react";
 import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import IngredientDataLoader from "./components/IngredientDataLoader";
-import {useSelector} from "react-redux";
-import {DndProvider} from "react-dnd";
-import {HTML5Backend} from "react-dnd-html5-backend";
+import {HomePages} from "../../pages/home-pages/home-pages";
+import {Login} from "../../pages/login/login";
+import {Profile} from "../../pages/profile/profile";
+import {Register} from "../../pages/register/register";
+import {IngredietnsPage} from "../../pages/ingredients/ingredietns-page";
+import {ForgotPassword} from "../../pages/forgot-password/forgot-password";
+import {ResetPassword} from "../../pages/reset-password/reset-password";
+import {Route, Routes} from "react-router-dom";
 
 function App() {
-    const ingredients = useSelector((state) => state.ingredients.ingredients);
-    const isLoading = useSelector((state) => state.ingredients.isLoading);
-
     return (
-        <DndProvider backend={HTML5Backend}>
-            <section className={styles["app"]}>
-                <AppHeader/>
-                <div className={styles["app-container"]}>
-                    <IngredientDataLoader/>
-                    <div>
-                        {isLoading && <p>Загрузка...</p>}
-                        {!isLoading && ingredients.length === 0 && (
-                            <p>Ингредиенты не доступны</p>
-                        )}
-                        {ingredients.length > 0 && <BurgerIngredients/>}
-                    </div>
-                    <div>
-                        <BurgerConstructor/>
-                    </div>
-                </div>
-            </section>
-        </DndProvider>
+        <div className={styles["app"]}>
+            <AppHeader/>
+            <Routes>
+                <Route path={"/"} element={<HomePages/>}/>
+                <Route path={"/login"} element={<Login/>}/>
+                <Route path={"/profile"} element={<Profile/>}/>
+                <Route path={"/register"} element={<Register/>}/>
+                <Route path={"/ingredients"} element={<IngredietnsPage/>}/>
+                <Route path={"/forgot-password"} element={<ForgotPassword/>}/>
+                <Route path={"/reset-password"} element={<ResetPassword/>}/>
+            </Routes>
+        </div>
     );
 }
 

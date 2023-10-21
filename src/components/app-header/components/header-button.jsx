@@ -1,19 +1,21 @@
 import React from "react";
 import style from "./header-button.module.css";
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 
 const HeaderButton = (props) => {
     return (
-        <a href="#" className={`${style["menu-links"]} p-5`}>
+        <Link to={props.to} className={`${style["menu-links"]} p-5`}>
             <p className={`${style["menu-links-text"]} text text_type_main-default`}>
                 {props.children}
             </p>
-        </a>
+        </Link>
     );
 };
 
 HeaderButton.propTypes = {
     children: PropTypes.node.isRequired,
+    to: PropTypes.string.isRequired,
 };
 
 export default HeaderButton;

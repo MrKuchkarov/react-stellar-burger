@@ -8,4 +8,4 @@ const IngredietnsPage = () => {
     );
 };
 
-export default IngredietnsPage;
+export {IngredietnsPage};

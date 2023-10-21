@@ -13,7 +13,7 @@ function AppHeader() {
         <header className={style.header}>
             <div className={style["header-container"]}>
                 <nav className={style.navigation}>
-                    <HeaderButton>
+                    <HeaderButton to="/">
                         <BurgerIcon/>
                         Конструктор
                     </HeaderButton>
@@ -23,7 +23,7 @@ function AppHeader() {
                     </HeaderButton>
                 </nav>
                 <Logo/>
-                <HeaderButton>
+                <HeaderButton to="/profile">
                     <ProfileIcon/>
                     Личный кабинет
                 </HeaderButton>
