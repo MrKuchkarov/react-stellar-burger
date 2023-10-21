@@ -7,25 +7,27 @@ import {
     BurgerIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import HeaderButton from "./components/header-button";
+import {Link, NavLink} from "react-router-dom";
 
 function AppHeader() {
     return (
         <header className={style.header}>
             <div className={style["header-container"]}>
                 <nav className={style.navigation}>
-                    <HeaderButton to="/">
+                    <HeaderButton
+                        to="/login"
+                        text={"Конструктор"}>
                         <BurgerIcon/>
-                        Конструктор
                     </HeaderButton>
-                    <HeaderButton>
+                    <HeaderButton to="" text={"Лента заказов"}>
                         <ListIcon/>
-                        Лента заказов
                     </HeaderButton>
                 </nav>
-                <Logo/>
-                <HeaderButton to="/login">
+                <NavLink className={style.logo} to={"/"}>
+                    <Logo/>
+                </NavLink>
+                <HeaderButton to="/profile" text={"Личный кабинет"}>
                     <ProfileIcon/>
-                    Личный кабинет
                 </HeaderButton>
             </div>
         </header>

@@ -5,12 +5,10 @@
     list-style-type: none;
     cursor: pointer;
     text-decoration: none;
-}
-
-
-.menu-links-text {
-    display: flex;
-    gap: 8px;
-    border: none;
     color: #F2F2F3;
 }
+
+
+/*.menu-links-active {*/
+/*    color: var(--text-primary-color);*/
+/*}*/
