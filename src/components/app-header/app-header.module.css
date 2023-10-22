@@ -10,6 +10,15 @@
     justify-content: space-between;
 }
 
+.header-links {
+    color: var(--text-primary-color);
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
 .navigation {
     display: flex;
     margin: 0;
@@ -17,6 +26,10 @@
 }
 
 .logo {
-    margin-right: 125px;
+    margin-right: 160px;
     cursor: pointer;
+}
+
+.active {
+    color: var(--text-inactive-color)
 }

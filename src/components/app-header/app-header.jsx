@@ -6,29 +6,47 @@ import {
     ProfileIcon,
     BurgerIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import HeaderButton from "./components/header-button";
-import {Link, NavLink} from "react-router-dom";
+import {NavLink} from "react-router-dom";
+import NavLinkButton from "./components/header-button";
 
 function AppHeader() {
+
     return (
         <header className={style.header}>
             <div className={style["header-container"]}>
                 <nav className={style.navigation}>
-                    <HeaderButton
+                    <NavLinkButton
                         to="/login"
-                        text={"Конструктор"}>
+                        exact
+                        text={"Конструктор"}
+                        className={`${style["header-links"]} p-5 text text_type_main-default`}
+                        // activeClassName={style.active}
+                    >
                         <BurgerIcon/>
-                    </HeaderButton>
-                    <HeaderButton to="" text={"Лента заказов"}>
+                    </NavLinkButton>
+                    <NavLinkButton
+                        to="/ingredients"
+                        text={"Лента заказов"}
+                        className={`${style["header-links"]} p-5 text text_type_main-default`}
+                    >
                         <ListIcon/>
-                    </HeaderButton>
+                    </NavLinkButton>
                 </nav>
-                <NavLink className={style.logo} to={"/"}>
+                <NavLink
+                    className={style.logo}
+                    to={"/"}
+                >
                     <Logo/>
                 </NavLink>
-                <HeaderButton to="/profile" text={"Личный кабинет"}>
+                <NavLinkButton
+                    to="/profile"
+                    exact
+                    text={"Личный кабинет"}
+                    className={`${style["header-links"]} p-5 text text_type_main-default`}
+                    // activeClassName={style.active}
+                >
                     <ProfileIcon/>
-                </HeaderButton>
+                </NavLinkButton>
             </div>
         </header>
     );

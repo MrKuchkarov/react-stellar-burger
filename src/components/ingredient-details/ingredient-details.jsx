@@ -6,6 +6,7 @@ const IngredientDetails = () => {
     const data = useSelector((state) => state.details.ingredientsDetails);
 
     if (!data) return null;
+    
     return (
         <>
             <section className={`${style["container-details"]} `}>
