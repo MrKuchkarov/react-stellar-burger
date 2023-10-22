@@ -1,0 +1,23 @@
+.links-navigation {
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.links {
+    text-decoration: none;
+    padding: 20px 0;
+}
+
+.exit-button {
+    border: none;
+    background-color: transparent;
+    padding: 20px 0;
+}
+
+.description {
+    opacity: 0.4;
+    color: #8585AD;
+    margin-top: 60px;
+}
