@@ -1,24 +1,22 @@
 import React from 'react';
-import {NavLink} from "react-router-dom";
 import style from "./profile-navigation.module.css";
-import NavLinkButton from "../app-header/components/header-button";
+import CustomNavLinkButton from "../app-header/components/header-button";
+import {useMatch} from "react-router-dom";
 
 const ProfileNavigation = () => {
+    const isProfileActive = useMatch("/profile");
+    const isProfileOrderActive = useMatch("/profile/orders");
     return (
         <nav className={`${style["links-navigation"]}`}>
-            <NavLinkButton
-                exact
+            <CustomNavLinkButton
                 to="/profile"
                 text={"Профиль"}
-                className={`${style["links"]} text text_type_main-medium text_color_inactive`}
-                activeClassName={style.active}
+                className={`${style["links"]} text text_type_main-medium text_color_inactive ${isProfileActive ? style.active : ""}`}
             />
-            <NavLinkButton
-                exact
+            <CustomNavLinkButton
                 to={"/profile/orders"}
                 text={"История заказов"}
-                className={`${style["links"]} text text_type_main-medium text_color_inactive`}
-                activeClassName={style.active}
+                className={`${style["links"]} text text_type_main-medium text_color_inactive ${isProfileOrderActive ? style.active : ""}`}
             />
             <button
                 className={`${style["exit-button"]} text text_type_main-medium text_color_inactive`}

@@ -1,14 +1,12 @@
 import React from "react";
-import PropTypes, {exact} from "prop-types";
+import PropTypes from "prop-types";
 import {NavLink} from "react-router-dom";
 
-const NavLinkButton = ({text, to, className, activeClassName, children, exact}) => {
+const CustomNavLinkButton = ({text, to, className, children}) => {
     return (
         <NavLink
-            exact={exact}
             to={to}
             className={className}
-            activeClassName={activeClassName}
         >
             {children}
             {text}
@@ -16,9 +14,9 @@ const NavLinkButton = ({text, to, className, activeClassName, children, exact}) 
     );
 };
 
-NavLinkButton.propTypes = {
+CustomNavLinkButton.propTypes = {
     to: PropTypes.string,
     children: PropTypes.node,
 };
 
-export default NavLinkButton;
+export default CustomNavLinkButton;

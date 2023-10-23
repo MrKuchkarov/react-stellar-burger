@@ -6,10 +6,14 @@ import {
     ProfileIcon,
     BurgerIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import {NavLink} from "react-router-dom";
+import {NavLink, useMatch} from "react-router-dom";
 import NavLinkButton from "./components/header-button";
 
 function AppHeader() {
+    const isConstructorActive = useMatch("/login");
+    const isOrdersActive = useMatch("/ingredients");
+    const isProfileActive = useMatch("/profile");
+
 
     return (
         <header className={style.header}>
@@ -17,19 +21,21 @@ function AppHeader() {
                 <nav className={style.navigation}>
                     <NavLinkButton
                         to="/login"
-                        exact
                         text={"Конструктор"}
-                        className={`${style["header-links"]} p-5 text text_type_main-default`}
-                        // activeClassName={style.active}
+                        className={`${style["header-links"]} p-5 text text_type_main-default ${isConstructorActive ? style.active : ""}`}
                     >
-                        <BurgerIcon/>
+                        <BurgerIcon
+                            type={isConstructorActive ? 'secondary' : 'primary'}
+                        />
                     </NavLinkButton>
                     <NavLinkButton
                         to="/ingredients"
                         text={"Лента заказов"}
-                        className={`${style["header-links"]} p-5 text text_type_main-default`}
+                        className={`${style["header-links"]} p-5 text text_type_main-default ${isOrdersActive ? style.active : ""}`}
                     >
-                        <ListIcon/>
+                        <ListIcon
+                            type={isOrdersActive ? 'secondary' : 'primary'}
+                        />
                     </NavLinkButton>
                 </nav>
                 <NavLink
@@ -40,12 +46,12 @@ function AppHeader() {
                 </NavLink>
                 <NavLinkButton
                     to="/profile"
-                    exact
                     text={"Личный кабинет"}
-                    className={`${style["header-links"]} p-5 text text_type_main-default`}
-                    // activeClassName={style.active}
+                    className={`${style["header-links"]} p-5 text text_type_main-default ${isProfileActive ? style.active : ""}`}
                 >
-                    <ProfileIcon/>
+                    <ProfileIcon
+                        type={isProfileActive ? 'secondary' : 'primary'}
+                    />
                 </NavLinkButton>
             </div>
         </header>
