@@ -9,6 +9,7 @@ import {IngredietnsPage} from "../../pages/ingredients/ingredietns-page";
 import {ForgotPassword} from "../../pages/forgot-password/forgot-password";
 import {ResetPassword} from "../../pages/reset-password/reset-password";
 import {Route, Routes} from "react-router-dom";
+import {OnlyUnAuth} from "../protected-route/protected-route";
 
 function App() {
     return (
@@ -16,7 +17,7 @@ function App() {
             <AppHeader/>
             <Routes>
                 <Route path={"/"} element={<HomePages/>}/>
-                <Route path={"/login"} element={<Login/>}/>
+                <Route path="/login" element={<OnlyUnAuth component={<Login/>}/>}/>
                 <Route path={"/profile"} element={<Profile/>}/>
                 <Route path={"/register"} element={<Register/>}/>
                 <Route path={"/ingredients"} element={<IngredietnsPage/>}/>

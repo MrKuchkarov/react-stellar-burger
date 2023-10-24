@@ -2,30 +2,39 @@ import React from 'react';
 import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link} from "react-router-dom";
 import style from "./login.module.css";
+import {useDispatch} from "react-redux";
+import {fetchLogin} from "../../services/auth/auth-async-thunks";
+import {useForm} from "../../components/app/components/hooks/useForm";
 
 const Login = () => {
 
-    const [value, setValue] = React.useState('')
-    const onChange = e => {
-        setValue(e.target.value)
-    }
+    const dispatch = useDispatch();
+    const {values, handleChange} = useForm({
+        email: "",
+        password: "",
+    });
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        dispatch(fetchLogin(values));
+    };
     return (
         <div className={`${style["container"]}`}>
-            <form action="" className={`${style["form"]}`}>
+            <form onSubmit={handleSubmit} className={`${style["form"]}`}>
                 <fieldset className={`${style["fieldset"]}`}>
                     <h1 className={`${style["title"]} text text_type_main-medium pb-6`}>
                         Вход
                     </h1>
                     <EmailInput
-                        onChange={onChange}
-                        value={value}
+                        onChange={handleChange}
+                        value={values.email}
                         name={'email'}
                         isIcon={false}
                         extraClass="mb-6"
                     />
                     <PasswordInput
-                        onChange={onChange}
-                        value={value}
+                        onChange={handleChange}
+                        value={values.password}
                         name={'password'}
                         extraClass="mb-6"
                     />
