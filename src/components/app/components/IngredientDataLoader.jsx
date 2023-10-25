@@ -11,7 +11,7 @@ function IngredientDataLoader() {
     const {isAuth} = useSelector(selectAuth);
     const dispatch = useDispatch();
     const {error, isLoading} = useSelector((state) => state.ingredients);
-    console.log(isAuth)
+
     useEffect(() => {
         dispatch(fetchIngredients());
 

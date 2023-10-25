@@ -12,6 +12,6 @@ export const store = configureStore({
         filling: constructorSlice,
         details: ingredientDetailsSlice,
         order: orderDetailsSlice,
-        auth: authSlice
+        auth: authReducer
     },
 });

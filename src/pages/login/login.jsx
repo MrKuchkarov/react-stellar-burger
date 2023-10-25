@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import style from "./login.module.css";
 import {useDispatch} from "react-redux";
 import {fetchLogin} from "../../services/auth/auth-async-thunks";
-import {useForm} from "../../components/app/components/hooks/useForm";
+import {useForm} from "../../hooks/useForm";
 
 const Login = () => {
 

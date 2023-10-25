@@ -3,10 +3,10 @@ import {Navigate, useLocation} from "react-router-dom";
 import {selectAuth, selectAuthUser, selectIsAuth} from "../../services/auth/auth-selector";
 
 const ProtectedRoute = ({onlyForAuth = false, component}) => {
-    // isAuthChecked это флаг, показывающий что проверка токена произведена
+    // isAuth это флаг, показывающий что проверка токена произведена
     // при этом результат этой проверки не имеет значения, важно только,
     // что сам факт проверки имел место.
-    const {isAuth} = useSelector(selectIsAuth);
+    const {isAuth} = useSelector(selectIsAuth)
     const {user} = useSelector(selectAuthUser);
     console.log(isAuth)
     const location = useLocation();
@@ -35,6 +35,6 @@ const ProtectedRoute = ({onlyForAuth = false, component}) => {
 };
 
 export const OnlyAuth = ProtectedRoute;
-export const OnlyUnAuth = ({component}) => (
-    <ProtectedRoute onlyUnAuth={true} component={component}/>
+export const OnlyForAuth = ({component}) => (
+    <ProtectedRoute onlyForAuth={true} component={component}/>
 );

@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {setCookie} from "../../utils/cookie";
+import {deleteCookie, setCookie} from "../../utils/cookie";
 import {
     fetchGetUser,
     fetchLogin,
@@ -26,50 +26,60 @@ const authSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(fetchRegister.fulfilled, (state, action) => {
-                state.name = action.payload.user.name;
-                state.email = action.payload.user.email;
-                setCookie('accessToken', action.payload);
-                setCookie('refreshToken', action.payload);
+                console.log('fetchRegister.fulfilled payload:', action.payload);
+                state.user = {
+                    name: action.payload.user.name,
+                    email: action.payload.user.email,
+                };
+                setCookie("accessToken", action.payload.accessToken);
+                setCookie("refreshToken", action.payload.refreshToken);
             })
             .addCase(fetchLogin.fulfilled, (state, action) => {
+                console.log('fetchLogin.fulfilled payload:', action.payload);
                 state.isAuth = true;
-                setCookie('accessToken', action.payload);
-                setCookie('refreshToken', action.payload);
+                setCookie("accessToken", action.payload.accessToken);
+                setCookie("refreshToken", action.payload.refreshToken);
             })
             .addCase(fetchGetUser.fulfilled, (state, action) => {
                 state.isAuth = true;
-                state.name = action.payload.user.name;
-                state.email = action.payload.user.email;
+                state.user = {
+                    name: action.payload.user.name,
+                    email: action.payload.user.email,
+                };
             })
             .addCase(fetchLogout.fulfilled, (state) => {
                 state.isLogout = true;
                 state.isAuth = false;
-                state.name = '';
-                state.email = '';
+                state.name = "";
+                state.email = "";
+                deleteCookie('accessToken');
+                deleteCookie('refreshToken');
             })
             .addCase(fetchRefreshToken.fulfilled, (state, action) => {
                 state.isAuth = true;
-                setCookie('accessToken', action.payload);
-                setCookie('refreshToken', action.payload);
+                deleteCookie('accessToken');
+                deleteCookie('refreshToken');
+                setCookie("accessToken", action.payload.accessToken);
+                setCookie("refreshToken", action.payload.refreshToken);
             })
             .addMatcher(
                 (action) => action.type.endsWith("/pending"),
                 (state, action) => {
-                    state.status = 'loading';
+                    state.status = "loading";
                     state.error = action.payload || "Cannot load data";
                 },
             )
             .addMatcher(
                 (action) => action.type.endsWith("/fulfilled"),
                 (state, action) => {
-                    state.status = 'success';
+                    state.status = "success";
                     state.error = action.payload || "Cannot load data";
                 },
             )
             .addMatcher(
                 (action) => action.type.endsWith("/rejected"),
                 (state, action) => {
-                    state.status = 'rejected';
+                    state.status = "rejected";
                     state.error = action.payload || "Cannot load data";
                 },
             );

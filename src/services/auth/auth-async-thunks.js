@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {createOptions, request} from "../../utils/api-utils";
-import {Method, NORMA_API_URL, refreshToken as token} from "../../utils/consts";
+import {Method, BURGER_API_URL, refreshToken as token} from "../../utils/consts";
 import {getCookie} from "../../utils/cookie";
 
 export const fetchRegister = createAsyncThunk(
@@ -8,7 +8,7 @@ export const fetchRegister = createAsyncThunk(
     async (form, {rejectWithValue}) => {
         try {
             return request(
-                `${NORMA_API_URL}/auth/register`,
+                `${BURGER_API_URL}/auth/register`,
                 createOptions(Method.post, form),
             );
         } catch (error) {
@@ -23,7 +23,7 @@ export const fetchLogin = createAsyncThunk(
     async (form, {rejectWithValue}) => {
         try {
             return request(
-                `${NORMA_API_URL}/auth/login`,
+                `${BURGER_API_URL}/auth/login`,
                 createOptions(Method.post, form),
             );
         } catch (error) {
@@ -40,7 +40,7 @@ export const fetchGetUser = createAsyncThunk(
     async (_, {rejectWithValue}) => {
         try {
             return request(
-                `${NORMA_API_URL}/auth/user`,
+                `${BURGER_API_URL}/auth/user`,
                 createOptions(Method.get, undefined, getCookie('accessToken')),
             );
         } catch (error) {
@@ -56,7 +56,7 @@ export const fetchUpdateUser = createAsyncThunk(
     async (form, {rejectWithValue}) => {
         try {
             return request(
-                `${NORMA_API_URL}/auth/user`,
+                `${BURGER_API_URL}/auth/user`,
                 createOptions(Method.path, form, getCookie('accessToken')),
             );
         } catch (error) {
@@ -72,7 +72,7 @@ export const fetchRefreshToken = createAsyncThunk(
     async (_, {rejectWithValue}) => {
         try {
             return request(
-                `${NORMA_API_URL}/auth/token`,
+                `${BURGER_API_URL}/auth/token`,
                 createOptions(Method.post, {token}),
             );
         } catch (error) {
@@ -87,7 +87,7 @@ export const fetchForgotPassword = createAsyncThunk(
     async (email, {rejectWithValue}) => {
         try {
             return request(
-                `${NORMA_API_URL}/password-reset`,
+                `${BURGER_API_URL}/password-reset`,
                 createOptions(Method.post, email),
             );
         } catch (error) {
@@ -102,7 +102,7 @@ export const fetchResetPassword = createAsyncThunk
     async (form, {rejectWithValue}) => {
         try {
             return request(
-                `${NORMA_API_URL}/password-reset/reset`,
+                `${BURGER_API_URL}/password-reset/reset`,
                 createOptions(Method.post, form),
             );
         } catch (error) {
@@ -117,7 +117,7 @@ export const fetchLogout = createAsyncThunk(
     async (_, {rejectWithValue}) => {
         try {
             return request(
-                `${NORMA_API_URL}/auth/logout`,
+                `${BURGER_API_URL}/auth/logout`,
                 createOptions(Method.post, {token}),
             );
         } catch (error) {
