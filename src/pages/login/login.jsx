@@ -38,7 +38,11 @@ const Login = () => {
                         name={'password'}
                         extraClass="mb-6"
                     />
-                    <Button extraClass="mb-20" htmlType="submit" type="primary" size="medium">
+                    <Button
+                        extraClass="mb-20"
+                        htmlType="submit"
+                        type="primary"
+                        size="medium">
                         Войти
                     </Button>
                     <div className={`${style["user-container"]} `}>

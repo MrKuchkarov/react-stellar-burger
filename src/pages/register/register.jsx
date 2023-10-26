@@ -9,11 +9,11 @@ import {fetchRegister} from "../../services/auth/auth-async-thunks";
 const Register = () => {
 
     const dispatch = useDispatch();
-    const {isAuth} = useSelector(selectAuth);
+    const isAuth = useSelector(selectAuth);
     const [form, setForm] = useState({
-        email: '',
-        password: '',
-        name: '',
+        email: "",
+        password: "",
+        name: "",
     });
 
     const onChange = (e) => {
@@ -22,10 +22,10 @@ const Register = () => {
 
     const handleRegister = (e) => {
         e.preventDefault();
-        dispatch(fetchRegister(form)).catch(error => console.log(error));
+        dispatch(fetchRegister(form))
     };
-    if (isAuth) {
-        return <Navigate to={'/'}/>;
+    if (!isAuth) {
+        return <Navigate to={"/"}/>;
     }
     return (
         <div className={`${style["container"]}`}>

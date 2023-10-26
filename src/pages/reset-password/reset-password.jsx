@@ -1,17 +1,32 @@
-import React from 'react';
+import React, {useState} from 'react';
 import style from "../login/login.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {fetchResetPassword} from "../../services/auth/auth-async-thunks";
 
 const ResetPassword = () => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
 
-    const [value, setValue] = React.useState('')
-    const onChange = e => {
-        setValue(e.target.value)
-    }
+    const [form, setForm] = useState({
+        password: "",
+        token: "",
+    });
+
+    const onChange = (e) => {
+        setForm({...form, [e.target.name]: e.target.value});
+    };
+
+    const handleSubmit = () => {
+        dispatch(fetchResetPassword(form))
+        navigate("/")
+    };
+
+
     return (
         <div className={`${style["container"]}`}>
-            <form action="" className={`${style["form"]}`}>
+            <form onSubmit={handleSubmit} className={`${style["form"]}`}>
                 <fieldset className={`${style["fieldset"]}`}>
                     <h1 className={`${style["title"]} text text_type_main-medium pb-6`}>
                         Восстановление пароля
@@ -19,15 +34,16 @@ const ResetPassword = () => {
                     <PasswordInput
                         onChange={onChange}
                         placeholder={"Введите новый пароль"}
-                        value={value}
+                        value={form.password}
                         name={'password'}
                         extraClass="mb-6"
 
                     />
                     <Input
-                        type={'text'}
+                        value={form.token}
+                        onChange={onChange}
                         placeholder={'Введите код из письма'}
-                        name={'name'}
+                        name={'token'}
                         size={'default'}
                         extraClass="mb-6"
                     />

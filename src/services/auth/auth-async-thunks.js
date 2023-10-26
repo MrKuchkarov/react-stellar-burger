@@ -42,7 +42,7 @@ export const fetchGetUser = createAsyncThunk(
             const token = getCookie("accessToken");
             return request(
                 `${BURGER_API_URL}/auth/user`,
-                createOptions(Method.get, undefined, token),
+                createOptions(Method.get, token),
             );
         } catch (error) {
             if (error instanceof Error) {
@@ -73,10 +73,10 @@ export const fetchRefreshToken = createAsyncThunk(
     "$$auth/fetchRefreshToken",
     async (_, {rejectWithValue}) => {
         try {
-            const token = getCookie("accessToken");
+            // const token = getCookie("refreshToken");
             return request(
                 `${BURGER_API_URL}/auth/token`,
-                createOptions(Method.post, undefined, token),
+                createOptions(Method.post, {token}),
             );
         } catch (error) {
             if (error instanceof Error) {
