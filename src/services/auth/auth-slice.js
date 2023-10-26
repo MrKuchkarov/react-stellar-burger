@@ -20,25 +20,24 @@ const initialState = {
 };
 
 const authSlice = createSlice({
-    name: "@@auth",
+    name: "$$auth",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(fetchRegister.fulfilled, (state, action) => {
-                console.log('fetchRegister.fulfilled payload:', action.payload);
-                state.user = {
-                    name: action.payload.user.name,
-                    email: action.payload.user.email,
-                };
-                setCookie("accessToken", action.payload.accessToken);
-                setCookie("refreshToken", action.payload.refreshToken);
+                const {name, email, accessToken, refreshToken} = action.payload.user;
+                state.user = {name, email};
+                state.isAuth = true;
+                setCookie("accessToken", accessToken);
+                setCookie("refreshToken", refreshToken);
             })
             .addCase(fetchLogin.fulfilled, (state, action) => {
-                console.log('fetchLogin.fulfilled payload:', action.payload);
+                // console.log('fetchLogin.fulfilled payload:', action.payload);
+                const {accessToken, refreshToken} = action.payload.user;
                 state.isAuth = true;
-                setCookie("accessToken", action.payload.accessToken);
-                setCookie("refreshToken", action.payload.refreshToken);
+                setCookie("accessToken", accessToken);
+                setCookie("refreshToken", refreshToken);
             })
             .addCase(fetchGetUser.fulfilled, (state, action) => {
                 state.isAuth = true;
@@ -50,17 +49,18 @@ const authSlice = createSlice({
             .addCase(fetchLogout.fulfilled, (state) => {
                 state.isLogout = true;
                 state.isAuth = false;
-                state.name = "";
-                state.email = "";
-                deleteCookie('accessToken');
-                deleteCookie('refreshToken');
+                state.user.name = "";
+                state.user.email = "";
+                deleteCookie("accessToken");
+                deleteCookie("refreshToken");
             })
             .addCase(fetchRefreshToken.fulfilled, (state, action) => {
+                const {accessToken, refreshToken} = action.payload.user;
                 state.isAuth = true;
-                deleteCookie('accessToken');
-                deleteCookie('refreshToken');
-                setCookie("accessToken", action.payload.accessToken);
-                setCookie("refreshToken", action.payload.refreshToken);
+                deleteCookie("accessToken");
+                deleteCookie("refreshToken");
+                setCookie("accessToken", accessToken);
+                setCookie("refreshToken", refreshToken);
             })
             .addMatcher(
                 (action) => action.type.endsWith("/pending"),

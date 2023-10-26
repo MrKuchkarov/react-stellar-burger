@@ -25,6 +25,7 @@ function IngredientDataLoader() {
         }
     }, []);
 
+    
     if (isLoading) {
         return <p>Загрузка...</p>;
     }

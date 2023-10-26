@@ -1,4 +1,4 @@
-import React from "react";
+import React, {} from "react";
 import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 import {HomePages} from "../../pages/home-pages/home-pages";
@@ -9,15 +9,17 @@ import {IngredietnsPage} from "../../pages/ingredients/ingredietns-page";
 import {ForgotPassword} from "../../pages/forgot-password/forgot-password";
 import {ResetPassword} from "../../pages/reset-password/reset-password";
 import {Route, Routes} from "react-router-dom";
-import {OnlyAuth, OnlyForAuth} from "../protected-route/protected-route";
+import {OnlyAuth, OnlyUnAuth} from "../protected-route/protected-route";
+
 
 function App() {
+
     return (
         <div className={styles["app"]}>
             <AppHeader/>
             <Routes>
                 <Route path={"/"} element={<HomePages/>}/>
-                <Route path="/login" element={<OnlyForAuth component={<Login/>}/>}/>
+                <Route path="/login" element={<OnlyUnAuth component={<Login/>}/>}/>
                 <Route path="/profile" element={<OnlyAuth component={<Profile/>}/>}/>
                 <Route path={"/register"} element={<Register/>}/>
                 <Route path={"/ingredients"} element={<IngredietnsPage/>}/>
