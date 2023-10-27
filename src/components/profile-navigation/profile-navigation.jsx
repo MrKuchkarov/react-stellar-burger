@@ -1,11 +1,24 @@
 import React from 'react';
 import style from "./profile-navigation.module.css";
 import CustomNavLinkButton from "../app-header/components/header-button";
-import {useMatch} from "react-router-dom";
+import {useMatch, useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {selectAuth} from "../../services/auth/auth-selector";
+import {fetchLogout} from "../../services/auth/auth-async-thunks";
 
 const ProfileNavigation = () => {
+    const isAuth = useSelector(selectAuth);
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
     const isProfileActive = useMatch("/profile");
     const isProfileOrderActive = useMatch("/profile/orders");
+
+    const logout = () => {
+        if (!isAuth) {
+            navigate("/login");
+        }
+        dispatch(fetchLogout());
+    };
     return (
         <nav className={`${style["links-navigation"]}`}>
             <CustomNavLinkButton
@@ -20,6 +33,7 @@ const ProfileNavigation = () => {
             />
             <button
                 className={`${style["exit-button"]} text text_type_main-medium text_color_inactive`}
+                onClick={logout}
             >
                 Выход
             </button>

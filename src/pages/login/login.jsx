@@ -1,13 +1,14 @@
 import React from 'react';
 import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import style from "./login.module.css";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {fetchLogin} from "../../services/auth/auth-async-thunks";
 import {useForm} from "../../hooks/useForm";
+import {selectAuth} from "../../services/auth/auth-selector";
 
 const Login = () => {
-
+    const isAuth = useSelector(selectAuth)
     const dispatch = useDispatch();
     const {values, handleChange} = useForm({
         email: "",
@@ -18,6 +19,7 @@ const Login = () => {
         e.preventDefault();
         dispatch(fetchLogin(values));
     };
+
     return (
         <div className={`${style["container"]}`}>
             <form onSubmit={handleSubmit} className={`${style["form"]}`}>
