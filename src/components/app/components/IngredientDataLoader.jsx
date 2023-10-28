@@ -8,7 +8,7 @@ import {selectAuth} from "../../../services/auth/auth-selector";
 
 function IngredientDataLoader() {
     const accessToken = getCookie('accessToken');
-    const {isAuth} = useSelector(selectAuth);
+    const isAuth = useSelector(selectAuth);
     const dispatch = useDispatch();
     const {error, isLoading} = useSelector((state) => state.ingredients);
 
@@ -20,12 +20,12 @@ function IngredientDataLoader() {
         }
     }, []);
     useEffect(() => {
-        if (!isAuth && refreshToken) {
+        if (isAuth && refreshToken) {
             dispatch(fetchRefreshToken());
         }
     }, []);
 
-    
+
     if (isLoading) {
         return <p>Загрузка...</p>;
     }

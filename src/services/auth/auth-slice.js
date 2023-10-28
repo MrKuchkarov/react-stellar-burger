@@ -35,7 +35,7 @@ const authSlice = createSlice({
             .addCase(fetchLogin.fulfilled, (state, action) => {
                 // console.log('fetchLogin.fulfilled payload:', action.payload);
                 const {accessToken, refreshToken} = action.payload.user;
-                state.isAuth = true;
+                state.isAuth = false;
                 setCookie("accessToken", accessToken);
                 setCookie("refreshToken", refreshToken);
             })
@@ -49,8 +49,8 @@ const authSlice = createSlice({
             .addCase(fetchLogout.fulfilled, (state) => {
                 state.isLogout = true;
                 state.isAuth = false;
-                state.user.name = "";
-                state.user.email = "";
+                state.name = "";
+                state.email = "";
                 deleteCookie("accessToken");
                 deleteCookie("refreshToken");
             })

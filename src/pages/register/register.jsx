@@ -7,7 +7,6 @@ import {selectAuth} from "../../services/auth/auth-selector";
 import {fetchRegister} from "../../services/auth/auth-async-thunks";
 
 const Register = () => {
-
     const dispatch = useDispatch();
     const isAuth = useSelector(selectAuth);
     const [form, setForm] = useState({
