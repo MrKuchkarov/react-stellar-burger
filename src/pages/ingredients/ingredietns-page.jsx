@@ -1,14 +1,15 @@
 import React from 'react';
 import IngredientDetails from "../../components/ingredient-details/ingredient-details";
+import style from "./ingredients-page.module.css"
 
 const IngredietnsPage = () => {
     return (
-        <div>
-            <h1 className={`text text_type_main-large mt-25`}>
+        <section>
+            <h1 className={`${style["title"]} text text_type_main-large mt-25`}>
                 Детали ингредиента
             </h1>
             <IngredientDetails/>
-        </div>
+        </section>
     );
 };
 

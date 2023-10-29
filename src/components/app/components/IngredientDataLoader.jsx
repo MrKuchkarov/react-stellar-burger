@@ -5,12 +5,14 @@ import {fetchGetUser, fetchRefreshToken} from "../../../services/auth/auth-async
 import {getCookie} from "../../../utils/cookie";
 import {refreshToken} from "../../../utils/consts";
 import {selectAuth} from "../../../services/auth/auth-selector";
+import {setIngredients} from "../../../services/ingredientsSlice/ingredientsSlice";
+import {selectIngredientsState} from "../../../services/ingredientsSlice/ingredients-selector";
 
 function IngredientDataLoader() {
     const accessToken = getCookie('accessToken');
     const isAuth = useSelector(selectAuth);
     const dispatch = useDispatch();
-    const {error, isLoading} = useSelector((state) => state.ingredients);
+    const {error, status} = useSelector(selectIngredientsState);
 
     useEffect(() => {
         dispatch(fetchIngredients());
@@ -24,15 +26,6 @@ function IngredientDataLoader() {
             dispatch(fetchRefreshToken());
         }
     }, []);
-
-
-    if (isLoading) {
-        return <p>Загрузка...</p>;
-    }
-
-    if (error) {
-        return <p>{error}</p>;
-    }
 
     return null;
 }

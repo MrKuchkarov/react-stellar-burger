@@ -29,7 +29,7 @@ const Modal = ({title, closeModal, children}) => {
             <div className={style.modal}>
                 <section className={`${style["modal-container"]}`}>
                     <header className={`${style["header"]} pt-10 pr-10 pl-10 `}>
-                        <h3 className={`text text_type_main-large`}>{title}</h3>
+                        <h3 className={`${style["title"]} text text_type_main-large`}>{title}</h3>
                         <CloseButton onClick={handleCloseModal}/>
                     </header>
                     {children}

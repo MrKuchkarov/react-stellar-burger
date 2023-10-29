@@ -3,7 +3,7 @@ import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
     ingredients: [],
-    isLoading: true,
+    status: "idle",
     error: null,
     visible: false,
 };
@@ -25,17 +25,17 @@ const ingredientsSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(fetchIngredients.pending, (state) => {
-                state.isLoading = true;
+                state.status = "Loading";
                 state.error = null;
             })
+            .addCase(fetchIngredients.rejected, (state, action) => {
+                state.status = 'rejected';
+                state.error = action.payload || "Cannot load data";
+            })
             .addCase(fetchIngredients.fulfilled, (state, action) => {
-                state.isLoading = false;
+                state.status = 'success';
                 state.ingredients = action.payload;
             })
-            .addCase(fetchIngredients.rejected, (state, action) => {
-                state.isLoading = false;
-                state.error = action.payload;
-            });
     },
 
 })

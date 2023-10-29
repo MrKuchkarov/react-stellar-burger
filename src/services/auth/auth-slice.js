@@ -55,7 +55,7 @@ const authSlice = createSlice({
                 deleteCookie("refreshToken");
             })
             .addCase(fetchRefreshToken.fulfilled, (state, action) => {
-                const {accessToken, refreshToken} = action.payload.user;
+                const {accessToken, refreshToken} = action.payload;
                 state.isAuth = true;
                 deleteCookie("accessToken");
                 deleteCookie("refreshToken");

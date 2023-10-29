@@ -3,16 +3,19 @@ import style from "./burger-cards.module.css";
 import Modal from "../../modal/modal";
 import IngredientDetails from "../../ingredient-details/ingredient-details";
 import {useDispatch, useSelector} from "react-redux";
-import {hideModal} from "../../../services/ingredientsSlice/ingredientsSlice";
+import {hideModal, showModal} from "../../../services/ingredientsSlice/ingredientsSlice";
 import IngredientCard from "./IngredientCard";
 import PropTypes from "prop-types";
+import {selectIngredients} from "../../../services/ingredientsSlice/ingredients-selector";
+import {Link, useLocation} from "react-router-dom";
+import {ingredientsDetails} from "../../../services/ingredientDetailsSlice/ingredientDetailsSlice";
 
 const BurgerCards = ({bunRef, sauceRef, mainRef}) => {
-    const ingredients = useSelector((state) => state.ingredients.ingredients);
+    const ingredients = useSelector(selectIngredients);
     const visible = useSelector((state) => state.ingredients.visible)
     const ingredientsTypes = [...new Set(ingredients.map((card) => card.type))];
     const dispatch = useDispatch();
-
+    const location = useLocation();
     // Фильтрация игрениентов по катигориям
     const categorizedIngredients = useMemo(() => {
         const result = {
@@ -22,11 +25,11 @@ const BurgerCards = ({bunRef, sauceRef, mainRef}) => {
         };
         return result;
     }, [ingredients]);
-
-    const handleCloseModal = (card) => {
-        dispatch(hideModal());
-    };
-
+    
+    // const handleOpenModal = (ingredients) => {
+    //     dispatch(ingredientsDetails(ingredients));
+    //     dispatch(showModal());
+    // };
 
     return (
         <>
@@ -52,40 +55,61 @@ const BurgerCards = ({bunRef, sauceRef, mainRef}) => {
                         <ul className={`${style["cards-list"]} `}>
                             {type === "bun" &&
                                 categorizedIngredients.buns.map((ingredients) => (
-                                    <li
+                                    <Link
+                                        // onClick={() => handleOpenModal(ingredients)}
                                         key={ingredients._id}
-                                        ref={bunRef}
+                                        to={{
+                                            pathname: `ingredients/${ingredients._id}`,
+                                            state: {background: location},
+                                        }}
+                                        className={style.link}
                                     >
-                                        <IngredientCard ingredients={ingredients}/>
-                                    </li>
+                                        <li
+                                            ref={bunRef}
+                                        >
+                                            <IngredientCard ingredients={ingredients}/>
+                                        </li>
+                                    </Link>
                                 ))}
                             {type === "sauce" &&
                                 categorizedIngredients.sauces.map((ingredients) => (
-                                    <li
+                                    <Link
                                         key={ingredients._id}
-                                        ref={sauceRef}
+                                        to={{
+                                            pathname: `ingredients/${ingredients._id}`,
+                                            state: {background: location},
+                                        }}
+                                        className={style.link}
                                     >
-                                        <IngredientCard ingredients={ingredients}/>
-                                    </li>
+                                        <li
+                                            ref={sauceRef}
+                                        >
+                                            <IngredientCard ingredients={ingredients}/>
+                                        </li>
+                                    </Link>
                                 ))}
                             {type === "main" &&
                                 categorizedIngredients.mains.map((ingredients) => (
-                                    <li
+                                    <Link
                                         key={ingredients._id}
-                                        ref={mainRef}
+                                        to={{
+                                            pathname: `ingredients/${ingredients._id}`,
+                                            state: {background: location},
+                                        }}
+                                        className={style.link}
                                     >
-                                        <IngredientCard ingredients={ingredients}/>
-                                    </li>
+                                        <li
+                                            ref={mainRef}
+                                        >
+                                            <IngredientCard ingredients={ingredients}/>
+                                        </li>
+                                    </Link>
                                 ))}
                         </ul>
                     </div>
                 ))}
             </div>
-            {visible && (
-                <Modal title={"Детали ингредиентов"} closeModal={handleCloseModal}>
-                    <IngredientDetails></IngredientDetails>
-                </Modal>
-            )}
+
         </>
     );
 };

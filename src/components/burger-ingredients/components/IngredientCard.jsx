@@ -5,11 +5,13 @@ import {ingredientsDetails} from "../../../services/ingredientDetailsSlice/ingre
 import {showModal} from "../../../services/ingredientsSlice/ingredientsSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
+import {Link, useLocation} from "react-router-dom";
 
-const IngredientCard = ({ingredients}) => {
+const IngredientCard = ({ingredients, item}) => {
     const dispatch = useDispatch();
     const other = useSelector((state) => state.filling.other)
     const bun = useSelector((state) => state.filling.bun)
+    // const location = useLocation();
 
     const handleOpenModal = (ingredients) => {
         dispatch(ingredientsDetails(ingredients));
@@ -48,6 +50,7 @@ const IngredientCard = ({ingredients}) => {
             {!isDrag && (<div className={`${style["cards"]}`}
                               onClick={() => handleOpenModal(ingredients)}
                               ref={ingredientDragRef}>
+
                     {count > 0 && <Counter count={count}/>}
                     <img
                         className={`${style["cards-photo"]} pl-4 pr-4`}
@@ -67,6 +70,7 @@ const IngredientCard = ({ingredients}) => {
                     >
                         {ingredients.name}
                     </p>
+
                 </div>
             )}
         </>
