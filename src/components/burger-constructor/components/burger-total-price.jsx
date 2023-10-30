@@ -8,26 +8,43 @@ import PropTypes from "prop-types";
 import {makeOrder} from "../../../utils/ApiService";
 import {useSelector, useDispatch} from "react-redux";
 import {clearIngredients} from "../../../services/constructorSlice/constructorSlice";
+import {selectIsAuth} from "../../../services/auth/auth-selector";
+import {useLocation, useNavigate} from "react-router-dom";
 
 const BurgerTotalPrice = ({totalPrice, isOrderButtonEnabled}) => {
     const otherIngredients = useSelector((state) => state.filling.other);
     const bunIngredients = useSelector((state) => state.filling.bun);
     const orderNumber = useSelector((state) => state.order.orderNumber);
     const dispatch = useDispatch();
+    const isAuth = useSelector(selectIsAuth);
+    const navigate = useNavigate();
+    const location = useLocation();
     const [totalModal, setTotalModal] = useState(false);
 
     const handleOpenModal = () => {
         const ingredientIds = otherIngredients.map((ingredient) => ingredient._id);
 
-        // Проверяем, есть ли bun (bunIngredients), и добавляем его _id в начало и конец массива с помощью spread оператора
         if (bunIngredients) {
-            ingredientIds.unshift(bunIngredients._id); // Добавляем bun в начало массива
-            ingredientIds.push(bunIngredients._id); // Добавляем bun в конец массива
+            ingredientIds.unshift(bunIngredients._id);
+            ingredientIds.push(bunIngredients._id);
         }
 
-        dispatch(makeOrder(ingredientIds));
-        setTotalModal(true); // Открываем модальное окно
-        dispatch(clearIngredients())
+        if (!isOrderButtonEnabled) {
+            // Если кнопка "Оформить заказ" отключена, не выполняем действий
+            return;
+        }
+
+        // Проверяем, авторизован ли пользователь
+        if (!isAuth) {
+            // Если не авторизован, перенаправляем на маршрут /login
+            navigate("/login");
+            return;
+        }
+
+        // Если пользователь авторизован
+        dispatch(makeOrder(ingredientIds)); // Здесь передайте токен
+        setTotalModal(true);
+        // Не сбрасываем состояние ингредиентов
     };
 
     const handleCloseModal = () => {

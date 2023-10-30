@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 
 const Protected = ({onlyUnAuth = false, component}) => {
     const isAuth = useSelector(selectAuth);
-    // const user = useSelector(selectAuthUser);
+    const user = useSelector(selectAuthUser);
     const location = useLocation();
     // const navigate = useNavigate();
     console.log(isAuth)

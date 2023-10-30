@@ -21,6 +21,7 @@ function App() {
     const location = useLocation();
     const navigate = useNavigate();
     const background = location.state && location.state.background;
+
     const handleCloseModal = (card) => {
         dispatch(hideModal());
         navigate(-1);
@@ -49,8 +50,8 @@ function App() {
                                <IngredientDetails/>
                            </Modal>}
                     />
-
                 </Routes>
+
             )}
         </div>
     );

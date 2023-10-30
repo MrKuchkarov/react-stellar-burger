@@ -28,29 +28,27 @@ const authSlice = createSlice({
             .addCase(fetchRegister.fulfilled, (state, action) => {
                 const {name, email, accessToken, refreshToken} = action.payload.user;
                 state.user = {name, email};
-                state.isAuth = true;
+                // state.isAuth = true;
                 setCookie("accessToken", accessToken);
                 setCookie("refreshToken", refreshToken);
             })
             .addCase(fetchLogin.fulfilled, (state, action) => {
                 // console.log('fetchLogin.fulfilled payload:', action.payload);
                 const {accessToken, refreshToken} = action.payload.user;
-                state.isAuth = false;
+                state.isAuth = true;
                 setCookie("accessToken", accessToken);
                 setCookie("refreshToken", refreshToken);
             })
             .addCase(fetchGetUser.fulfilled, (state, action) => {
                 state.isAuth = true;
-                state.user = {
-                    name: action.payload.user.name,
-                    email: action.payload.user.email,
-                };
+                state.user.name = action.payload.user.name;
+                state.user.email = action.payload.user.email;
             })
             .addCase(fetchLogout.fulfilled, (state) => {
                 state.isLogout = true;
                 state.isAuth = false;
-                state.name = "";
-                state.email = "";
+                state.user.name = "";
+                state.user.email = "";
                 deleteCookie("accessToken");
                 deleteCookie("refreshToken");
             })

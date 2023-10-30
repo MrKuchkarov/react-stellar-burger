@@ -22,7 +22,7 @@ function IngredientDataLoader() {
         }
     }, []);
     useEffect(() => {
-        if (isAuth && refreshToken) {
+        if (!isAuth && refreshToken) {
             dispatch(fetchRefreshToken());
         }
     }, []);
