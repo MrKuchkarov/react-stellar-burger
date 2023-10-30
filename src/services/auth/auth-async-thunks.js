@@ -1,90 +1,94 @@
-import {createAsyncThunk} from '@reduxjs/toolkit';
-import {createOptions, request} from "../../utils/api-utils";
-import {Method, BURGER_API_URL, refreshToken as token} from "../../utils/consts";
-import {getCookie} from "../../utils/cookie";
+import {createAsyncThunk} from "@reduxjs/toolkit";
+import {
+    createOptions,
+    fetchWithRefresh,
+    request,
+} from "../../utils/api-utils";
+import {
+    Method,
+    BURGER_API_URL,
+    refreshToken as token,
+} from "../../utils/consts";
+import {deleteCookie, getCookie, setCookie} from "../../utils/cookie";
+import {setAuthChecked, setUser} from "./auth-slice";
 
 export const fetchRegister = createAsyncThunk(
     "$$auth/fetchRegister",
-    async (form, {rejectWithValue}) => {
-        try {
-            return request(
-                `${BURGER_API_URL}/auth/register`,
-                createOptions(Method.post, form),
-            );
-        } catch (error) {
-            if (error instanceof Error) {
-                return rejectWithValue({message: error.message, code: error.code});
-            }
-            return rejectWithValue("Unknown error");
-        }
-    });
+    async (form) => {
+        const res = await request(
+            `${BURGER_API_URL}/auth/register`,
+            createOptions(Method.post, form)
+        );
+        setCookie("accessToken", res.accessToken);
+        setCookie("refreshToken", res.refreshToken);
+        return res.user;
+    }
+);
 export const fetchLogin = createAsyncThunk(
     "$$auth/fetchLogin",
-    async (form, {rejectWithValue}) => {
-        try {
-            return request(
-                `${BURGER_API_URL}/auth/login`,
-                createOptions(Method.post, form),
-            );
-        } catch (error) {
-            if (error instanceof Error) {
-                return rejectWithValue({message: error.message, code: error.code});
-            }
-            return rejectWithValue("Unknown error");
-        }
-    },
+    async (form) => {
+        const res = await request(
+            `${BURGER_API_URL}/auth/login`,
+            createOptions(Method.post, form)
+        );
+        setCookie("accessToken", res.accessToken);
+        setCookie("refreshToken", res.refreshToken);
+        return res.user;
+    }
 );
 
-export const fetchGetUser = createAsyncThunk(
-    "$$auth/fetchGetUser",
-    async (_, {rejectWithValue}) => {
-        try {
-            const token = getCookie("accessToken");
-            return request(
-                `${BURGER_API_URL}/auth/user`,
-                createOptions(Method.get, token),
-            );
-        } catch (error) {
-            if (error instanceof Error) {
-                return rejectWithValue({message: error.message, code: error.code});
-            }
-            return rejectWithValue("Unknown error");
+export const fetchGetUser = () => {
+    return (dispatch) => {
+        const token = getCookie("accessToken");
+        return fetchWithRefresh(
+            `${BURGER_API_URL}/auth/user`,
+            createOptions(Method.get, undefined, token)
+        ).then((res) => {
+            dispatch(setUser(res));
+        });
+    };
+};
+
+export const checkUserAuth = () => {
+    return (dispatch) => {
+        if (getCookie("accessToken")) {
+            dispatch(fetchGetUser())
+                .catch(() => {
+                    console.log("fail get user");
+                    deleteCookie("accessToken");
+                    deleteCookie("refreshToken");
+                    dispatch(setUser(null));
+                })
+                .finally(() => dispatch(setAuthChecked(true)));
+        } else {
+            dispatch(setAuthChecked(true));
         }
-    });
+    };
+};
 
 export const fetchUpdateUser = createAsyncThunk(
     "$$auth/fetchUpdateUser",
-    async (form, {rejectWithValue}) => {
-        try {
-            const token = getCookie("accessToken");
-            return request(
-                `${BURGER_API_URL}/auth/user`,
-                createOptions(Method.path, form, token),
-            );
-        } catch (error) {
-            if (error instanceof Error) {
-                return rejectWithValue({message: error.message, code: error.code});
-            }
-            return rejectWithValue("Unknown error");
-        }
+    async (form) => {
+        const token = getCookie("accessToken");
+        const res = await fetchWithRefresh(
+            `${BURGER_API_URL}/auth/user`,
+            createOptions(Method.path, form, token)
+        );
+        return res.user;
+    }
+);
+
+export const fetchLogout = createAsyncThunk(
+    "$$auth/fetchLogout", async () => {
+        await request(
+            `${BURGER_API_URL}/auth/logout`,
+            createOptions(Method.post, {token})
+        );
+        deleteCookie("accessToken");
+        deleteCookie("refreshToken");
     });
 
-export const fetchRefreshToken = createAsyncThunk(
-    "$$auth/fetchRefreshToken",
-    async (_, {rejectWithValue}) => {
-        try {
-            // const token = getCookie("refreshToken");
-            return request(
-                `${BURGER_API_URL}/auth/token`,
-                createOptions(Method.post, {token}),
-            );
-        } catch (error) {
-            if (error instanceof Error) {
-                return rejectWithValue({message: error.message, code: error.code});
-            }
-            return rejectWithValue("Unknown error");
-        }
-    });
+
 export const fetchForgotPassword = createAsyncThunk(
     "$$auth/fetchForgotPassword",
     async (email, {rejectWithValue}) => {
@@ -115,19 +119,34 @@ export const fetchResetPassword = createAsyncThunk
             return rejectWithValue("Unknown error");
         }
     });
-export const fetchLogout = createAsyncThunk(
-    "$$auth/fetchLogout",
-    async (_, {rejectWithValue}) => {
-        try {
-            return request(
-                `${BURGER_API_URL}/auth/logout`,
-                createOptions(Method.post, {token}),
-            );
-        } catch (error) {
-            if (error instanceof Error) {
-                return rejectWithValue({message: error.message, code: error.code});
-            }
-            return rejectWithValue("Unknown error");
-        }
-    },
-);
+
+//   export const fetchLogout = createAsyncThunk(
+//     "$$auth/fetchLogout",
+//     async (_, {rejectWithValue}) => {
+//         try {
+//             return request(
+//                 `${BURGER_API_URL}/auth/logout`,
+//                 createOptions(Method.post, {token}),
+//             );
+//         } catch (error) {
+//             if (error instanceof Error) {
+//                 return rejectWithValue({message: error.message, code: error.code});
+//             }
+//             return rejectWithValue("Unknown error");
+//         }
+//     },
+// );
+
+// export const forgotPassword = (email) => {
+//   return request(
+//     `${BURGER_API_URL}/password-reset`,
+//     createOptions(Method.post, email)
+//   );
+// };
+
+// export const resetPassword = (form) => {
+//   return request(
+//     `${BURGER_API_URL}/password-reset/reset`,
+//     createOptions(Method.post, form)
+//   );
+// };

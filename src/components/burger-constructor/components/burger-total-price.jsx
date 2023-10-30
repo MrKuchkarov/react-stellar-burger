@@ -7,15 +7,15 @@ import OrderDetails from "../../oreder-details/order-details";
 import PropTypes from "prop-types";
 import {makeOrder} from "../../../utils/ApiService";
 import {useSelector, useDispatch} from "react-redux";
-import {selectIsAuth} from "../../../services/auth/auth-selector";
+import {selectAuthUser} from "../../../services/auth/auth-selector";
 import {useNavigate} from "react-router-dom";
+import {clearIngredients} from "../../../services/constructorSlice/constructorSlice";
 
 const BurgerTotalPrice = ({totalPrice, isOrderButtonEnabled}) => {
     const otherIngredients = useSelector((state) => state.filling.other);
     const bunIngredients = useSelector((state) => state.filling.bun);
-    const orderNumber = useSelector((state) => state.order.orderNumber);
     const dispatch = useDispatch();
-    const isAuth = useSelector(selectIsAuth);
+    const user = useSelector(selectAuthUser);
     const navigate = useNavigate();
     const [totalModal, setTotalModal] = useState(false);
 
@@ -33,7 +33,7 @@ const BurgerTotalPrice = ({totalPrice, isOrderButtonEnabled}) => {
         }
 
         // Проверю, авторизован ли пользователь
-        if (!isAuth) {
+        if (!user) {
             // Если не авторизован, перенаправляю на маршрут /login
             navigate("/login");
             return;
@@ -42,7 +42,8 @@ const BurgerTotalPrice = ({totalPrice, isOrderButtonEnabled}) => {
         // Если пользователь авторизован
         dispatch(makeOrder(ingredientIds));
         setTotalModal(true);
-        // Не сбрасываем состояние ингредиентов
+        // Не сбрасываем состояние ингредиентов, а сбрасиваем после заказа
+        dispatch(clearIngredients())
     };
 
     const handleCloseModal = () => {
@@ -64,12 +65,12 @@ const BurgerTotalPrice = ({totalPrice, isOrderButtonEnabled}) => {
                     onClick={handleOpenModal}
                     disabled={!isOrderButtonEnabled}
                 >
-                    {isAuth ? "Оформить заказ" : "Войти(чтобы сделать заказ)"}
+                    {user ? "Оформить заказ" : "Войти(чтобы сделать заказ)"}
                 </Button>
             </div>
             {totalModal && (
                 <Modal closeModal={handleCloseModal} title={""}>
-                    <OrderDetails orderNumber={orderNumber}/>
+                    <OrderDetails/>
                 </Modal>
             )}
         </div>

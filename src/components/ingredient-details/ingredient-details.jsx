@@ -6,10 +6,10 @@ import {selectIngredientById} from "../../services/ingredientsSlice/ingredients-
 
 const IngredientDetails = () => {
     const data = useSelector((state) => state.details.ingredientsDetails);
-
-    if (!data) return null;
     // const {id} = useParams()
     // const data = useSelector(selectIngredientById(id));
+    if (!data) return null;
+
     return (
         <>
             <section className={`${style["container-details"]} `}>

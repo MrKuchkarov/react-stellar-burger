@@ -1,29 +1,28 @@
 import {Navigate, useLocation} from "react-router-dom";
-import {selectAuth, selectAuthUser} from "../../services/auth/auth-selector"
+import {
+    selectAuth,
+    selectAuthUser,
+    selectIsAuthChecked,
+} from "../../services/auth/auth-selector";
 import {useSelector} from "react-redux";
 
-
 const Protected = ({onlyUnAuth = false, component}) => {
-    const isAuth = useSelector(selectAuth);
+    const isAuth = useSelector(selectIsAuthChecked);
     const user = useSelector(selectAuthUser);
     const location = useLocation();
-    // const navigate = useNavigate();
-    console.log(isAuth)
+
     if (!isAuth) {
         return null;
     }
-    console.log(location.state)
-    if (onlyUnAuth && !isAuth) {
 
+    if (onlyUnAuth && user) {
         const {from} = location.state || {from: {pathname: "/"}};
-        console.log(from)
         return <Navigate to={from}/>;
     }
 
-    if (!onlyUnAuth && isAuth) {
-        return <Navigate to="/login" state={{from: location.pathname}}/>;
+    if (!onlyUnAuth && !user) {
+        return <Navigate to="/login" state={{from: location}}/>;
     }
-
 
     return component;
 };

@@ -1,6 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState} from "react";
 import style from "../login/login.module.css";
-import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+    Button,
+    EmailInput,
+    Input,
+    PasswordInput,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, Navigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {selectAuth} from "../../services/auth/auth-selector";
@@ -8,7 +13,6 @@ import {fetchRegister} from "../../services/auth/auth-async-thunks";
 
 const Register = () => {
     const dispatch = useDispatch();
-    const isAuth = useSelector(selectAuth);
     const [form, setForm] = useState({
         email: "",
         password: "",
@@ -21,11 +25,9 @@ const Register = () => {
 
     const handleRegister = (e) => {
         e.preventDefault();
-        dispatch(fetchRegister(form))
+        dispatch(fetchRegister(form));
     };
-    if (!isAuth) {
-        return <Navigate to={"/"}/>;
-    }
+
     return (
         <div className={`${style["container"]}`}>
             <form onSubmit={handleRegister} className={`${style["form"]}`}>
@@ -35,35 +37,45 @@ const Register = () => {
                     </h1>
                     <Input
                         onChange={onChange}
-                        type={'text'}
-                        placeholder={'Имя'}
-                        name={'name'}
-                        size={'default'}
+                        type={"text"}
+                        placeholder={"Имя"}
+                        name={"name"}
+                        size={"default"}
                         extraClass="mb-6"
                         value={form.name}
                     />
                     <EmailInput
                         onChange={onChange}
                         value={form.email}
-                        name={'email'}
+                        name={"email"}
                         isIcon={false}
                         extraClass="mb-6"
                     />
                     <PasswordInput
                         onChange={onChange}
                         value={form.password}
-                        name={'password'}
+                        name={"password"}
                         extraClass="mb-6"
                     />
-                    <Button extraClass="mb-20" htmlType="submit" type="primary" size="medium">
+                    <Button
+                        extraClass="mb-20"
+                        htmlType="submit"
+                        type="primary"
+                        size="medium"
+                    >
                         Зарегистрироваться
                     </Button>
                     <div className={`${style["user-container"]} `}>
                         <div className={`${style["links"]} `}>
-                            <p className={`${style["to-suggest-paragraph"]} text text_type_main-default text_color_inactive`}>
+                            <p
+                                className={`${style["to-suggest-paragraph"]} text text_type_main-default text_color_inactive`}
+                            >
                                 Уже зарегистрированы?
                             </p>
-                            <Link to="/login" className={`${style["link"]} text text_type_main-small`}>
+                            <Link
+                                to="/login"
+                                className={`${style["link"]} text text_type_main-small`}
+                            >
                                 Войти
                             </Link>
                         </div>
@@ -73,6 +85,5 @@ const Register = () => {
         </div>
     );
 };
-
 
 export {Register};

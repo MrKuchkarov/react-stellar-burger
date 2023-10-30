@@ -14,9 +14,6 @@ const ProfileNavigation = () => {
     const isProfileOrderActive = useMatch("/profile/orders");
 
     const logout = () => {
-        if (!isAuth) {
-            navigate("/login");
-        }
         dispatch(fetchLogout());
     };
     return (
