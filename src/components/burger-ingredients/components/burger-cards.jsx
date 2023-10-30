@@ -13,9 +13,10 @@ import {ingredientsDetails} from "../../../services/ingredientDetailsSlice/ingre
 const BurgerCards = ({bunRef, sauceRef, mainRef}) => {
     const ingredients = useSelector(selectIngredients);
     const visible = useSelector((state) => state.ingredients.visible)
-    const ingredientsTypes = [...new Set(ingredients.map((card) => card.type))];
+    const ingredientsTypes = Array.isArray(ingredients) ? [...new Set(ingredients.map((card) => card.type))] : [];
     const dispatch = useDispatch();
     const location = useLocation();
+ 
     // Фильтрация игрениентов по катигориям
     const categorizedIngredients = useMemo(() => {
         const result = {
@@ -25,7 +26,7 @@ const BurgerCards = ({bunRef, sauceRef, mainRef}) => {
         };
         return result;
     }, [ingredients]);
-    
+
     // const handleOpenModal = (ingredients) => {
     //     dispatch(ingredientsDetails(ingredients));
     //     dispatch(showModal());

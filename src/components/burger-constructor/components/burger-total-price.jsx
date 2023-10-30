@@ -7,9 +7,8 @@ import OrderDetails from "../../oreder-details/order-details";
 import PropTypes from "prop-types";
 import {makeOrder} from "../../../utils/ApiService";
 import {useSelector, useDispatch} from "react-redux";
-import {clearIngredients} from "../../../services/constructorSlice/constructorSlice";
 import {selectIsAuth} from "../../../services/auth/auth-selector";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 const BurgerTotalPrice = ({totalPrice, isOrderButtonEnabled}) => {
     const otherIngredients = useSelector((state) => state.filling.other);
@@ -18,7 +17,6 @@ const BurgerTotalPrice = ({totalPrice, isOrderButtonEnabled}) => {
     const dispatch = useDispatch();
     const isAuth = useSelector(selectIsAuth);
     const navigate = useNavigate();
-    const location = useLocation();
     const [totalModal, setTotalModal] = useState(false);
 
     const handleOpenModal = () => {
@@ -30,25 +28,25 @@ const BurgerTotalPrice = ({totalPrice, isOrderButtonEnabled}) => {
         }
 
         if (!isOrderButtonEnabled) {
-            // Если кнопка "Оформить заказ" отключена, не выполняем действий
+            // Если кнопка "Оформить заказ" отключена, выполняется это
             return;
         }
 
-        // Проверяем, авторизован ли пользователь
+        // Проверю, авторизован ли пользователь
         if (!isAuth) {
-            // Если не авторизован, перенаправляем на маршрут /login
+            // Если не авторизован, перенаправляю на маршрут /login
             navigate("/login");
             return;
         }
 
         // Если пользователь авторизован
-        dispatch(makeOrder(ingredientIds)); // Здесь передайте токен
+        dispatch(makeOrder(ingredientIds));
         setTotalModal(true);
         // Не сбрасываем состояние ингредиентов
     };
 
     const handleCloseModal = () => {
-        setTotalModal(false); // Закрываем модальное окно
+        setTotalModal(false);
     };
 
 
@@ -66,7 +64,7 @@ const BurgerTotalPrice = ({totalPrice, isOrderButtonEnabled}) => {
                     onClick={handleOpenModal}
                     disabled={!isOrderButtonEnabled}
                 >
-                    Оформить заказ
+                    {isAuth ? "Оформить заказ" : "Войти(чтобы сделать заказ)"}
                 </Button>
             </div>
             {totalModal && (

@@ -9,6 +9,8 @@ import {getCookie} from "./cookie";
 const ApiGetTheIngredients = "https://norma.nomoreparties.space/api/ingredients";
 const ApiOrderDetails = "https://norma.nomoreparties.space/api/orders";
 // Получение список заказов
+
+
 export const fetchIngredients = createAsyncThunk(
     "ingredients/fetchIngredients",
     async (_, {rejectWithValue}) => {
