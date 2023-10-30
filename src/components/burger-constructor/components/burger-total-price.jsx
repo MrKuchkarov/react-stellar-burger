@@ -15,7 +15,7 @@ const BurgerTotalPrice = ({totalPrice, isOrderButtonEnabled}) => {
     const otherIngredients = useSelector((state) => state.filling.other);
     const bunIngredients = useSelector((state) => state.filling.bun);
     const dispatch = useDispatch();
-    const user = useSelector(selectAuthUser);
+    const isAuthUser = useSelector(selectAuthUser);
     const navigate = useNavigate();
     const [totalModal, setTotalModal] = useState(false);
 
@@ -33,7 +33,7 @@ const BurgerTotalPrice = ({totalPrice, isOrderButtonEnabled}) => {
         }
 
         // Проверю, авторизован ли пользователь
-        if (!user) {
+        if (!isAuthUser) {
             // Если не авторизован, перенаправляю на маршрут /login
             navigate("/login");
             return;
@@ -65,7 +65,7 @@ const BurgerTotalPrice = ({totalPrice, isOrderButtonEnabled}) => {
                     onClick={handleOpenModal}
                     disabled={!isOrderButtonEnabled}
                 >
-                    {user ? "Оформить заказ" : "Войти(чтобы сделать заказ)"}
+                    {isAuthUser ? "Оформить заказ" : "Войдите(чтобы сделать заказ)"}
                 </Button>
             </div>
             {totalModal && (
