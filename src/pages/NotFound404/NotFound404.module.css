@@ -131,10 +131,10 @@ html, body {
 }
 
 .bg-purple {
-    background: url(http://salehriaz.com/404Page/img/bg_purple.png);
-    background-repeat: repeat-x;
+    background-image: url("../../images/NotFound404/Lovepik_com-832298350-Starry blue universe space galaxy simple banner.png");
+    background-repeat: space;
     background-size: cover;
-    background-position: left top;
+    background-position: top right;
     height: 100%;
     overflow: hidden;
 
@@ -163,7 +163,7 @@ html, body {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    /*    overflow: hidden;*/
+    overflow: hidden;
     display: flex;
     align-items: center;
 }
@@ -188,7 +188,7 @@ html, body {
     transition: all 0.3s ease-in;
 }
 
-li a:hover {
+.nav-links a:hover {
     color: #ffcb39;
 }
 
@@ -238,7 +238,7 @@ li a:hover {
 
 .central-body {
     /*    width: 100%;*/
-    padding: 17% 5% 10% 5%;
+    padding: 10% 5% 10% 5%;
     text-align: center;
 }
 
@@ -263,7 +263,7 @@ li a:hover {
     top: 20%;
     left: 15%;
     z-index: 90;
-    /*    animation: spin-earth 100s infinite linear both;*/
+    animation: spin-earth 100s infinite linear both;
 }
 
 .object_moon {
@@ -271,10 +271,10 @@ li a:hover {
     position: absolute;
     top: 12%;
     left: 25%;
-    /*
-        transform: rotate(0deg);
-        transition: transform ease-in 99999999999s;
-    */
+
+    transform: rotate(0deg);
+    transition: transform ease-in 99999999999s;
+
 }
 
 .earth-moon {
@@ -295,11 +295,22 @@ li a:hover {
     animation: move-astronaut 50s infinite linear both alternate;
 }
 
-.image-404 {
-    width: 300px;
+.page-404 {
+    max-width: 400px;
     position: relative;
-    z-index: 100;
+    z-index: 111;
     pointer-events: none;
+    text-align: center;
+    margin: 0 auto;
+    color: lightseagreen;
+}
+
+.page-404-title {
+    width: 100%;
+    color: blueviolet;
+    font-size: 250px;
+    position: relative;
+    z-index: 120;
 }
 
 .stars {
