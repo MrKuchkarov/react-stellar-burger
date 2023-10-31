@@ -17,6 +17,7 @@ import {hideModal} from "../../services/ingredientsSlice/ingredientsSlice";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 import {selectIngredients, selectIngredientsState} from "../../services/ingredientsSlice/ingredients-selector";
+import NotFound404 from "../../pages/NotFound404/NotFound404";
 
 function App() {
     const navigate = useNavigate();
@@ -62,6 +63,7 @@ function App() {
                         path="/reset-password"
                         element={<OnlyUnAuth component={<ResetPassword/>}/>}
                     />
+                    <Route path="*" element={<NotFound404/>}/>
                 </Routes>
             ) : null}
             {background && (

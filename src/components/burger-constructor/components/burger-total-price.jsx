@@ -77,8 +77,4 @@ const BurgerTotalPrice = ({totalPrice, isOrderButtonEnabled}) => {
     );
 };
 
-BurgerTotalPrice.propTypes = {
-    totalPrice: PropTypes.number.isRequired,
-    isOrderButtonEnabled: PropTypes.bool,
-};
 export default BurgerTotalPrice;
