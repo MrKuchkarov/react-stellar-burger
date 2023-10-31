@@ -7,8 +7,6 @@ import {selectAuth} from "../../services/auth/auth-selector";
 import {fetchLogout} from "../../services/auth/auth-async-thunks";
 
 const ProfileNavigation = () => {
-    const isAuth = useSelector(selectAuth);
-    const navigate = useNavigate()
     const dispatch = useDispatch()
     const isProfileActive = useMatch("/profile");
     const isProfileOrderActive = useMatch("/profile/orders");

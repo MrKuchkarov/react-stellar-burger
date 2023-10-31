@@ -1,6 +1,5 @@
 import {Navigate, useLocation} from "react-router-dom";
 import {
-    selectAuth,
     selectAuthUser,
     selectIsAuthChecked,
 } from "../../services/auth/auth-selector";

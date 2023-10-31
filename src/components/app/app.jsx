@@ -16,7 +16,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {hideModal} from "../../services/ingredientsSlice/ingredientsSlice";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
-import {selectIngredients, selectIngredientsState} from "../../services/ingredientsSlice/ingredients-selector";
+import {selectIngredientsState} from "../../services/ingredientsSlice/ingredients-selector";
 import NotFound404 from "../../pages/NotFound404/NotFound404";
 
 function App() {

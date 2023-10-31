@@ -10,7 +10,6 @@ import style from "./NotFound404.module.css";
 const NotFound404 = () => {
     return (
         <section className={`${style["bg-purple"]}`}>
-
             <div className={`${style["stars"]}`}>
                 <div className={`${style["custom-navbar"]}`}>
                     <div className={`${style["navbar-links"]}`}>
