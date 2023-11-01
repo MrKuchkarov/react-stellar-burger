@@ -45,37 +45,42 @@ function App() {
         dispatch(hideModal());
         navigate(-1);
     };
+    if (isLoading) {
+        return <p>Загрузка ингредиентов...</p>;
+    }
+
+    if (error) {
+        return <p>Произошла ошибка: {error}</p>;
+    }
+
+    if (!ingredients || ingredients.length === 0) {
+        return <p>Ингредиенты не найдены.</p>;
+    }
     return (
         <div className={styles["app"]}>
             <AppHeader/>
-            {isLoading ? (
-                <p>Загрузка...</p>
-            ) : error ? (
-                <p>{error}</p>
-            ) : ingredients.length > 0 ? (
-                <Routes location={background || location}>
-                    <Route path={routes.home} element={<HomePages/>}/>
-                    <Route path={routes.login} element={<OnlyUnAuth component={<Login/>}/>}/>
-                    <Route
-                        path={routes.profile}
-                        element={<OnlyAuth component={<Profile/>}/>}
-                    />
-                    <Route
-                        path={routes.register}
-                        element={<OnlyUnAuth component={<Register/>}/>}
-                    />
-                    <Route path={routes.ingredientsId} element={<IngredietnsPage/>}/>
-                    <Route
-                        path={routes.forgotPassword}
-                        element={<OnlyUnAuth component={<ForgotPassword/>}/>}
-                    />
-                    <Route
-                        path={routes.resetPassword}
-                        element={<OnlyUnAuth component={<ResetPassword/>}/>}
-                    />
-                    <Route path="*" element={<NotFound404/>}/>
-                </Routes>
-            ) : null}
+            <Routes location={background || location}>
+                <Route path={routes.home} element={<HomePages/>}/>
+                <Route path={routes.login} element={<OnlyUnAuth component={<Login/>}/>}/>
+                <Route
+                    path={routes.profile}
+                    element={<OnlyAuth component={<Profile/>}/>}
+                />
+                <Route
+                    path={routes.register}
+                    element={<OnlyUnAuth component={<Register/>}/>}
+                />
+                <Route path={routes.ingredientsId} element={<IngredietnsPage/>}/>
+                <Route
+                    path={routes.forgotPassword}
+                    element={<OnlyUnAuth component={<ForgotPassword/>}/>}
+                />
+                <Route
+                    path={routes.resetPassword}
+                    element={<OnlyUnAuth component={<ResetPassword/>}/>}
+                />
+                <Route path="*" element={<NotFound404/>}/>
+            </Routes>
             {background && (
                 <Routes>
                     <Route
