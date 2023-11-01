@@ -1,7 +1,6 @@
 import React from "react";
 import style from "./order-details.module.css";
 import done from "../../images/constructor/ingredient item/done.svg";
-import PropTypes from "prop-types";
 import {useSelector} from "react-redux";
 import {ThreeCircles, ThreeDots} from "react-loader-spinner";
 

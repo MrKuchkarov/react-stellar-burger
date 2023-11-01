@@ -68,14 +68,18 @@ function App() {
             ) : null}
             {background && (
                 <Routes>
-                    <Route path={'/ingredients/:id'}
-                           element={<Modal title={"Детали ингредиентов"} closeModal={handleCloseModal}>
-                               <IngredientDetails/>
-                           </Modal>}
+                    <Route
+                        path="/ingredients/:id"
+                        element={
+                            <Modal title={"Детали ингредиентов"} closeModal={handleCloseModal}>
+                                <IngredientDetails/>
+                            </Modal>
+                        }
                     />
                 </Routes>
 
             )}
+
         </div>
     );
 }

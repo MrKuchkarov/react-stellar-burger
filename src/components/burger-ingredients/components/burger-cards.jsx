@@ -1,22 +1,17 @@
 import React, {useMemo} from "react";
 import style from "./burger-cards.module.css";
-import Modal from "../../modal/modal";
-import IngredientDetails from "../../ingredient-details/ingredient-details";
-import {useDispatch, useSelector} from "react-redux";
-import {hideModal, showModal} from "../../../services/ingredientsSlice/ingredientsSlice";
+import {useSelector} from "react-redux";
 import IngredientCard from "./IngredientCard";
 import PropTypes from "prop-types";
 import {selectIngredients} from "../../../services/ingredientsSlice/ingredients-selector";
 import {Link, useLocation} from "react-router-dom";
-import {ingredientsDetails} from "../../../services/ingredientDetailsSlice/ingredientDetailsSlice";
+
 
 const BurgerCards = ({bunRef, sauceRef, mainRef}) => {
     const ingredients = useSelector(selectIngredients);
-    const visible = useSelector((state) => state.ingredients.visible)
     const ingredientsTypes = Array.isArray(ingredients) ? [...new Set(ingredients.map((card) => card.type))] : [];
-    const dispatch = useDispatch();
     const location = useLocation();
- 
+
     // Фильтрация игрениентов по катигориям
     const categorizedIngredients = useMemo(() => {
         const result = {
@@ -59,10 +54,8 @@ const BurgerCards = ({bunRef, sauceRef, mainRef}) => {
                                     <Link
                                         // onClick={() => handleOpenModal(ingredients)}
                                         key={ingredients._id}
-                                        to={{
-                                            pathname: `ingredients/${ingredients._id}`,
-                                            state: {background: location},
-                                        }}
+                                        to={`ingredients/${ingredients._id}`}
+                                        state={{background: location}}
                                         className={style.link}
                                     >
                                         <li
@@ -76,10 +69,8 @@ const BurgerCards = ({bunRef, sauceRef, mainRef}) => {
                                 categorizedIngredients.sauces.map((ingredients) => (
                                     <Link
                                         key={ingredients._id}
-                                        to={{
-                                            pathname: `ingredients/${ingredients._id}`,
-                                            state: {background: location},
-                                        }}
+                                        to={`ingredients/${ingredients._id}`}
+                                        state={{background: location}}
                                         className={style.link}
                                     >
                                         <li
@@ -93,10 +84,8 @@ const BurgerCards = ({bunRef, sauceRef, mainRef}) => {
                                 categorizedIngredients.mains.map((ingredients) => (
                                     <Link
                                         key={ingredients._id}
-                                        to={{
-                                            pathname: `ingredients/${ingredients._id}`,
-                                            state: {background: location},
-                                        }}
+                                        to={`ingredients/${ingredients._id}`}
+                                        state={{background: location}}
                                         className={style.link}
                                     >
                                         <li
