@@ -19,6 +19,16 @@ import Modal from "../modal/modal";
 import {selectIngredientsState} from "../../services/ingredientsSlice/ingredients-selector";
 import NotFound404 from "../../pages/NotFound404/NotFound404";
 
+const routes = {
+    home: "/",
+    login: "/login",
+    profile: "/profile",
+    register: "/register",
+    forgotPassword: "/forgot-password",
+    resetPassword: "/reset-password",
+    ingredientsId: "/ingredients/:id"
+};
+
 function App() {
     const navigate = useNavigate();
     const location = useLocation();
@@ -44,23 +54,23 @@ function App() {
                 <p>{error}</p>
             ) : ingredients.length > 0 ? (
                 <Routes location={background || location}>
-                    <Route path={"/"} element={<HomePages/>}/>
-                    <Route path="/login" element={<OnlyUnAuth component={<Login/>}/>}/>
+                    <Route path={routes.home} element={<HomePages/>}/>
+                    <Route path={routes.login} element={<OnlyUnAuth component={<Login/>}/>}/>
                     <Route
-                        path="/profile"
+                        path={routes.profile}
                         element={<OnlyAuth component={<Profile/>}/>}
                     />
                     <Route
-                        path="/register"
+                        path={routes.register}
                         element={<OnlyUnAuth component={<Register/>}/>}
                     />
-                    <Route path="/ingredients/:id" element={<IngredietnsPage/>}/>
+                    <Route path={routes.ingredientsId} element={<IngredietnsPage/>}/>
                     <Route
-                        path="/forgot-password"
+                        path={routes.forgotPassword}
                         element={<OnlyUnAuth component={<ForgotPassword/>}/>}
                     />
                     <Route
-                        path="/reset-password"
+                        path={routes.resetPassword}
                         element={<OnlyUnAuth component={<ResetPassword/>}/>}
                     />
                     <Route path="*" element={<NotFound404/>}/>
@@ -69,7 +79,7 @@ function App() {
             {background && (
                 <Routes>
                     <Route
-                        path="/ingredients/:id"
+                        path={routes.ingredientsId}
                         element={
                             <Modal title={"Детали ингредиентов"} closeModal={handleCloseModal}>
                                 <IngredientDetails/>
