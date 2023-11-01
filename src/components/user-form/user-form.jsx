@@ -3,18 +3,26 @@ import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-deve
 import style from "./user-form.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {selectAuthUser} from "../../services/auth/auth-selector";
-import {fetchGetUser, fetchUpdateUser} from "../../services/auth/auth-async-thunks";
+import {fetchUpdateUser} from "../../services/auth/auth-async-thunks";
 
 const UserForm = () => {
     const dispatch = useDispatch();
     const {name, email} = useSelector(selectAuthUser);
     const [edit, setEdit] = useState(false);
-    const [getUser, setGetUser] = useState(false);
-    const [form, setForm] = useState({
-        name: '',
-        email: '',
-        password: '',
-    });
+
+    // Функция для сохранения данных в локальное хранилище
+    const saveFormDataToLocalStorage = (formData) => {
+        localStorage.setItem("userFormData", JSON.stringify(formData));
+    };
+
+    const initialFormData = JSON.parse(localStorage.getItem("userFormData")) || {
+        name: "",
+        email: "",
+        password: "",
+    };
+
+    const [form, setForm] = useState(initialFormData);
+
     const handleChange = (e) => {
         setForm({...form, [e.target.name]: e.target.value});
         setEdit(true);
@@ -33,10 +41,10 @@ const UserForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setGetUser(!getUser);
         setEdit(false);
         dispatch(fetchUpdateUser(form));
-        dispatch(fetchGetUser());
+        // Сбрасываю данные из localStorage при успешном сохранении
+        localStorage.removeItem('userFormData');
     };
 
     useEffect(() => {
@@ -49,10 +57,10 @@ const UserForm = () => {
         }
     }, [name, email]);
 
+    // Сохраняю данные в локальное хранилище при каждом изменении формы
     useEffect(() => {
-        dispatch(fetchGetUser());
-    }, [getUser]);
-
+        saveFormDataToLocalStorage(form);
+    }, [form]);
 
     return (
         <form className={style.form} onSubmit={handleSubmit}>
@@ -87,7 +95,11 @@ const UserForm = () => {
                         >
                             Отмена
                         </Button>
-                        <Button htmlType={'submit'}>Сохранить</Button>
+                        <Button
+                            htmlType={'submit'}
+                        >
+                            Сохранить
+                        </Button>
                     </div>
                 )}
             </fieldset>
