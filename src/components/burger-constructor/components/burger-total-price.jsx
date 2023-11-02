@@ -10,10 +10,11 @@ import {useSelector, useDispatch} from "react-redux";
 import {selectAuthUser} from "../../../services/auth/auth-selector";
 import {useNavigate} from "react-router-dom";
 import {clearIngredients} from "../../../services/constructorSlice/constructorSlice";
+import {selectFillingBun, selectFillingOther} from "../../../services/constructorSlice/constructor-selector";
 
 const BurgerTotalPrice = ({totalPrice, isOrderButtonEnabled}) => {
-    const otherIngredients = useSelector((state) => state.filling.other);
-    const bunIngredients = useSelector((state) => state.filling.bun);
+    const bunIngredients = useSelector(selectFillingBun);
+    const otherIngredients = useSelector(selectFillingOther);
     const dispatch = useDispatch();
     const isAuthUser = useSelector(selectAuthUser);
     const navigate = useNavigate();

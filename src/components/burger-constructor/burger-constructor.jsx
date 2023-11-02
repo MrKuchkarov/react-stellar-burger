@@ -6,10 +6,11 @@ import BurgerTotalPrice from "./components/burger-total-price";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
 import {addOtherIngredient, setBun} from "../../services/constructorSlice/constructorSlice";
+import {selectFillingBun, selectFillingOther} from "../../services/constructorSlice/constructor-selector";
 
 const BurgerConstructor = () => {
-    const seBun = useSelector((state) => state.filling.bun);
-    const setOther = useSelector((state) => state.filling.other);
+    const seBun = useSelector(selectFillingBun);
+    const setOther = useSelector(selectFillingOther);
     const dispatch = useDispatch();
 
     // Проверка, есть ли выбранная булка и другие ингредиенты

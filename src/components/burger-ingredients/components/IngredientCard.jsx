@@ -6,12 +6,13 @@ import {showModal} from "../../../services/ingredientsSlice/ingredientsSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
 import {Link, useLocation} from "react-router-dom";
+import {selectFillingBun, selectFillingOther} from "../../../services/constructorSlice/constructor-selector";
 
 const IngredientCard = ({ingredients, item}) => {
     const dispatch = useDispatch();
-    const other = useSelector((state) => state.filling.other)
-    const bun = useSelector((state) => state.filling.bun)
-    // const location = useLocation();
+    const bun = useSelector(selectFillingBun);
+    const other = useSelector(selectFillingOther);
+
 
     const handleOpenModal = (ingredients) => {
         dispatch(ingredientsDetails(ingredients));

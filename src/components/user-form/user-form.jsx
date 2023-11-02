@@ -7,10 +7,10 @@ import {fetchUpdateUser} from "../../services/auth/auth-async-thunks";
 import {useLocalStorage} from "../../hooks/useLocalStorage"
 
 const UserForm = () => {
-    const dispatch = useDispatch();
     const {name, email} = useSelector(selectAuthUser);
     const [edit, setEdit] = useState(false);
-
+    const dispatch = useDispatch();
+    
     // Используется хук useLocalStorage для управления данными формы
     const [form, setForm] = useLocalStorage("userFormData", {
         name: "",
