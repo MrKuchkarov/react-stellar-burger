@@ -2,14 +2,11 @@ import {useState} from 'react';
 
 export function useForm(inputValues) {
     const [values, setValues] = useState(inputValues);
-    const [isDirty, setIsDirty] = useState(false);
     const handleChange = (event) => {
         const {value, name} = event.target;
         setValues({...values, [name]: value});
-        setIsDirty(true);
-
     };
-    return {values, handleChange, isDirty, setIsDirty};
+    return {values, handleChange};
 }
 
 // Хук useForm в данном контексте выполняет следующие функции:

@@ -6,9 +6,8 @@ import {
     Input,
     PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link, Navigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {selectAuth} from "../../services/auth/auth-selector";
+import {Link} from "react-router-dom";
+import {useDispatch} from "react-redux";
 import {fetchRegister} from "../../services/auth/auth-async-thunks";
 
 const Register = () => {
