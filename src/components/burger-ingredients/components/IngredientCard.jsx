@@ -5,10 +5,9 @@ import {ingredientsDetails} from "../../../services/ingredientDetailsSlice/ingre
 import {showModal} from "../../../services/ingredientsSlice/ingredientsSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
-import {Link, useLocation} from "react-router-dom";
 import {selectFillingBun, selectFillingOther} from "../../../services/constructorSlice/constructor-selector";
 
-const IngredientCard = ({ingredients, item}) => {
+const IngredientCard = ({ingredients}) => {
     const dispatch = useDispatch();
     const bun = useSelector(selectFillingBun);
     const other = useSelector(selectFillingOther);
@@ -43,7 +42,7 @@ const IngredientCard = ({ingredients, item}) => {
             });
         }
         return count;
-    }, [ingredients.type, bun, other]);
+    }, [ingredients.type, bun, other, ingredients._id]);
 
 
     return (

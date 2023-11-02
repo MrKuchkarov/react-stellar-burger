@@ -1,5 +1,6 @@
-import {BURGER_API_URL, Method} from "./consts";
+import {BURGER_API_URL} from "./consts";
 import {setCookie} from "./cookie";
+
 
 export const createOptions = (method, data, token) => {
     return {
@@ -20,18 +21,31 @@ export const checkReponse = (response) => {
 
 export const request = (url, options) => fetch(url, options).then(checkReponse);
 
-export const refreshToken = () => {
-    return fetch(`${BURGER_API_URL}/auth/token`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json;charset=utf-8",
-        },
-        body: JSON.stringify({
-            token: localStorage.getItem("refreshToken"),
-        }),
-    }).then(checkReponse);
-};
+export const refreshToken = async () => {
+    try {
+        const response = await fetch(`${BURGER_API_URL}/auth/token`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json;charset=utf-8",
+            },
+            body: JSON.stringify({
+                token: localStorage.getItem("refreshToken"),
+            }),
+        }).then(checkReponse)
 
+        const data = await response.json();
+
+        if (response.ok) {
+            return data;
+        } else {
+            // Обработка ошибок, например, выброс исключения или возврат ошибки
+            return new Error(data.message || 'Refresh token request failed');
+        }
+    } catch (error) {
+        // Обработка ошибок, например, выброс исключения или возврат ошибки
+        return error;
+    }
+};
 export const fetchWithRefresh = async (url, options) => {
     try {
         const res = await fetch(url, options);

@@ -1,9 +1,8 @@
 import React from 'react';
 import style from "./profile-navigation.module.css";
 import CustomNavLinkButton from "../app-header/components/header-button";
-import {useMatch, useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {selectAuth} from "../../services/auth/auth-selector";
+import {useMatch} from "react-router-dom";
+import {useDispatch} from "react-redux";
 import {fetchLogout} from "../../services/auth/auth-async-thunks";
 
 const ProfileNavigation = () => {

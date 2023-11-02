@@ -16,12 +16,15 @@ const ingredientsSlice = createSlice({
         setIngredients(state, action) {
             state.ingredients = action.payload;
         },
-        showModal(state, action) {
+        showModal(state) {
             state.visible = true;
         },
-        hideModal(state, action) {
+        hideModal(state) {
             state.visible = false;
-        }
+        },
+        closeErrModal(state) {
+            state.error = null;
+        },
     },
     extraReducers: (builder) => {
         builder

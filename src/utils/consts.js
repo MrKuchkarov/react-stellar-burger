@@ -11,5 +11,15 @@ export const Method = {
     put: "PUT",
 }
 
+export const routes = {
+    home: "/",
+    login: "/login",
+    profile: "/profile",
+    register: "/register",
+    forgotPassword: "/forgot-password",
+    resetPassword: "/reset-password",
+    ingredientsId: "/ingredients/:id"
+};
+
 export const refreshToken = getCookie("refreshToken");
 export const accessToken = getCookie("accessToken");

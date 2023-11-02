@@ -15,7 +15,7 @@ const BurgerConstructor = () => {
 
     // Проверка, есть ли выбранная булка и другие ингредиенты
     const bun = seBun || null;
-    const otherIngredients = setOther || [];
+    const otherIngredients = useMemo(() => setOther || [], [setOther]);
 
     // Получение верхней и нижней булки
     const topBun = bun;
@@ -23,8 +23,7 @@ const BurgerConstructor = () => {
 
     // Вычисление общей стоимости ингредиентов
     const ingredientsTotalPrice = useMemo(() => {
-        const bunPrice =
-            (topBun ? topBun.price : 0) + (bottomBun ? bottomBun.price : 0);
+        const bunPrice = (topBun ? topBun.price : 0) + (bottomBun ? bottomBun.price : 0);
         const otherIngredientsPrice = [...otherIngredients].reduce(
             (acc, ingredient) => acc + (ingredient ? ingredient.price : 0),
             0

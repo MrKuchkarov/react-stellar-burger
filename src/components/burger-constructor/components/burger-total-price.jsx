@@ -4,13 +4,13 @@ import style from "./burger-total-price.module.css";
 import iconPrice from "../../../images/constructor/icon 36x36.svg";
 import Modal from "../../modal/modal";
 import OrderDetails from "../../oreder-details/order-details";
-import PropTypes from "prop-types";
 import {makeOrder} from "../../../utils/ApiService";
 import {useSelector, useDispatch} from "react-redux";
 import {selectAuthUser} from "../../../services/auth/auth-selector";
 import {useNavigate} from "react-router-dom";
 import {clearIngredients} from "../../../services/constructorSlice/constructorSlice";
 import {selectFillingBun, selectFillingOther} from "../../../services/constructorSlice/constructor-selector";
+
 
 const BurgerTotalPrice = ({totalPrice, isOrderButtonEnabled}) => {
     const bunIngredients = useSelector(selectFillingBun);

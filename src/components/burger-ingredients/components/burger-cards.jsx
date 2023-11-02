@@ -13,20 +13,12 @@ const BurgerCards = ({bunRef, sauceRef, mainRef}) => {
     const location = useLocation();
 
     // Фильтрация игрениентов по катигориям
-    const categorizedIngredients = useMemo(() => {
-        const result = {
-            buns: ingredients.filter((item) => item.type === "bun"),
-            sauces: ingredients.filter((item) => item.type === "sauce"),
-            mains: ingredients.filter((item) => item.type === "main"),
-        };
-        return result;
-    }, [ingredients]);
-
-    // const handleOpenModal = (ingredients) => {
-    //     dispatch(ingredientsDetails(ingredients));
-    //     dispatch(showModal());
-    // };
-
+    const categorizedIngredients = useMemo(() => ({
+        buns: ingredients.filter((item) => item.type === "bun"),
+        sauces: ingredients.filter((item) => item.type === "sauce"),
+        mains: ingredients.filter((item) => item.type === "main"),
+    }), [ingredients]);
+    
     return (
         <>
             <div className={`${style["scroll-ingredients"]} custom-scroll`}>

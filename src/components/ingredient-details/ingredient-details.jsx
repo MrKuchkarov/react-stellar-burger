@@ -1,7 +1,6 @@
 import React from "react";
 import style from "./ingredient-details.module.css";
 import {useSelector} from "react-redux";
-import {selectIngredientDetails} from "../../services/ingredientDetailsSlice/ingredientDetails-selector";
 import {useParams} from "react-router-dom";
 import {selectIngredientById} from "../../services/ingredientsSlice/ingredients-selector";
 

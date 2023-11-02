@@ -1,8 +1,6 @@
 import React from 'react';
 import {Hourglass} from "react-loader-spinner";
 import style from "./pre-loader.module.css";
-import {useSelector} from "react-redux";
-import {selectIngredientsState} from "../../../services/ingredientsSlice/ingredients-selector";
 
 const PreLoader = ({title}) => {
     return (

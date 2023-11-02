@@ -12,22 +12,12 @@ import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import {OnlyAuth, OnlyUnAuth} from "../protected-route/protected-route";
 import {fetchIngredients} from "../../utils/ApiService";
 import {checkUserAuth} from "../../services/auth/auth-async-thunks";
-import {useDispatch, useSelector} from "react-redux";
-import {hideModal} from "../../services/ingredientsSlice/ingredientsSlice";
+import {useDispatch} from "react-redux";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 import NotFound404 from "../../pages/NotFound404/NotFound404";
 import ConditionalLoader from "./components/pre-loader-conditions";
-
-const routes = {
-    home: "/",
-    login: "/login",
-    profile: "/profile",
-    register: "/register",
-    forgotPassword: "/forgot-password",
-    resetPassword: "/reset-password",
-    ingredientsId: "/ingredients/:id"
-};
+import {routes} from "../../utils/consts";
 
 
 function App() {
@@ -40,10 +30,9 @@ function App() {
     useEffect(() => {
         dispatch(fetchIngredients());
         dispatch(checkUserAuth());
-    }, []);
+    }, [dispatch]);
 
-    const handleCloseModal = (card) => {
-        dispatch(hideModal());
+    const handleCloseModal = () => {
         navigate(-1);
     };
 
@@ -84,9 +73,7 @@ function App() {
                         }
                     />
                 </Routes>
-
             )}
-
         </div>
     );
 }
