@@ -16,8 +16,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {hideModal} from "../../services/ingredientsSlice/ingredientsSlice";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
-import {selectIngredientsState} from "../../services/ingredientsSlice/ingredients-selector";
 import NotFound404 from "../../pages/NotFound404/NotFound404";
+import ConditionalLoader from "./components/pre-loader-conditions";
 
 const routes = {
     home: "/",
@@ -29,12 +29,13 @@ const routes = {
     ingredientsId: "/ingredients/:id"
 };
 
+
 function App() {
     const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch();
     const background = location.state && location.state.background;
-    const {error, isLoading, ingredients} = useSelector(selectIngredientsState);
+
 
     useEffect(() => {
         dispatch(fetchIngredients());
@@ -45,20 +46,11 @@ function App() {
         dispatch(hideModal());
         navigate(-1);
     };
-    if (isLoading) {
-        return <p>Загрузка ингредиентов...</p>;
-    }
 
-    if (error) {
-        return <p>Произошла ошибка: {error}</p>;
-    }
-
-    if (!ingredients || ingredients.length === 0) {
-        return <p>Ингредиенты не найдены.</p>;
-    }
     return (
         <div className={styles["app"]}>
             <AppHeader/>
+            <ConditionalLoader/>
             <Routes location={background || location}>
                 <Route path={routes.home} element={<HomePages/>}/>
                 <Route path={routes.login} element={<OnlyUnAuth component={<Login/>}/>}/>
