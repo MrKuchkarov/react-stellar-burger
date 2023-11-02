@@ -1,11 +1,31 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 
 export function useForm(inputValues) {
     const [values, setValues] = useState(inputValues);
-
+    const [isDirty, setIsDirty] = useState(false);
     const handleChange = (event) => {
         const {value, name} = event.target;
         setValues({...values, [name]: value});
+        setIsDirty(true);
+
     };
-    return {values, handleChange, setValues};
+    return {values, handleChange, isDirty, setIsDirty};
 }
+
+// Хук useForm в данном контексте выполняет следующие функции:
+
+// Инициализирует состояние values с переданными начальными значениями
+// inputValues, что представляет собой объект с полями формы.
+// Создает состояние isDirty, которое изначально устанавливает в false.
+// Определяет функцию handleChange, которая будет вызываться при изменении
+// полей формы. Эта функция получает объект события и извлекает из него значение
+// (value) и имя (name) поля, которое изменилось. Затем она обновляет состояние
+// values, копируя все предыдущие значения и заменяя значение в поле с
+// соответствующим именем. После этого она устанавливает состояние isDirty в
+// true для обозначения того, что форма была изменена.
+
+// Таким образом, хук useForm позволяет управлять значениями полей формы,
+// отслеживать их изменения с помощью handleChange, а также проверять, были ли
+// внесены какие-либо изменения в форму (состояние isDirty). В компоненте
+// UserForm этот хук используется для связи состояний формы с соответствующими
+// полями ввода и для отслеживания изменений в форме для активации кнопок "Отмена" и "Сохранить".
