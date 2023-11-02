@@ -4,7 +4,7 @@ import style from "./ingredients-page.module.css"
 
 const IngredietnsPage = () => {
     return (
-        <section>
+        <section className={`${style["container"]}`}>
             <h1 className={`${style["title"]} text text_type_main-large mt-25`}>
                 Детали ингредиента
             </h1>
