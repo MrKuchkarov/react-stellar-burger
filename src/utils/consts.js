@@ -21,5 +21,10 @@ export const routes = {
     ingredientsId: "/ingredients/:id"
 };
 
+export const ingredientCategories = {
+    bun: "Булки",
+    sauce: "Соусы",
+    main: "Начинки",
+};
 export const refreshToken = getCookie("refreshToken");
 export const accessToken = getCookie("accessToken");

@@ -1,15 +1,19 @@
 import React, {useMemo} from "react";
 import style from "./burger-cards.module.css";
 import {useSelector} from "react-redux";
-import IngredientCard from "./IngredientCard";
 import PropTypes from "prop-types";
 import {selectIngredients} from "../../../services/ingredientsSlice/ingredients-selector";
-import {Link, useLocation} from "react-router-dom";
+import {useLocation} from "react-router-dom";
+import {ingredientCategories} from "../../../utils/consts";
+import {renderIngredientList} from "./renderIngredientList";
 
+const cardContainerClass = `${style["card-container"]}`;
+const titleClass = `${style["title-buns"]} pt-10 pb-5 text text_type_main-medium`;
 
 const BurgerCards = ({bunRef, sauceRef, mainRef}) => {
     const ingredients = useSelector(selectIngredients);
-    const ingredientsTypes = Array.isArray(ingredients) ? [...new Set(ingredients.map((card) => card.type))] : [];
+    const ingredientsTypesSet = new Set(ingredients.map((card) => card.type))
+    const ingredientsTypes = [...ingredientsTypesSet]
     const location = useLocation();
 
     // Фильтрация игрениентов по катигориям
@@ -18,76 +22,38 @@ const BurgerCards = ({bunRef, sauceRef, mainRef}) => {
         sauces: ingredients.filter((item) => item.type === "sauce"),
         mains: ingredients.filter((item) => item.type === "main"),
     }), [ingredients]);
-    
+
+    // const categorizedIngredients = useMemo(() => {
+    //     const categorized = {};
+    //     for (const category in ingredientCategories) {
+    //         categorized[category] = ingredients.filter((item) => item.type === category);
+    //     }
+    //     return categorized;
+    // }, [ingredients]);
+
     return (
         <>
             <div className={`${style["scroll-ingredients"]} custom-scroll`}>
                 {ingredientsTypes.map((type) => (
-                    <div key={type} className={`${style["card-container"]}`}>
+                    <div key={type} className={cardContainerClass}>
                         <h2
-                            id={
-                                type === "bun"
-                                    ? "bunSection"
-                                    : type === "sauce"
-                                        ? "sauceSection"
-                                        : "mainSection"
-                            }
-                            className={`${style["title-buns"]} pt-10 pb-5 text text_type_main-medium`}
+                            id={`${type}Section`}
+                            className={titleClass}
                         >
-                            {type === "bun"
-                                ? "Булки"
-                                : type === "sauce"
-                                    ? "Соусы"
-                                    : "Начинки"}
+                            {ingredientCategories[type]}
                         </h2>
-                        <ul className={`${style["cards-list"]} `}>
-                            {type === "bun" &&
-                                categorizedIngredients.buns.map((ingredients) => (
-                                    <Link
-                                        // onClick={() => handleOpenModal(ingredients)}
-                                        key={ingredients._id}
-                                        to={`ingredients/${ingredients._id}`}
-                                        state={{background: location}}
-                                        className={style.link}
-                                    >
-                                        <li
-                                            ref={bunRef}
-                                        >
-                                            <IngredientCard ingredients={ingredients}/>
-                                        </li>
-                                    </Link>
-                                ))}
-                            {type === "sauce" &&
-                                categorizedIngredients.sauces.map((ingredients) => (
-                                    <Link
-                                        key={ingredients._id}
-                                        to={`ingredients/${ingredients._id}`}
-                                        state={{background: location}}
-                                        className={style.link}
-                                    >
-                                        <li
-                                            ref={sauceRef}
-                                        >
-                                            <IngredientCard ingredients={ingredients}/>
-                                        </li>
-                                    </Link>
-                                ))}
-                            {type === "main" &&
-                                categorizedIngredients.mains.map((ingredients) => (
-                                    <Link
-                                        key={ingredients._id}
-                                        to={`ingredients/${ingredients._id}`}
-                                        state={{background: location}}
-                                        className={style.link}
-                                    >
-                                        <li
-                                            ref={mainRef}
-                                        >
-                                            <IngredientCard ingredients={ingredients}/>
-                                        </li>
-                                    </Link>
-                                ))}
-                        </ul>
+                        {type === "bun"
+                            &&
+                            renderIngredientList(type, categorizedIngredients.buns, bunRef, location)
+                        }
+                        {type === "sauce"
+                            &&
+                            renderIngredientList(type, categorizedIngredients.sauces, sauceRef, location)
+                        }
+                        {type === "main"
+                            &&
+                            renderIngredientList(type, categorizedIngredients.mains, mainRef, location)
+                        }
                     </div>
                 ))}
             </div>
