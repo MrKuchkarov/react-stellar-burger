@@ -3,9 +3,11 @@ import style from "./image-list.module.css";
 
 const ImageList = () => {
     return (
-        <div>
-
-        </div>
+        <ul className={`${style["image-list"]} `}>
+            <li className={`${style["images"]} `}>
+                Картинка ингредиентов Картинка ингредиентов Картинка ингредиентов
+            </li>
+        </ul>
     );
 };
 

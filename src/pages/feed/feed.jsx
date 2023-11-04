@@ -1,12 +1,17 @@
 import React from 'react';
 import style from "./feed.module.css";
 import {OrderList} from "../../components/orderList/order-list";
+import {FeedDashboard} from "../../components/feed-dashboard/feed-dashboard";
 
 const FeedPage = () => {
     return (
-        <div className={`${style["container"]}`}>
-            <OrderList/>
-            {/*<Dashboard/>*/}
+        <div className={`${style["container"]} pt-10`}>
+            <h1 className={`${style["feed-title"]} text text_type_main-large pl-3`}>Лента заказов</h1>
+            <div className={`${style["feed-components"]}`}>
+                <OrderList/>
+                <FeedDashboard/>
+            </div>
+
         </div>
     );
 };
