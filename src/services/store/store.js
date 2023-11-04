@@ -5,6 +5,8 @@ import ingredientDetailsSlice from "../ingredientDetailsSlice/ingredientDetailsS
 import orderDetailsSlice from "../orderDetailsSlice.js/orderDetailsSlice";
 import authReducer from "../auth/auth-slice";
 import authSlice from "../auth/auth-slice";
+import {selectWebSocket} from "../webSocketSlice/ws-selector";
+import webSocketSlice from "../webSocketSlice/ws-slice"
 
 export const store = configureStore({
     reducer: {
@@ -12,6 +14,7 @@ export const store = configureStore({
         filling: constructorSlice,
         details: ingredientDetailsSlice,
         order: orderDetailsSlice,
-        auth: authReducer
+        auth: authReducer,
+        webSocket: webSocketSlice,
     },
 });

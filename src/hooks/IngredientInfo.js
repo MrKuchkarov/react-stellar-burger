@@ -1,9 +1,9 @@
 import React from "react";
-import PropTypes, {array} from 'prop-types';
+import PropTypes from 'prop-types';
 import {useSelector} from "react-redux";
 import {selectIngredients} from "../services/ingredientsSlice/ingredients-selector";
 
-const IngredientInfo = ingredientsId => {
+const IngredientInfo = (ingredientsId) => {
     const allIngredients = useSelector(selectIngredients);
     const ingredientWithInfo = ingredientsId.map((id) =>
         allIngredients.find((ingredients) => ingredients._id === id),

@@ -1,16 +1,16 @@
 import React from "react";
 import style from "./order-list.module.css"
 import {OrderCards} from "../order-cards/order-cards";
+import {useSelector} from "react-redux";
+import {selectOrders} from "../../services/webSocketSlice/ws-selector";
 
 const OrderList = () => {
+    const orders = useSelector(selectOrders);
     return (
         <ul className={`${style["container"]} custom-scroll`}>
-            <OrderCards/>
-            <OrderCards/>
-            <OrderCards/>
-            <OrderCards/>
-            <OrderCards/>
-            <OrderCards/>
+            {
+                orders.map(order => <OrderCards key={order._id} {...order} />)
+            }
         </ul>
     );
 };
