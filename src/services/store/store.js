@@ -6,7 +6,8 @@ import orderDetailsSlice from "../orderDetailsSlice.js/orderDetailsSlice";
 import authReducer from "../auth/auth-slice";
 import authSlice from "../auth/auth-slice";
 import {selectWebSocket} from "../webSocketSlice/ws-selector";
-import webSocketSlice from "../webSocketSlice/ws-slice"
+import webSocketSlice, {wsActions} from "../webSocketSlice/ws-slice"
+import socketMiddleware from "../webSocketSlice/socketMiddleWare";
 
 export const store = configureStore({
     reducer: {
@@ -17,4 +18,6 @@ export const store = configureStore({
         auth: authReducer,
         webSocket: webSocketSlice,
     },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat(socketMiddleware(wsActions)),
 });
