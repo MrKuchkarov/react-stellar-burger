@@ -23,13 +23,6 @@ const BurgerCards = ({bunRef, sauceRef, mainRef}) => {
         mains: ingredients.filter((item) => item.type === "main"),
     }), [ingredients]);
 
-    // const categorizedIngredients = useMemo(() => {
-    //     const categorized = {};
-    //     for (const category in ingredientCategories) {
-    //         categorized[category] = ingredients.filter((item) => item.type === category);
-    //     }
-    //     return categorized;
-    // }, [ingredients]);
 
     return (
         <>
