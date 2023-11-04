@@ -18,13 +18,13 @@ const OrderCards = (props) => {
     } = props;
     const location = useLocation();
     const ingredientsWithInfo = ingredientInfo(ingredientsId);
-    const ruStatus = useStatus(status);
+    const uzStatus = useStatus(status);
 
     const price = ingredientsWithInfo.reduce(
         (acc, ingredient) => acc + ingredient.price,
         0,
     );
-    const color_success = status === 'done' ? 'text_color_success' : "";
+    const color_success = status === "done" ? "text_color_success" : "";
 
     return (
         <li className={`${style["list-container"]} custom-scroll`}>
@@ -47,7 +47,7 @@ const OrderCards = (props) => {
                     <p className={`${style[""]} text text_type_main-medium`}>{name}</p>
                     {showStatus && (
                         <p className={`${style[""]} text text_type_main-default mt-2 ${color_success}`}>
-                            {ruStatus}
+                            {uzStatus}
                         </p>
                     )}
                 </div>

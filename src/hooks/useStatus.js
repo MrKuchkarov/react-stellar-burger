@@ -1,19 +1,18 @@
 export function useStatus(status) {
-    let ruStatus;
+    let uzStatus;
     switch (status) {
         case "done":
-            ruStatus = "Выполнено";
+            uzStatus = "Выполнено";
             break;
-    }
-    switch (status) {
         case "pending":
-            ruStatus = "Готовится";
+            uzStatus = "Готовится";
             break;
-    }
-    switch (status) {
         case "create":
-            ruStatus = "Создан";
+            uzStatus = "Создан";
+            break;
+        default:
+            uzStatus = "Неизвестный статус";
             break;
     }
-    return ruStatus
+    return uzStatus
 }

@@ -12,7 +12,7 @@ const webSocketSlice = createSlice({
     name: "$$webSocket",
     initialState,
     reducers: {
-        connectingStart(state) {
+        connectingBeginning(state) {
             state.wsConnected = true;
             state.error = false;
         },
