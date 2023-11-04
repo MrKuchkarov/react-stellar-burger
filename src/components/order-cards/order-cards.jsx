@@ -3,9 +3,21 @@ import style from "./order-cards.module.css";
 import {Link, useLocation} from "react-router-dom";
 import {ImageList} from "./component/image-list";
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
+import ingredientInfo from "../../hooks/IngredientInfo";
 
-const OrderCards = () => {
+const OrderCards = (props) => {
+    const {
+        _id,
+        name,
+        number,
+        status,
+        ingredients: ingredientsId,
+        createdAt,
+    } = props;
     const location = useLocation();
+    const ingredientsWithInfo = ingredientInfo(ingredientsId);
+
+    
     return (
         <li className={`${style["list-container"]} custom-scroll`}>
             <Link
