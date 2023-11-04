@@ -1,15 +1,15 @@
 import React from 'react';
+import style from "../feed/feed.module.css";
 import ProfileNavigation from "../../components/profile-navigation/profile-navigation";
-import UserForm from "../../components/user-form/user-form";
-import style from "./profile.module.css";
+import {OrderList} from "../../components/orderList/order-list";
 
-const ProfilePage = () => {
+const OrdersPage = () => {
     return (
         <div className={`${style["container"]}`}>
             <ProfileNavigation/>
-            <UserForm/>
+            <OrderList/>
         </div>
     );
 };
 
-export {ProfilePage};
+export {OrdersPage};

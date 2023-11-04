@@ -29,7 +29,7 @@ function AppHeader() {
                         />
                     </NavLinkButton>
                     <NavLinkButton
-                        to="/ingredients"
+                        to="/feed"
                         text={"Лента заказов"}
                         className={`${style["header-links"]} p-5 text text_type_main-default ${isOrdersActive ? style.active : ""}`}
                     >

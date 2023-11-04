@@ -18,7 +18,11 @@ export const routes = {
     register: "/register",
     forgotPassword: "/forgot-password",
     resetPassword: "/reset-password",
-    ingredientsId: "/ingredients/:id"
+    ingredientsId: "/ingredients/:id",
+    feed: "/feed",
+    feedId: "/feed/:id",
+    profileOrder: "/profile/orders",
+    profileOrderId: "/profile/orders",
 };
 
 export const ingredientCategories = {
