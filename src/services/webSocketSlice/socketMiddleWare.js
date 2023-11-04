@@ -33,7 +33,7 @@ const socketMiddleware = (wsActions) => {
                 };
 
                 if (type === connectingClose.type) {
-                    socket.close(1000, 'closed normal');
+                    socket.close(1000, "closed normal");
                 }
 
                 socket.onclose = () => {

@@ -16,7 +16,7 @@ const ImageList = ({ingredientsWithInfo}) => {
                             <Counter
                                 extraClass={`${style["ingredients-counter"]}`}
                                 count={obj.count}
-                                size={'small'}
+                                size={"small"}
                             />
                         )}
 

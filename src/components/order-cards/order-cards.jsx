@@ -14,6 +14,7 @@ const OrderCards = (props) => {
         status,
         ingredients: ingredientsId,
         createdAt,
+        showStatus
     } = props;
     const location = useLocation();
     const ingredientsWithInfo = ingredientInfo(ingredientsId);
@@ -33,7 +34,10 @@ const OrderCards = (props) => {
                 state={{background: location}}
             >
                 <div className={`${style["burger-id-data"]} `}>
-                    <p className={`${style["burger-id"]} text text_type_digits-default`}>{`#${number}`}</p>
+                    <p className={`${style["burger-id"]} text text_type_digits-default`}
+                    >
+                        {`#${number}`}
+                    </p>
                     <FormattedDate
                         date={new Date(createdAt)}
                         className={`text text_type_main-default text_color_inactive`}
@@ -41,7 +45,11 @@ const OrderCards = (props) => {
                 </div>
                 <div className={`${style["burger-name-container"]} `}>
                     <p className={`${style[""]} text text_type_main-medium`}>{name}</p>
-                    <p className={`${style[""]} text text_type_main-default mt-2 ${color_success}`}>{ruStatus}</p>
+                    {showStatus && (
+                        <p className={`${style[""]} text text_type_main-default mt-2 ${color_success}`}>
+                            {ruStatus}
+                        </p>
+                    )}
                 </div>
                 <div className={`${style["burger-ingredients"]} `}>
                     <ImageList ingredientsWithInfo={ingredientsWithInfo}/>
