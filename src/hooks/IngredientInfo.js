@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {useSelector} from "react-redux";
 import {selectIngredients} from "../services/ingredientsSlice/ingredients-selector";
 
-const IngredientInfo = (ingredientsId) => {
+const useIngredientInfo = (ingredientsId) => {
     const allIngredients = useSelector(selectIngredients);
     const ingredientWithInfo = ingredientsId.map((id) =>
         allIngredients.find((ingredients) => ingredients._id === id),
@@ -21,6 +21,6 @@ const IngredientInfo = (ingredientsId) => {
     return ingredientsWithCount;
 };
 
-IngredientInfo.propTypes = {};
+useIngredientInfo.propTypes = {};
 
-export default IngredientInfo;
+export default useIngredientInfo;
