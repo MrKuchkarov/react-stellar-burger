@@ -22,7 +22,7 @@ function AppHeader() {
                     <NavLinkButton
                         to="/login"
                         text={"Конструктор"}
-                        className={`${style["header-links"]} p-5 text text_type_main-default ${isConstructorActive ? style.active : ""}`}
+                        className={`${style["header-links"]} pt-5 pr-5 pb-5 text text_type_main-default ${isConstructorActive ? style.active : ""}`}
                     >
                         <BurgerIcon
                             type={isConstructorActive ? 'secondary' : 'primary'}
@@ -47,7 +47,7 @@ function AppHeader() {
                 <NavLinkButton
                     to="/profile"
                     text={"Личный кабинет"}
-                    className={`${style["header-links"]} p-5 text text_type_main-default ${isProfileActive ? style.active : ""}`}
+                    className={`${style["header-links"]} pt-5 pb-5 pl-5 text text_type_main-default ${isProfileActive ? style.active : ""}`}
                 >
                     <ProfileIcon
                         type={isProfileActive ? 'secondary' : 'primary'}

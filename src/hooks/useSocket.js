@@ -25,5 +25,5 @@ export function useSocket() {
         return () => {
             dispatch(connectingClose());
         };
-    }, [location]);
+    }, [location, connectingBeginning, connectingClose, dispatch]);
 }

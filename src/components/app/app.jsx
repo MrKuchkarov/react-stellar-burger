@@ -68,10 +68,10 @@ function App() {
                 />
                 <Route
                     path={routes.profileOrderId}
-                    element={<OnlyUnAuth component={<FeedDetails/>}/>}
+                    element={<OnlyUnAuth component={<FeedDetails isModal={false}/>}/>}
                 />
                 <Route path={routes.feed} element={<FeedPage/>}/>
-                <Route path={routes.feedId} element={<FeedDetails/>}/>
+                <Route path={routes.feedId} element={<FeedDetails isModal={false}/>}/>
                 <Route path="*" element={<NotFound404/>}/>
             </Routes>
             {background && (
@@ -81,6 +81,22 @@ function App() {
                         element={
                             <Modal title={"Детали ингредиентов"} closeModal={handleCloseModal}>
                                 <IngredientDetails/>
+                            </Modal>
+                        }
+                    />
+                    <Route
+                        path={routes.profileOrderId}
+                        element={
+                            <Modal title={"Номер заказа"} closeModal={handleCloseModal}>
+                                <OnlyAuth component={<FeedDetails isModal={true}/>}/>
+                            </Modal>
+                        }
+                    />
+                    <Route
+                        path={routes.feedId}
+                        element={
+                            <Modal title={"Номер заказа"} closeModal={handleCloseModal}>
+                                <FeedDetails isModal={true}/>
                             </Modal>
                         }
                     />
