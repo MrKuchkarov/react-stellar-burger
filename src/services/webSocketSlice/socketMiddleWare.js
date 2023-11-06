@@ -3,7 +3,8 @@ const createSocketMiddleWare = (wsActions) => {
     const {
         connectingBeginning,
         connectingOpened,
-        connectingError, getMessage,
+        connectingError,
+        getMessage,
         connectingClose,
     } = wsActions;
 
@@ -25,19 +26,25 @@ const createSocketMiddleWare = (wsActions) => {
         dispatch(connectingClose());
     };
 
+    const isSocketOpen = () => socket && socket.readyState === WebSocket.OPEN;
+
     return (store) => (next) => (action) => {
         const {dispatch} = store;
         const {type, payload} = action;
 
         if (type === connectingBeginning.type) {
-            socket = new WebSocket(payload);
-            socket.onopen = () => onSocketOpen(dispatch);
-            socket.onerror = () => onSocketError(dispatch);
-            socket.onmessage = onSocketMessage(dispatch, wsActions, getMessage);
+            if (!isSocketOpen()) {
+                // Проверка, что WebSocket ещё не открыт
+                socket = new WebSocket(payload);
+                socket.onopen = () => onSocketOpen(dispatch);
+                socket.onerror = () => onSocketError(dispatch);
+                socket.onmessage = onSocketMessage(dispatch, wsActions, getMessage);
+            }
         }
 
         if (socket) {
-            if (type === wsActions.connectingClose.type) {
+            if (isSocketOpen() && type === wsActions.connectingClose.type) {
+                // Проверка, что WebSocket открыт перед закрытием
                 socket.close(1000, "close normal");
             }
             socket.onclose = () => onSocketClose(dispatch);
@@ -48,4 +55,3 @@ const createSocketMiddleWare = (wsActions) => {
 };
 
 export default createSocketMiddleWare;
-
