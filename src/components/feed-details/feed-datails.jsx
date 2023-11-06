@@ -1,19 +1,33 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import style from "./feed-details.module.css";
-import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
+import {FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useParams} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {selectFeedById} from "../../services/webSocketSlice/ws-selector";
 import {useStatus} from "../../hooks/useStatus";
 import {useSocket} from "../../hooks/useSocket";
 import useIngredientInfo from "../../hooks/IngredientInfo";
+import TotalPriceBurger from "../total-price-burger/total-price-burger";
 
-const FeedDetails = ({isModal}) => {
+const FeedDetails = () => {
     const {id} = useParams()
     const currentFeed = useSelector(selectFeedById(id))
     const status = useStatus(currentFeed.status)
-    useSocket()
     const ingredientsWithInfo = useIngredientInfo(currentFeed.ingredients)
+
+
+    const ingredientsTotalPrice = useMemo(() => {
+        return ingredientsWithInfo.reduce(
+            (acc, ingredient) => acc + ingredient.price * ingredient.count,
+            0,
+        );
+    }, [ingredientsWithInfo])
+
+    const color_success = currentFeed.status === "done" ? "text_color_success" : "";
+
+    useSocket()
+
+
     return (
         currentFeed && (
             <section className={`${style["container-feed-details"]} `}>
@@ -28,7 +42,7 @@ const FeedDetails = ({isModal}) => {
                     {currentFeed.name}
                 </h1>
                 <p
-                    className={`${style["burger-status"]} text text_type_main-default`}
+                    className={`${style["burger-status"]} text text_type_main-default ${color_success}`}
                 >
                     {status}
                 </p>
@@ -47,21 +61,19 @@ const FeedDetails = ({isModal}) => {
                         >
                             <li
                                 className={`${style["list-ingredients"]} `}>
-                                <img
-                                    className={`${style["image-ingredients"]} `}
-                                    src={ingredient.image_mobile}
-                                    alt={ingredient.name}
-                                />
-                                <p className={`${style["name-ingredients"]} text text_type_main-default`}
-                                >
-                                    {ingredient.name}
-                                </p>
-                                <span
-                                    className={`${style["ingredients-price"]} text text_type_digits-default`}
-                                >
-                        6969
-                        <CurrencyIcon type={'primary'}/>
-                            </span>
+                                <div className={`${style["list-ingredients"]} `}>
+                                    <img
+                                        className={`${style["image-ingredients"]} `}
+                                        src={ingredient.image_mobile}
+                                        alt={ingredient.name}
+                                    />
+                                    <p className={`${style["name-ingredients"]} text text_type_main-default`}
+                                    >
+                                        {ingredient.name}
+                                    </p>
+                                </div>
+
+                                <TotalPriceBurger sum={ingredient.price} count={ingredient.count}/>
                             </li>
                         </Link>
                     ))}
@@ -71,10 +83,7 @@ const FeedDetails = ({isModal}) => {
                         date={new Date()}
                         className={`text text_type_main-default text_color_inactive`}
                     />
-                    <span className={`${style["ingredients-price"]} text text_type_digits-default`}>
-                        6969
-                        <CurrencyIcon type={'primary'}/>
-                    </span>
+                    <TotalPriceBurger sum={ingredientsTotalPrice}/>
                 </div>
             </section>
         )

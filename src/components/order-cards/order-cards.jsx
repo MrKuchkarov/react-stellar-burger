@@ -21,7 +21,7 @@ const OrderCards = (props) => {
     const uzStatus = useStatus(status);
 
     const price = ingredientsWithInfo.reduce(
-        (acc, ingredient) => acc + ingredient.price,
+        (acc, ingredient) => acc + ingredient.price * ingredient.count,
         0,
     );
     const color_success = status === "done" ? "text_color_success" : "";
