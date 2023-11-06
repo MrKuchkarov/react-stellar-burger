@@ -5,6 +5,9 @@ import {ImageList} from "./component/image-list";
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import ingredientInfo from "../../hooks/IngredientInfo";
 import {useStatus} from "../../hooks/useStatus";
+import PropTypes from "prop-types";
+import TotalPriceBurger from "../total-price-burger/total-price-burger";
+import BurgerComponentsPropTypes from "../../utils/burger-components-propTypes";
 
 const OrderCards = (props) => {
     const {
@@ -19,13 +22,11 @@ const OrderCards = (props) => {
     const location = useLocation();
     const ingredientsWithInfo = ingredientInfo(ingredientsId);
     const uzStatus = useStatus(status);
-
     const price = ingredientsWithInfo.reduce(
         (acc, ingredient) => acc + ingredient.price * ingredient.count,
         0,
     );
     const color_success = status === "done" ? "text_color_success" : "";
-
     return (
         <li className={`${style["list-container"]} custom-scroll`}>
             <Link
@@ -61,6 +62,15 @@ const OrderCards = (props) => {
             </Link>
         </li>
     );
+};
+
+OrderCards.propTypes = {
+    _id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    number: PropTypes.number.isRequired,
+    ingredients: PropTypes.array.isRequired,
+    createdAt: PropTypes.string.isRequired,
+    showStatus: PropTypes.bool,
 };
 
 export {OrderCards};
