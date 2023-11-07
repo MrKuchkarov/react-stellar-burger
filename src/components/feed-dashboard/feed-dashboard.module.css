@@ -3,11 +3,19 @@
     display: flex;
     flex-direction: column;
     gap: 60px;
+
 }
 
 .container-list {
     display: flex;
 
+
+}
+
+.border-line {
+    border: 1px solid #2f2f37;
+    max-height: 300px;
+    
 }
 
 .dashboard-status-title {
@@ -21,6 +29,13 @@
     margin: 0;
     padding: 0;
     gap: 8px;
+    flex-wrap: wrap;
+    max-height: 315px;
+    max-width: 200px;
+}
+
+.dashboard-list-items {
+
 }
 
 .dashboard-status {

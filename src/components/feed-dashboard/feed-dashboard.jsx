@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useMemo} from "react";
 import style from "./feed-dashboard.module.css";
 import {useSelector} from "react-redux";
 import {selectWebSocket} from "../../services/webSocketSlice/ws-selector";
@@ -6,26 +6,44 @@ import {selectWebSocket} from "../../services/webSocketSlice/ws-selector";
 const FeedDashboard = () => {
     const {total, totalToday, orders} = useSelector(selectWebSocket)
 
-    const successfulOrders = orders.filter((order) => order.status === "done");
-    const ordersArePending = orders.filter((order) => order.status === "pending");
+    const statusOrders = useMemo(() => ({
+        successfulOrders: orders.filter((order) => order.status === "done"),
+        ordersArePending: orders.filter((order) => order.status === "pending")
+    }), [orders])
+
 
     return (
         <section className={`${style["container"]}`}>
             <div className={`${style["container-list"]}`}>
                 <div className={`${style["dashboard-status"]}`}>
                     <p className={`${style["dashboard-status-title"]} text text_type_main-medium mb-6`}>Готовы:</p>
-                    <ul className={`${style["dashboard-list"]}`}>
-                        <li className={`${style["dashboard-list-items"]} text text_type_digits-default`}>
-                            696969
-                        </li>
+                    <ul className={`${style["dashboard-list"]} text text_type_digits-default text_color_success`}>
+                        {statusOrders.successfulOrders.slice(0, 20).map((order) => (
+                            <li
+                                key={order._id}
+                                className={`${style["dashboard-list-items"]} text text_type_digits-default`}
+                            >
+                                {order.number}
+                            </li>
+                        ))}
                     </ul>
                 </div>
                 <div className={`${style[""]}`}>
                     <p className={`${style["dashboard-status-title"]} text text_type_main-medium mb-6`}>В работе:</p>
                     <ul className={`${style["dashboard-list"]}`}>
-                        <li className={`${style["dashboard-list-items"]} text text_type_digits-default`}>
-                            696969
-                        </li>
+                        {statusOrders.ordersArePending.length > 0 ? (
+                            statusOrders.ordersArePending.map((order) =>
+                                <li
+                                    key={order._id}
+                                    className={`${style["dashboard-list-items"]} text text_type_digits-default`}
+                                >
+                                    {order.number}
+                                </li>)
+                        ) : (
+                            <p className={`${style[""]} text text_type_main-small`}>
+                                Нет активных заказов
+                            </p>
+                        )}
                     </ul>
                 </div>
             </div>
