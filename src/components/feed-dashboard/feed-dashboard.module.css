@@ -1,14 +1,33 @@
 .container {
     width: 580px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 60px;
+}
 
+.container-list {
+    display: flex;
+
+}
+
+.dashboard-status-title {
+    padding: 0;
+}
+
+.dashboard-list {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    gap: 8px;
 }
 
 .dashboard-status {
     display: flex;
     justify-content: flex-start;
     width: 272px;
+    flex-direction: column;
 }
 
 .dashboard-status-title {

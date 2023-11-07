@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
 import style from "./feed-details.module.css";
 import {FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link, useParams} from "react-router-dom";
+import {Link, useLocation, useParams} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {selectFeedById} from "../../services/webSocketSlice/ws-selector";
 import {useStatus} from "../../hooks/useStatus";
@@ -15,6 +15,7 @@ const FeedDetails = () => {
     const status = useStatus(currentFeed ? currentFeed.status : null);
     const ingredientsWithInfo = useIngredientInfo(currentFeed ? currentFeed.ingredients : null)
 
+
     const ingredientsTotalPrice = useMemo(() => {
         return ingredientsWithInfo.reduce(
             (acc, ingredient) => acc + ingredient.price * ingredient.count,
@@ -25,7 +26,6 @@ const FeedDetails = () => {
     const color_success = currentFeed.status === "done" ? "text_color_success" : "";
 
     useSocket()
-
 
     return (
         currentFeed && (
@@ -55,6 +55,8 @@ const FeedDetails = () => {
                     {ingredientsWithInfo.map((ingredient) => (
                         <Link
                             to={`/ingredients/${ingredient._id}`}
+                            // to={`${location.pathname}/${ingredient._id}`}
+                            // state={{background: location}}
                             className={`${style["feed-link"]} `}
                             key={ingredient._id}
                         >

@@ -10,8 +10,8 @@ import {NavLink, useMatch} from "react-router-dom";
 import NavLinkButton from "./components/header-button";
 
 function AppHeader() {
-    const isConstructorActive = useMatch("/login");
-    const isOrdersActive = useMatch("/ingredients");
+    const isConstructorActive = useMatch("/");
+    const isOrdersActive = useMatch("/feed");
     const isProfileActive = useMatch("/profile");
 
 

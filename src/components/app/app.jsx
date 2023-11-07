@@ -68,7 +68,7 @@ function App() {
                 />
                 <Route
                     path={routes.profileOrderId}
-                    element={<OnlyUnAuth component={<FeedDetails/>}/>}
+                    element={<OnlyAuth component={<FeedDetails/>}/>}
                 />
                 <Route path={routes.feed} element={<FeedPage/>}/>
                 <Route path={routes.feedId} element={<FeedDetails/>}/>
