@@ -50,7 +50,7 @@ const UserForm = () => {
                 password: '',
             });
         }
-    }, [name, email]);
+    }, [name, email, setForm]);
 
     return (
         <form className={style.form} onSubmit={handleSubmit}>

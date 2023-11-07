@@ -10,11 +10,10 @@ import useIngredientInfo from "../../hooks/IngredientInfo";
 import TotalPriceBurger from "../total-price-burger/total-price-burger";
 
 const FeedDetails = () => {
-    const {id} = useParams()
+    const {id} = useParams();
     const currentFeed = useSelector(selectFeedById(id))
     const status = useStatus(currentFeed ? currentFeed.status : null);
-    const ingredientsWithInfo = useIngredientInfo(currentFeed.ingredients)
-
+    const ingredientsWithInfo = useIngredientInfo(currentFeed ? currentFeed.ingredients : null)
 
     const ingredientsTotalPrice = useMemo(() => {
         return ingredientsWithInfo.reduce(

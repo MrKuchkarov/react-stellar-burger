@@ -2,12 +2,12 @@
     width: 580px;
     display: flex;
     justify-content: space-between;
-    
+
 }
 
 .dashboard-status {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     width: 272px;
 }
 

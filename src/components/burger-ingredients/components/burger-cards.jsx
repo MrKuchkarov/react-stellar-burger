@@ -15,6 +15,11 @@ const BurgerCards = ({bunRef, sauceRef, mainRef}) => {
     const ingredientsTypesSet = new Set(ingredients.map((card) => card.type))
     const ingredientsTypes = [...ingredientsTypesSet]
     const location = useLocation();
+    // const ingredients = useSelector(selectIngredientById);
+    // const ingredientsTypesSet = new Set(ingredients.map((card) => card.type))
+    // const ingredientsTypes = [...ingredientsTypesSet]
+    // const ingredientsTypes = useIngredientInfo(ingredients)
+    // const location = useLocation();
 
     // Фильтрация игрениентов по катигориям
     const categorizedIngredients = useMemo(() => ({

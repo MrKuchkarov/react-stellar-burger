@@ -1,4 +1,3 @@
-import React from "react";
 import PropTypes from 'prop-types';
 import {useSelector} from "react-redux";
 import {selectIngredients} from "../services/ingredientsSlice/ingredients-selector";
@@ -9,7 +8,7 @@ const useIngredientInfo = (ingredientsId) => {
         allIngredients.find((ingredients) => ingredients._id === id),
     );
     const uniqueIngredients = Array.from(new Set(ingredientWithInfo));
-    const ingredientsWithCount = uniqueIngredients.map((ingredients) => ({
+    return uniqueIngredients.map((ingredients) => ({
         ...ingredients,
         count: ingredientWithInfo.reduce((count, item) => {
             if (ingredients._id === item._id) {
@@ -18,9 +17,10 @@ const useIngredientInfo = (ingredientsId) => {
             return count;
         }, 0),
     }));
-    return ingredientsWithCount;
 };
 
-useIngredientInfo.propTypes = {};
+useIngredientInfo.propTypes = {
+    ingredientsId: PropTypes.string.isRequired,
+};
 
 export default useIngredientInfo;

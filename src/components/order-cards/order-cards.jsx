@@ -6,8 +6,6 @@ import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-
 import ingredientInfo from "../../hooks/IngredientInfo";
 import {useStatus} from "../../hooks/useStatus";
 import PropTypes from "prop-types";
-import TotalPriceBurger from "../total-price-burger/total-price-burger";
-import BurgerComponentsPropTypes from "../../utils/burger-components-propTypes";
 
 const OrderCards = (props) => {
     const {
@@ -71,6 +69,7 @@ OrderCards.propTypes = {
     ingredients: PropTypes.array.isRequired,
     createdAt: PropTypes.string.isRequired,
     showStatus: PropTypes.bool,
+    status: PropTypes.string.isRequired
 };
 
 export {OrderCards};
