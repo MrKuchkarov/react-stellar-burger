@@ -3,7 +3,7 @@ import style from "./order-cards.module.css";
 import {Link, useLocation} from "react-router-dom";
 import {ImageList} from "./component/image-list";
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
-import ingredientInfo from "../../hooks/IngredientInfo";
+import useIngredientInfo from "../../hooks/useIngredientInfo";
 import {useStatus} from "../../hooks/useStatus";
 import PropTypes from "prop-types";
 
@@ -18,7 +18,7 @@ const OrderCards = (props) => {
         showStatus
     } = props;
     const location = useLocation();
-    const ingredientsWithInfo = ingredientInfo(ingredientsId);
+    const ingredientsWithInfo = useIngredientInfo(ingredientsId);
     const uzStatus = useStatus(status);
     const price = ingredientsWithInfo.reduce(
         (acc, ingredient) => acc + ingredient.price * ingredient.count,

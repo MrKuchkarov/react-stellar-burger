@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 import {selectFeedById} from "../../services/webSocketSlice/ws-selector";
 import {useStatus} from "../../hooks/useStatus";
 import {useSocket} from "../../hooks/useSocket";
-import useIngredientInfo from "../../hooks/IngredientInfo";
+import useIngredientInfo from "../../hooks/useIngredientInfo";
 import TotalPriceBurger from "../total-price-burger/total-price-burger";
 
 const FeedDetails = () => {
@@ -14,7 +14,6 @@ const FeedDetails = () => {
     const currentFeed = useSelector(selectFeedById(id))
     const status = useStatus(currentFeed ? currentFeed.status : null);
     const ingredientsWithInfo = useIngredientInfo(currentFeed ? currentFeed.ingredients : null)
-
 
     const ingredientsTotalPrice = useMemo(() => {
         return ingredientsWithInfo.reduce(
