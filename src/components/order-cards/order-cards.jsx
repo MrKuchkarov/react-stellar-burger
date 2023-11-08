@@ -25,7 +25,7 @@ const OrderCards = (props) => {
         return null;
     }
 
-    const price = ingredientsWithInfo.reduce(
+    const burgerPrice = ingredientsWithInfo.reduce(
         (acc, ingredient) => acc + ingredient.price * ingredient.count,
         0,
     );
@@ -58,7 +58,7 @@ const OrderCards = (props) => {
                 <div className={`${style["burger-ingredients"]} `}>
                     <ImageList ingredientsWithInfo={ingredientsWithInfo}/>
                     <span className={`${style["burger-price"]} text text_type_digits-default`}>
-                        {price}
+                        {burgerPrice}
                         <CurrencyIcon type={'primary'}/>
                     </span>
                 </div>

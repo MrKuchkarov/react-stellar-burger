@@ -1,11 +1,10 @@
 import React, {useMemo} from "react";
-import style from "./feed-dashboard.module.css";
+import style from "./order-board.module.css";
 import {useSelector} from "react-redux";
 import {selectWebSocket} from "../../services/webSocketSlice/ws-selector";
 
-const FeedDashboard = () => {
-    const {total, totalToday, orders} = useSelector(selectWebSocket)
-
+const OrderBoard = () => {
+    const {totalOrders, totalOrdersToday, orders} = useSelector(selectWebSocket)
     const statusOrders = useMemo(() => ({
         successfulOrders: orders.filter((order) => order.status === "done"),
         ordersArePending: orders.filter((order) => order.status === "pending")
@@ -52,7 +51,7 @@ const FeedDashboard = () => {
                     Выполнено за все время:
                 </p>
                 <p className={`${style["title-total"]} text text_type_digits-large`}>
-                    {total}
+                    {totalOrders}
                 </p>
             </div>
             <div className={`${style["container-total-today"]}`}>
@@ -60,11 +59,11 @@ const FeedDashboard = () => {
                     Выполнено за сегодня:
                 </p>
                 <p className={`${style["title-total"]} text text_type_digits-large`}>
-                    {totalToday}
+                    {totalOrdersToday}
                 </p>
             </div>
         </section>
     );
 };
 
-export {FeedDashboard};
+export {OrderBoard};

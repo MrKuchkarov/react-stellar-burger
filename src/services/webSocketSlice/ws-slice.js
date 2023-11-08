@@ -6,12 +6,20 @@ const initialState = {
     total: null,
     totalToday: null,
     error: false,
+    isLoading: false,
 }
 
 const webSocketSlice = createSlice({
     name: "$$webSocket",
     initialState,
     reducers: {
+        loadingStart(state) {
+            state.isLoading = true;
+        },
+
+        loadingComplete(state) {
+            state.isLoading = false;
+        },
         connectingBeginning(state) {
             state.wsConnected = true;
             state.error = false;

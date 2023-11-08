@@ -16,7 +16,8 @@ const OrderList = ({showStatus}) => {
         </ul>
     ) : (
         // Если orders пуст или не определен, вернул сообщение(компонент) "заказов нет"
-        <p>Заказов нет</p>
+        <p className={`${style["null-orders"]} text text_type_main-medium`}>Заказов нет, попробуйте обнавить ленту
+            заказов</p>
     )
 };
 
