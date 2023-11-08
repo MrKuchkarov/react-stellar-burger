@@ -4,13 +4,24 @@ import {selectIngredients} from "../services/ingredientsSlice/ingredients-select
 
 const useIngredientInfo = (ingredientsId) => {
     const allIngredients = useSelector(selectIngredients);
-    const ingredientWithInfo = ingredientsId.map((id) =>
+
+    if (!Array.isArray(ingredientsId) || ingredientsId.length === 0) {
+        // Если ingredientsId не является массивом или пуст, вернул пустой массив или null;
+        return []; // Или return null;
+    }
+    const ingredientsWithInfo = ingredientsId.map((id) =>
         allIngredients.find((ingredients) => ingredients._id === id),
     );
-    const uniqueIngredients = Array.from(new Set(ingredientWithInfo));
+
+    // Проверяю, что в массиве нет undefined
+    if (ingredientsWithInfo.includes(undefined)) {
+        return null;
+    }
+
+    const uniqueIngredients = Array.from(new Set(ingredientsWithInfo));
     return uniqueIngredients.map((ingredients) => ({
         ...ingredients,
-        count: ingredientWithInfo.reduce((count, item) => {
+        count: ingredientsWithInfo.reduce((count, item) => {
             if (ingredients._id === item._id) {
                 count += 1;
             }
@@ -20,7 +31,7 @@ const useIngredientInfo = (ingredientsId) => {
 };
 
 useIngredientInfo.propTypes = {
-    ingredientsId: PropTypes.string.isRequired,
+    ingredientsId: PropTypes.array.isRequired,
 };
 
 export default useIngredientInfo;

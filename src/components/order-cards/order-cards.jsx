@@ -20,6 +20,11 @@ const OrderCards = (props) => {
     const location = useLocation();
     const ingredientsWithInfo = useIngredientInfo(ingredientsId);
     const uzStatus = useStatus(status);
+    // Проверяю, что ingredientsWithInfo не равно null
+    if (ingredientsWithInfo === null) {
+        return null;
+    }
+
     const price = ingredientsWithInfo.reduce(
         (acc, ingredient) => acc + ingredient.price * ingredient.count,
         0,

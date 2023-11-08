@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
 import style from "./feed-details.module.css";
 import {FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link, useLocation, useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {selectFeedById} from "../../services/webSocketSlice/ws-selector";
 import {useStatus} from "../../hooks/useStatus";
@@ -22,7 +22,7 @@ const FeedDetails = () => {
         );
     }, [ingredientsWithInfo])
 
-    const color_success = currentFeed.status === "done" ? "text_color_success" : "";
+    const color_success = currentFeed && currentFeed.status === "done" ? "text_color_success" : "";
 
     useSocket()
 
@@ -87,7 +87,7 @@ const FeedDetails = () => {
                 </div>
             </section>
         )
-    );
+    ) || null;
 };
 
 export {FeedDetails};
