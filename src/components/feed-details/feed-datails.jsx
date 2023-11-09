@@ -23,7 +23,7 @@ const FeedDetails = () => {
         );
     }, [ingredientsWithInfo])
 
-    const color_success = currentFeed && currentFeed.status === "done" ? "text_color_success" : "";
+    const status_color_success = currentFeed && currentFeed.status === "done" ? "text_color_success" : "";
 
     useSocket()
 
@@ -41,7 +41,7 @@ const FeedDetails = () => {
                     {currentFeed.name}
                 </h1>
                 <p
-                    className={`${style["burger-status"]} text text_type_main-default ${color_success}`}
+                    className={`${style["burger-status"]} text text_type_main-default ${status_color_success}`}
                 >
                     {status}
                 </p>

@@ -4,12 +4,12 @@ import {useSelector} from "react-redux";
 import {selectWebSocket} from "../../services/webSocketSlice/ws-selector";
 
 const OrderBoard = () => {
-    const {totalOrders, totalOrdersToday, orders} = useSelector(selectWebSocket)
+    const {total, totalToday, orders} = useSelector(selectWebSocket)
+
     const statusOrders = useMemo(() => ({
         successfulOrders: orders.filter((order) => order.status === "done"),
         ordersArePending: orders.filter((order) => order.status === "pending")
     }), [orders])
-
 
     return (
         <section className={`${style["container"]}`}>
@@ -51,7 +51,7 @@ const OrderBoard = () => {
                     Выполнено за все время:
                 </p>
                 <p className={`${style["title-total"]} text text_type_digits-large`}>
-                    {totalOrders}
+                    {total}
                 </p>
             </div>
             <div className={`${style["container-total-today"]}`}>
@@ -59,7 +59,7 @@ const OrderBoard = () => {
                     Выполнено за сегодня:
                 </p>
                 <p className={`${style["title-total"]} text text_type_digits-large`}>
-                    {totalOrdersToday}
+                    {totalToday}
                 </p>
             </div>
         </section>

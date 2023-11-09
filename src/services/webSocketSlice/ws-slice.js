@@ -13,13 +13,6 @@ const webSocketSlice = createSlice({
     name: "$$webSocket",
     initialState,
     reducers: {
-        loadingStart(state) {
-            state.isLoading = true;
-        },
-
-        loadingComplete(state) {
-            state.isLoading = false;
-        },
         connectingBeginning(state) {
             state.wsConnected = true;
             state.error = false;
@@ -38,7 +31,14 @@ const webSocketSlice = createSlice({
             state.orders = action.payload.orders;
             state.total = action.payload.total;
             state.totalToday = action.payload.totalToday;
-        }
+        },
+        loadingStart(state) {
+            state.isLoading = true;
+        },
+
+        loadingComplete(state) {
+            state.isLoading = false;
+        },
     }
 });
 
