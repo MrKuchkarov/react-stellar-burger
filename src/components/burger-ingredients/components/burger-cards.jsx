@@ -1,91 +1,56 @@
 import React, {useMemo} from "react";
 import style from "./burger-cards.module.css";
-import Modal from "../../modal/modal";
-import IngredientDetails from "../../ingredient-details/ingredient-details";
-import {useDispatch, useSelector} from "react-redux";
-import {hideModal} from "../../../services/ingredientsSlice/ingredientsSlice";
-import IngredientCard from "./IngredientCard";
+import {useSelector} from "react-redux";
 import PropTypes from "prop-types";
+import {selectIngredients} from "../../../services/ingredientsSlice/ingredients-selector";
+import {useLocation} from "react-router-dom";
+import {ingredientCategories} from "../../../utils/consts";
+import {renderIngredientList} from "./renderIngredientList";
+
+const cardContainerClass = `${style["card-container"]}`;
+const titleClass = `${style["title-buns"]} pt-10 pb-5 text text_type_main-medium`;
 
 const BurgerCards = ({bunRef, sauceRef, mainRef}) => {
-    const ingredients = useSelector((state) => state.ingredients.ingredients);
-    const visible = useSelector((state) => state.ingredients.visible)
-    const ingredientsTypes = [...new Set(ingredients.map((card) => card.type))];
-    const dispatch = useDispatch();
+    const ingredients = useSelector(selectIngredients);
+    const ingredientsTypesSet = new Set(ingredients.map((card) => card.type))
+    const ingredientsTypes = [...ingredientsTypesSet]
+    const location = useLocation();
 
     // Фильтрация игрениентов по катигориям
-    const categorizedIngredients = useMemo(() => {
-        const result = {
-            buns: ingredients.filter((item) => item.type === "bun"),
-            sauces: ingredients.filter((item) => item.type === "sauce"),
-            mains: ingredients.filter((item) => item.type === "main"),
-        };
-        return result;
-    }, [ingredients]);
-
-    const handleCloseModal = (card) => {
-        dispatch(hideModal());
-    };
+    const categorizedIngredients = useMemo(() => ({
+        buns: ingredients.filter((item) => item.type === "bun"),
+        sauces: ingredients.filter((item) => item.type === "sauce"),
+        mains: ingredients.filter((item) => item.type === "main"),
+    }), [ingredients]);
 
 
     return (
         <>
             <div className={`${style["scroll-ingredients"]} custom-scroll`}>
                 {ingredientsTypes.map((type) => (
-                    <div key={type} className={`${style["card-container"]}`}>
+                    <div key={type} className={cardContainerClass}>
                         <h2
-                            id={
-                                type === "bun"
-                                    ? "bunSection"
-                                    : type === "sauce"
-                                        ? "sauceSection"
-                                        : "mainSection"
-                            }
-                            className={`${style["title-buns"]} pt-10 pb-5 text text_type_main-medium`}
+                            id={`${type}Section`}
+                            className={titleClass}
                         >
-                            {type === "bun"
-                                ? "Булки"
-                                : type === "sauce"
-                                    ? "Соусы"
-                                    : "Начинки"}
+                            {ingredientCategories[type]}
                         </h2>
-                        <ul className={`${style["cards-list"]} `}>
-                            {type === "bun" &&
-                                categorizedIngredients.buns.map((ingredients) => (
-                                    <li
-                                        key={ingredients._id}
-                                        ref={bunRef}
-                                    >
-                                        <IngredientCard ingredients={ingredients}/>
-                                    </li>
-                                ))}
-                            {type === "sauce" &&
-                                categorizedIngredients.sauces.map((ingredients) => (
-                                    <li
-                                        key={ingredients._id}
-                                        ref={sauceRef}
-                                    >
-                                        <IngredientCard ingredients={ingredients}/>
-                                    </li>
-                                ))}
-                            {type === "main" &&
-                                categorizedIngredients.mains.map((ingredients) => (
-                                    <li
-                                        key={ingredients._id}
-                                        ref={mainRef}
-                                    >
-                                        <IngredientCard ingredients={ingredients}/>
-                                    </li>
-                                ))}
-                        </ul>
+                        {type === "bun"
+                            &&
+                            renderIngredientList(type, categorizedIngredients.buns, bunRef, location)
+                        }
+                        {type === "sauce"
+                            &&
+                            renderIngredientList(type, categorizedIngredients.sauces, sauceRef, location)
+                        }
+                        {type === "main"
+                            &&
+                            renderIngredientList(type, categorizedIngredients.mains, mainRef, location)
+                        }
                     </div>
                 ))}
             </div>
-            {visible && (
-                <Modal title={"Детали ингредиентов"} closeModal={handleCloseModal}>
-                    <IngredientDetails></IngredientDetails>
-                </Modal>
-            )}
+
         </>
     );
 };

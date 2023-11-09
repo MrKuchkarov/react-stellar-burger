@@ -6,27 +6,53 @@ import {
     ProfileIcon,
     BurgerIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import HeaderButton from "./components/header-button";
+import {NavLink, useMatch} from "react-router-dom";
+import NavLinkButton from "./components/header-button";
 
 function AppHeader() {
+    const isConstructorActive = useMatch("/login");
+    const isOrdersActive = useMatch("/ingredients");
+    const isProfileActive = useMatch("/profile");
+
+
     return (
         <header className={style.header}>
             <div className={style["header-container"]}>
                 <nav className={style.navigation}>
-                    <HeaderButton>
-                        <BurgerIcon/>
-                        Конструктор
-                    </HeaderButton>
-                    <HeaderButton>
-                        <ListIcon/>
-                        Лента заказов
-                    </HeaderButton>
+                    <NavLinkButton
+                        to="/login"
+                        text={"Конструктор"}
+                        className={`${style["header-links"]} p-5 text text_type_main-default ${isConstructorActive ? style.active : ""}`}
+                    >
+                        <BurgerIcon
+                            type={isConstructorActive ? 'secondary' : 'primary'}
+                        />
+                    </NavLinkButton>
+                    <NavLinkButton
+                        to="/ingredients"
+                        text={"Лента заказов"}
+                        className={`${style["header-links"]} p-5 text text_type_main-default ${isOrdersActive ? style.active : ""}`}
+                    >
+                        <ListIcon
+                            type={isOrdersActive ? 'secondary' : 'primary'}
+                        />
+                    </NavLinkButton>
                 </nav>
-                <Logo/>
-                <HeaderButton>
-                    <ProfileIcon/>
-                    Личный кабинет
-                </HeaderButton>
+                <NavLink
+                    className={style.logo}
+                    to={"/"}
+                >
+                    <Logo/>
+                </NavLink>
+                <NavLinkButton
+                    to="/profile"
+                    text={"Личный кабинет"}
+                    className={`${style["header-links"]} p-5 text text_type_main-default ${isProfileActive ? style.active : ""}`}
+                >
+                    <ProfileIcon
+                        type={isProfileActive ? 'secondary' : 'primary'}
+                    />
+                </NavLinkButton>
             </div>
         </header>
     );

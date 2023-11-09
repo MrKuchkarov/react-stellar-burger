@@ -5,11 +5,13 @@ import {ingredientsDetails} from "../../../services/ingredientDetailsSlice/ingre
 import {showModal} from "../../../services/ingredientsSlice/ingredientsSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
+import {selectFillingBun, selectFillingOther} from "../../../services/constructorSlice/constructor-selector";
 
 const IngredientCard = ({ingredients}) => {
     const dispatch = useDispatch();
-    const other = useSelector((state) => state.filling.other)
-    const bun = useSelector((state) => state.filling.bun)
+    const bun = useSelector(selectFillingBun);
+    const other = useSelector(selectFillingOther);
+
 
     const handleOpenModal = (ingredients) => {
         dispatch(ingredientsDetails(ingredients));
@@ -40,7 +42,7 @@ const IngredientCard = ({ingredients}) => {
             });
         }
         return count;
-    }, [ingredients.type, bun, other]);
+    }, [ingredients.type, bun, other, ingredients._id]);
 
 
     return (
@@ -48,6 +50,7 @@ const IngredientCard = ({ingredients}) => {
             {!isDrag && (<div className={`${style["cards"]}`}
                               onClick={() => handleOpenModal(ingredients)}
                               ref={ingredientDragRef}>
+
                     {count > 0 && <Counter count={count}/>}
                     <img
                         className={`${style["cards-photo"]} pl-4 pr-4`}
@@ -67,6 +70,7 @@ const IngredientCard = ({ingredients}) => {
                     >
                         {ingredients.name}
                     </p>
+
                 </div>
             )}
         </>

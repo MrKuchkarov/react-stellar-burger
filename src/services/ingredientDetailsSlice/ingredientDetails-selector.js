@@ -1,0 +1,1 @@
+export const selectIngredientDetails = (store) => store.details.ingredientsDetails;

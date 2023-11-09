@@ -7,7 +7,7 @@ import {useInView} from "react-intersection-observer";
 
 const BurgerIngredients = () => {
 
-    const [current, setCurrent] = useState('bun');
+    const [current, setCurrent] = useState("bun");
     const handleCurrentTab = (str) => {
         setCurrent(str);
         document.getElementById(str).scrollIntoView({behavior: 'smooth'});

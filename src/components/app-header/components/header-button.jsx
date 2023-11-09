@@ -1,19 +1,22 @@
 import React from "react";
-import style from "./header-button.module.css";
 import PropTypes from "prop-types";
+import {NavLink} from "react-router-dom";
 
-const HeaderButton = (props) => {
+const CustomNavLinkButton = ({text, to, className, children}) => {
     return (
-        <a href="#" className={`${style["menu-links"]} p-5`}>
-            <p className={`${style["menu-links-text"]} text text_type_main-default`}>
-                {props.children}
-            </p>
-        </a>
+        <NavLink
+            to={to}
+            className={className}
+        >
+            {children}
+            {text}
+        </NavLink>
     );
 };
 
-HeaderButton.propTypes = {
-    children: PropTypes.node.isRequired,
+CustomNavLinkButton.propTypes = {
+    to: PropTypes.string,
+    children: PropTypes.node,
 };
 
-export default HeaderButton;
+export default CustomNavLinkButton;

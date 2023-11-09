@@ -24,7 +24,7 @@
     font-family: 'Jet Brains Mono';
     font-size: 16px;
     line-height: 24px;
-    color: #F2F2F3;
+    color: var(--text-primary-color);
     box-sizing: border-box;
 }
 
@@ -43,7 +43,7 @@
     font-family: 'Jet Brains Mono';
     font-size: 16px;
     line-height: 24px;
-    color: #F2F2F3;
+    color: var(--text-primary-color);
     box-sizing: border-box;
 }
 
@@ -58,7 +58,7 @@
     font-family: 'Jet Brains Mono';
     font-size: 16px;
     line-height: 24px;
-    color: #F2F2F3;
+    color: var(--text-primary-color);
     box-sizing: border-box;
     margin: 10px 0px 10px 42px;
 }

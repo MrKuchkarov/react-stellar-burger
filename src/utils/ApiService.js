@@ -4,10 +4,13 @@ import {
     setLoading,
     setOrderNumber,
 } from "../services/orderDetailsSlice.js/orderDetailsSlice";
+import {getCookie} from "./cookie";
 
 const ApiGetTheIngredients = "https://norma.nomoreparties.space/api/ingredients";
 const ApiOrderDetails = "https://norma.nomoreparties.space/api/orders";
 // Получение список заказов
+
+
 export const fetchIngredients = createAsyncThunk(
     "ingredients/fetchIngredients",
     async (_, {rejectWithValue}) => {
@@ -37,11 +40,12 @@ export const makeOrder = createAsyncThunk(
     async (ingredientIds, {rejectWithValue, dispatch}) => {
         try {
             dispatch(setLoading(true));
-
+            const token = getCookie("accessToken");
             const response = await fetch(ApiOrderDetails, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    Authorization: token || "",
                 },
                 body: JSON.stringify({ingredients: ingredientIds}),
             });

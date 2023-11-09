@@ -1,36 +1,80 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import IngredientDataLoader from "./components/IngredientDataLoader";
-import {useSelector} from "react-redux";
-import {DndProvider} from "react-dnd";
-import {HTML5Backend} from "react-dnd-html5-backend";
+import {HomePages} from "../../pages/home-pages/home-pages";
+import {Login} from "../../pages/login/login";
+import {Profile} from "../../pages/profile/profile";
+import {Register} from "../../pages/register/register";
+import {IngredietnsPage} from "../../pages/ingredients/ingredietns-page";
+import {ForgotPassword} from "../../pages/forgot-password/forgot-password";
+import {ResetPassword} from "../../pages/reset-password/reset-password";
+import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
+import {OnlyAuth, OnlyUnAuth} from "../protected-route/protected-route";
+import {fetchIngredients} from "../../utils/ApiService";
+import {checkUserAuth} from "../../services/auth/auth-async-thunks";
+import {useDispatch} from "react-redux";
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import Modal from "../modal/modal";
+import NotFound404 from "../../pages/NotFound404/NotFound404";
+import ConditionalLoader from "./components/pre-loader-conditions";
+import {routes} from "../../utils/consts";
+
 
 function App() {
-    const ingredients = useSelector((state) => state.ingredients.ingredients);
-    const isLoading = useSelector((state) => state.ingredients.isLoading);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const dispatch = useDispatch();
+    const background = location.state && location.state.background;
+
+
+    useEffect(() => {
+        dispatch(fetchIngredients());
+        dispatch(checkUserAuth());
+    }, [dispatch]);
+
+    const handleCloseModal = () => {
+        navigate(-1);
+    };
 
     return (
-        <DndProvider backend={HTML5Backend}>
-            <section className={styles["app"]}>
-                <AppHeader/>
-                <div className={styles["app-container"]}>
-                    <IngredientDataLoader/>
-                    <div>
-                        {isLoading && <p>Загрузка...</p>}
-                        {!isLoading && ingredients.length === 0 && (
-                            <p>Ингредиенты не доступны</p>
-                        )}
-                        {ingredients.length > 0 && <BurgerIngredients/>}
-                    </div>
-                    <div>
-                        <BurgerConstructor/>
-                    </div>
-                </div>
-            </section>
-        </DndProvider>
+        <div className={styles["app"]}>
+            <AppHeader/>
+            <ConditionalLoader/>
+            <Routes location={background || location}>
+                <Route path={routes.home} element={<HomePages/>}/>
+                <Route path={routes.login} element={<OnlyUnAuth component={<Login/>}/>}/>
+                <Route
+                    path={routes.profile}
+                    element={<OnlyAuth component={<Profile/>}/>}
+                />
+                <Route
+                    path={routes.register}
+                    element={<OnlyUnAuth component={<Register/>}/>}
+                />
+                <Route path={routes.ingredientsId} element={<IngredietnsPage/>}/>
+                <Route
+                    path={routes.forgotPassword}
+                    element={<OnlyUnAuth component={<ForgotPassword/>}/>}
+                />
+                <Route
+                    path={routes.resetPassword}
+                    element={<OnlyUnAuth component={<ResetPassword/>}/>}
+                />
+                <Route path="*" element={<NotFound404/>}/>
+            </Routes>
+            {background && (
+                <Routes>
+                    <Route
+                        path={routes.ingredientsId}
+                        element={
+                            <Modal title={"Детали ингредиентов"} closeModal={handleCloseModal}>
+                                <IngredientDetails/>
+                            </Modal>
+                        }
+                    />
+                </Routes>
+            )}
+        </div>
     );
 }
 
