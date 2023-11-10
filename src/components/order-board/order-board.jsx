@@ -1,15 +1,16 @@
 import React, {useMemo} from "react";
 import style from "./order-board.module.css";
 import {useSelector} from "react-redux";
-import {selectWebSocket} from "../../services/webSocketSlice/ws-selector";
+import {selectUnWebSocket} from "../../services/webSocketSlice/unauth-ws-selector";
+
 
 const OrderBoard = () => {
-    const {total, totalToday, orders} = useSelector(selectWebSocket)
+    const {total, totalToday, UnOrders} = useSelector(selectUnWebSocket)
 
     const statusOrders = useMemo(() => ({
-        successfulOrders: orders.filter((order) => order.status === "done"),
-        ordersArePending: orders.filter((order) => order.status === "pending")
-    }), [orders])
+        successfulOrders: UnOrders.filter((order) => order.status === "done"),
+        ordersArePending: UnOrders.filter((order) => order.status === "pending")
+    }), [UnOrders])
 
     return (
         <section className={`${style["container"]}`}>

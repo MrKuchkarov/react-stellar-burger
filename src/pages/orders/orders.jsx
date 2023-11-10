@@ -2,10 +2,10 @@ import React from 'react';
 import style from "../feed/feed.module.css";
 import ProfileNavigation from "../../components/profile-navigation/profile-navigation";
 import {OrderList} from "../../components/orderList/order-list";
-import {useSocket} from "../../hooks/useSocket";
+import {useAuthSocket} from "../../hooks/useAuthSocket";
 
 const OrdersPage = () => {
-    useSocket()
+    useAuthSocket()
     return (
         <div className={`${style["container-order"]}`}>
             <ProfileNavigation/>

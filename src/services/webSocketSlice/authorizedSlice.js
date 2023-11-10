@@ -1,0 +1,47 @@
+// authorizedSlice.js
+import {createSlice} from "@reduxjs/toolkit";
+
+const initialState = {
+    wsConnected: false,
+    orders: [],
+    total: null,
+    totalToday: null,
+    error: false,
+    isLoading: false,
+};
+
+const authorizedSlice = createSlice({
+    name: "authorized",
+    initialState,
+    reducers: {
+        connectingBeginning(state) {
+            state.wsConnected = true;
+            state.error = false;
+        },
+        connectingOpened(state) {
+            state.wsConnected = true;
+        },
+        connectingError(state) {
+            state.wsConnected = false;
+            state.error = true;
+        },
+        connectingClose(state) {
+            state.wsConnected = false;
+        },
+        getMessage(state, action) {
+            const {orders, total, totalToday} = action.payload;
+            state.orders = orders;
+            state.total = total;
+            state.totalToday = totalToday;
+        },
+        loadingStart(state) {
+            state.isLoading = true;
+        },
+        loadingComplete(state) {
+            state.isLoading = false;
+        },
+    },
+});
+
+export const authorizedActions = authorizedSlice.actions;
+export default authorizedSlice.reducer;

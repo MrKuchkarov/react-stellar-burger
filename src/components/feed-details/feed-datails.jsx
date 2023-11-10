@@ -3,11 +3,11 @@ import style from "./feed-details.module.css";
 import {FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useParams} from "react-router-dom";
 import {useSelector} from "react-redux";
-import {selectFeedById} from "../../services/webSocketSlice/ws-selector";
+import {selectFeedById} from "../../services/webSocketSlice/auth-ws-selector";
 import {useStatus} from "../../hooks/useStatus";
-import {useSocket} from "../../hooks/useSocket";
 import useIngredientInfo from "../../hooks/useIngredientInfo";
 import TotalPriceBurger from "../total-price-burger/total-price-burger";
+import {useAuthSocket} from "../../hooks/useAuthSocket";
 
 const FeedDetails = () => {
 
@@ -25,7 +25,7 @@ const FeedDetails = () => {
 
     const status_color_success = currentFeed && currentFeed.status === "done" ? "text_color_success" : "";
 
-    useSocket()
+    useAuthSocket()
 
     return (
         currentFeed && (

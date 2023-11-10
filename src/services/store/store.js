@@ -5,8 +5,13 @@ import ingredientDetailsSlice from "../ingredientDetailsSlice/ingredientDetailsS
 import orderDetailsSlice from "../orderDetailsSlice.js/orderDetailsSlice";
 import authReducer from "../auth/auth-slice";
 import webSocketSlice, {wsActions} from "../webSocketSlice/ws-slice"
-import socketMiddleware from "../webSocketSlice/socketMiddleWare";
+import socketMiddleware from "../webSocketSlice/AuthSocketMiddleWare";
+import authorizedSlice, {authorizedActions} from "../webSocketSlice/authorizedSlice";
+import unauthorizedSlice, {unauthorizedActions} from "../webSocketSlice/unauthorizedSlice";
+import createSocketMiddleWare from "../webSocketSlice/AuthSocketMiddleWare";
 
+const authorizedSocketMiddleware = createSocketMiddleWare(authorizedActions);
+const UnAuthorizedSocketMiddleware = createSocketMiddleWare(unauthorizedActions);
 export const store = configureStore({
     reducer: {
         ingredients: ingredientsSlice,
@@ -14,8 +19,10 @@ export const store = configureStore({
         details: ingredientDetailsSlice,
         order: orderDetailsSlice,
         auth: authReducer,
-        webSocket: webSocketSlice,
+        authorized: authorizedSlice,
+        unauthorized: unauthorizedSlice,
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(socketMiddleware(wsActions)), serializableCheck: false,
+        getDefaultMiddleware().concat(authorizedSocketMiddleware, UnAuthorizedSocketMiddleware),
+    serializableCheck: false,
 });

@@ -1,29 +1,29 @@
-const createSocketMiddleWare = (wsActions) => {
+const createSocketMiddleWare = (unauthorizedActions) => {
     let socket = null;
     const {
-        connectingBeginning,
-        connectingOpened,
-        connectingError,
-        getMessage,
-        connectingClose,
-    } = wsActions;
+        UnConnectingBeginning,
+        UnConnectingOpened,
+        UnConnectingError,
+        UnGetMessage,
+        UnConnectingClose,
+    } = unauthorizedActions;
 
     const onSocketOpen = (dispatch) => {
-        dispatch(connectingOpened());
+        dispatch(UnConnectingOpened());
     };
 
     const onSocketError = (dispatch) => {
-        dispatch(connectingError());
+        dispatch(UnConnectingError());
     };
 
     const onSocketMessage = (dispatch) => (event) => {
         const {data} = event;
         const parsedData = JSON.parse(data);
-        dispatch(getMessage(parsedData));
+        dispatch(UnGetMessage(parsedData));
     };
 
     const onSocketClose = (dispatch) => {
-        dispatch(connectingClose());
+        dispatch(UnConnectingClose());
     };
 
     const isSocketOpen = () => socket && socket.readyState === WebSocket.OPEN;
@@ -32,18 +32,18 @@ const createSocketMiddleWare = (wsActions) => {
         const {dispatch} = store;
         const {type, payload} = action;
 
-        if (type === connectingBeginning.type) {
+        if (type === UnConnectingBeginning.type) {
             if (!isSocketOpen()) {
                 // Проверка, что WebSocket ещё не открыт
                 socket = new WebSocket(payload);
                 socket.onopen = () => onSocketOpen(dispatch);
                 socket.onerror = () => onSocketError(dispatch);
-                socket.onmessage = onSocketMessage(dispatch, wsActions, getMessage);
+                socket.onmessage = onSocketMessage(dispatch, unauthorizedActions, UnGetMessage);
             }
         }
 
         if (socket) {
-            if (isSocketOpen() && type === wsActions.connectingClose.type) {
+            if (isSocketOpen() && type === unauthorizedActions.connectingClose.type) {
                 // Проверка, что WebSocket открыт перед закрытием
                 socket.close(1000, "close normal");
             }

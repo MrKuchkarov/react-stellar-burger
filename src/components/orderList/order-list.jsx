@@ -2,11 +2,12 @@ import React from "react";
 import style from "./order-list.module.css"
 import {OrderCards} from "../order-cards/order-cards";
 import {useSelector} from "react-redux";
-import {selectOrders} from "../../services/webSocketSlice/ws-selector";
+import {selectUnOrders} from "../../services/webSocketSlice/unauth-ws-selector";
+import {selectOrders} from "../../services/webSocketSlice/auth-ws-selector";
 
 const OrderList = ({showStatus}) => {
     const orders = useSelector(selectOrders);
-
+    console.log(orders)
     // Проверяю, что orders не является undefined или null, и также что массив не пуст
     return (orders && orders.length > 0) ? (
         <ul className={`${style["container"]} custom-scroll`}>
