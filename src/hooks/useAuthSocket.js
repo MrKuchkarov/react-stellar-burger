@@ -1,6 +1,6 @@
 import {useLocation} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {authorizedActions} from "../services/webSocketSlice/authorizedSlice";
+import {authorizedActions} from "../services/webSocketSlice/AuthSocketSlice/authorizedSlice";
 import {useEffect} from "react";
 import {webSocketUrl} from "../utils/consts";
 import {getCookie} from "../utils/cookie";

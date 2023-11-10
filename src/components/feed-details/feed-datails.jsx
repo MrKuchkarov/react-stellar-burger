@@ -3,12 +3,12 @@ import style from "./feed-details.module.css";
 import {FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useParams} from "react-router-dom";
 import {useSelector} from "react-redux";
-import {selectFeedById} from "../../services/webSocketSlice/auth-ws-selector";
+import {selectFeedById} from "../../services/webSocketSlice/AuthSocketSlice/auth-ws-selector";
 import {useStatus} from "../../hooks/useStatus";
 import useIngredientInfo from "../../hooks/useIngredientInfo";
 import TotalPriceBurger from "../total-price-burger/total-price-burger";
 import {useAuthSocket} from "../../hooks/useAuthSocket";
-import {selectFeedByUnId} from "../../services/webSocketSlice/unauth-ws-selector";
+import {selectFeedByUnId} from "../../services/webSocketSlice/UnAuthSocketSlice/unauth-ws-selector";
 
 const FeedDetails = ({useFeedDetails}) => {
 

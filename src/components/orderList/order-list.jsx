@@ -2,8 +2,8 @@ import React from "react";
 import style from "./order-list.module.css"
 import {OrderCards} from "../order-cards/order-cards";
 import {useSelector} from "react-redux";
-import {selectUnOrders} from "../../services/webSocketSlice/unauth-ws-selector";
-import {selectOrders} from "../../services/webSocketSlice/auth-ws-selector";
+import {selectUnOrders} from "../../services/webSocketSlice/UnAuthSocketSlice/unauth-ws-selector";
+import {selectOrders} from "../../services/webSocketSlice/AuthSocketSlice/auth-ws-selector";
 
 const OrderList = ({showStatus, useUnOrders}) => {
     const orders = useSelector(useUnOrders ? selectUnOrders : selectOrders);

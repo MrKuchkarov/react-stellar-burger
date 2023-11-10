@@ -3,7 +3,7 @@ import {useDispatch} from "react-redux";
 import {useEffect} from "react";
 import {UnWebSocketUrl, webSocketUrl} from "../utils/consts";
 import {getCookie} from "../utils/cookie";
-import {unauthorizedActions} from "../services/webSocketSlice/unauthorizedSlice";
+import {unauthorizedActions} from "../services/webSocketSlice/UnAuthSocketSlice/unauthorizedSlice";
 
 export function useUnAuthSocket() {
     const location = useLocation();
