@@ -4,14 +4,12 @@ import {createSlice} from "@reduxjs/toolkit";
 const initialState = {
     wsConnected: false,
     orders: [],
-    total: null,
-    totalToday: null,
     error: false,
     isLoading: false,
 };
 
 const authorizedSlice = createSlice({
-    name: "authorized",
+    name: "$$authorized",
     initialState,
     reducers: {
         connectingBeginning(state) {
@@ -29,10 +27,8 @@ const authorizedSlice = createSlice({
             state.wsConnected = false;
         },
         getMessage(state, action) {
-            const {orders, total, totalToday} = action.payload;
+            const {orders} = action.payload;
             state.orders = orders;
-            state.total = total;
-            state.totalToday = totalToday;
         },
         loadingStart(state) {
             state.isLoading = true;

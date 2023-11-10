@@ -12,13 +12,13 @@ export function useUnAuthSocket() {
 
     useEffect(() => {
         if (location.pathname.startsWith("/feed")) {
-            dispatch(UnConnectingBeginning(`${UnWebSocketUrl}/all`));
+            dispatch(UnConnectingBeginning(`${webSocketUrl}/all`));
         } else {
             const accessToken = getCookie("accessToken").replace(
                 "Bearer ",
                 "",
             );
-            dispatch(UnConnectingBeginning(`${UnWebSocketUrl}?token=${accessToken}`));
+            dispatch(UnConnectingBeginning(`${webSocketUrl}?token=${accessToken}`));
         }
 
         return () => {

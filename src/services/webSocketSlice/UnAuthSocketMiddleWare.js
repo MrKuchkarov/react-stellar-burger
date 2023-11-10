@@ -1,4 +1,4 @@
-const createSocketMiddleWare = (unauthorizedActions) => {
+const createUnAuthSocketMiddleWare = (unauthorizedActions) => {
     let socket = null;
     const {
         UnConnectingBeginning,
@@ -43,7 +43,7 @@ const createSocketMiddleWare = (unauthorizedActions) => {
         }
 
         if (socket) {
-            if (isSocketOpen() && type === unauthorizedActions.connectingClose.type) {
+            if (isSocketOpen() && type === UnConnectingClose.type) {
                 // Проверка, что WebSocket открыт перед закрытием
                 socket.close(1000, "close normal");
             }
@@ -54,4 +54,4 @@ const createSocketMiddleWare = (unauthorizedActions) => {
     };
 };
 
-export default createSocketMiddleWare;
+export default createUnAuthSocketMiddleWare;

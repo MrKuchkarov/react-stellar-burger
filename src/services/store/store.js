@@ -4,14 +4,13 @@ import constructorSlice from "../constructorSlice/constructorSlice";
 import ingredientDetailsSlice from "../ingredientDetailsSlice/ingredientDetailsSlice";
 import orderDetailsSlice from "../orderDetailsSlice.js/orderDetailsSlice";
 import authReducer from "../auth/auth-slice";
-import webSocketSlice, {wsActions} from "../webSocketSlice/ws-slice"
-import socketMiddleware from "../webSocketSlice/AuthSocketMiddleWare";
 import authorizedSlice, {authorizedActions} from "../webSocketSlice/authorizedSlice";
 import unauthorizedSlice, {unauthorizedActions} from "../webSocketSlice/unauthorizedSlice";
-import createSocketMiddleWare from "../webSocketSlice/AuthSocketMiddleWare";
+import createAuthSocketMiddleWare from "../webSocketSlice/AuthSocketMiddleWare";
+import createUnAuthSocketMiddleWare from "../webSocketSlice/UnAuthSocketMiddleWare";
 
-const authorizedSocketMiddleware = createSocketMiddleWare(authorizedActions);
-const UnAuthorizedSocketMiddleware = createSocketMiddleWare(unauthorizedActions);
+const authorizedSocketMiddleware = createAuthSocketMiddleWare(authorizedActions);
+const UnAuthorizedSocketMiddleware = createUnAuthSocketMiddleWare(unauthorizedActions);
 export const store = configureStore({
     reducer: {
         ingredients: ingredientsSlice,

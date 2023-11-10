@@ -11,7 +11,7 @@ const FeedPage = () => {
         <div className={`${style["container"]} pt-10`}>
             <h1 className={`${style["feed-title"]} text text_type_main-large pl-3`}>Лента заказов</h1>
             <div className={`${style["feed-components"]}`}>
-                <OrderList/>
+                <OrderList showStatus={false} useUnOrders={true}/>
                 <OrderBoard/>
             </div>
 

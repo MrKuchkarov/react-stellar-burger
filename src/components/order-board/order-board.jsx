@@ -5,12 +5,12 @@ import {selectUnWebSocket} from "../../services/webSocketSlice/unauth-ws-selecto
 
 
 const OrderBoard = () => {
-    const {total, totalToday, UnOrders} = useSelector(selectUnWebSocket)
-
+    const {total, totalToday, orders} = useSelector(selectUnWebSocket)
+    
     const statusOrders = useMemo(() => ({
-        successfulOrders: UnOrders.filter((order) => order.status === "done"),
-        ordersArePending: UnOrders.filter((order) => order.status === "pending")
-    }), [UnOrders])
+        successfulOrders: orders.filter((UnOrders) => UnOrders.status === "done"),
+        ordersArePending: orders.filter((UnOrders) => UnOrders.status === "pending")
+    }), [orders])
 
     return (
         <section className={`${style["container"]}`}>

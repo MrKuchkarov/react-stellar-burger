@@ -3,7 +3,7 @@ import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
     UnWsConnected: false,
-    UnOrders: [],
+    orders: [],
     total: null,
     totalToday: null,
     error: false,
@@ -11,7 +11,7 @@ const initialState = {
 };
 
 const unauthorizedSlice = createSlice({
-    name: "unauthorized",
+    name: "$$unauthorized",
     initialState,
     reducers: {
         UnConnectingBeginning(state) {
@@ -29,8 +29,8 @@ const unauthorizedSlice = createSlice({
             state.UnWsConnected = false;
         },
         UnGetMessage(state, action) {
-            const {UnOrders, total, totalToday} = action.payload;
-            state.UnOrders = UnOrders;
+            const {orders, total, totalToday} = action.payload;
+            state.orders = orders;
             state.total = total;
             state.totalToday = totalToday;
         },

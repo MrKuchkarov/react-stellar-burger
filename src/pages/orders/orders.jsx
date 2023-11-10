@@ -9,7 +9,7 @@ const OrdersPage = () => {
     return (
         <div className={`${style["container-order"]}`}>
             <ProfileNavigation/>
-            <OrderList showStatus={true}/>
+            <OrderList showStatus={true} useUnOrders={false}/>
         </div>
     );
 };

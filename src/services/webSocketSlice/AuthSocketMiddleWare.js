@@ -1,4 +1,4 @@
-const createSocketMiddleWare = (authorizedActions) => {
+const createAuthSocketMiddleWare = (authorizedActions) => {
     let socket = null;
     const {
         connectingBeginning,
@@ -31,7 +31,7 @@ const createSocketMiddleWare = (authorizedActions) => {
     return (store) => (next) => (action) => {
         const {dispatch} = store;
         const {type, payload} = action;
-
+       
         if (type === connectingBeginning.type) {
             if (!isSocketOpen()) {
                 // Проверка, что WebSocket ещё не открыт
@@ -54,4 +54,4 @@ const createSocketMiddleWare = (authorizedActions) => {
     };
 };
 
-export default createSocketMiddleWare;
+export default createAuthSocketMiddleWare;
