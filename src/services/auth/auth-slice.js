@@ -7,12 +7,11 @@ import {
 } from "./auth-async-thunks";
 
 const initialState = {
-    user: {
-        name: '',
-        email: '',
-    },
+    user: null,
     isAuthChecked: false,
     error: null,
+    name: "",
+    email: "",
 };
 
 const authSlice = createSlice({
