@@ -7,14 +7,14 @@ import {fetchUpdateUser} from "../../services/auth/auth-async-thunks";
 import {useLocalStorage} from "../../hooks/useLocalStorage"
 
 const UserForm = () => {
-    const {name, email} = useSelector(selectAuthUser);
+    const {name, email, password, user} = useSelector(selectAuthUser);
     const [edit, setEdit] = useState(false);
     const dispatch = useDispatch();
     // Используется хук useLocalStorage для управления данными формы
     const [form, setForm] = useLocalStorage("userFormData", {
-        name: "",
-        email: "",
-        password: "",
+        name: name,
+        email: email,
+        password: password,
     });
 
     const handleChange = (e) => {
@@ -49,7 +49,7 @@ const UserForm = () => {
                 password: "",
             });
         }
-    }, [name, email]);
+    }, []);
 
     return (
         <form className={style.form} onSubmit={handleSubmit}>
