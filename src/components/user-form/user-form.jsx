@@ -7,7 +7,7 @@ import {fetchUpdateUser} from "../../services/auth/auth-async-thunks";
 import {useLocalStorage} from "../../hooks/useLocalStorage"
 
 const UserForm = () => {
-    const {name, email, password, user} = useSelector(selectAuthUser);
+    const {name, email, password} = useSelector(selectAuthUser);
     const [edit, setEdit] = useState(false);
     const dispatch = useDispatch();
     // Используется хук useLocalStorage для управления данными формы
@@ -49,31 +49,34 @@ const UserForm = () => {
                 password: "",
             });
         }
-    }, []);
+    }, [name, email]);
 
     return (
         <form className={style.form} onSubmit={handleSubmit}>
             <fieldset className={style.wrapper}>
                 <Input
-                    value={form.name}
+                    value={form.name || ''}
                     name={'name'}
                     onChange={handleChange}
                     size={'default'}
                     placeholder={'Имя'}
                     icon={'EditIcon'}
+                    autoComplete="current-name"
                 />
                 <EmailInput
-                    value={form.email}
+                    value={form.email || ""}
                     name={'email'}
                     onChange={handleChange}
                     isIcon={true}
                     placeholder={'Логин'}
+                    autoComplete="current-Email"
                 />
                 <PasswordInput
-                    value={form.password}
+                    value={form.password || ""}
                     name={'password'}
                     onChange={handleChange}
                     icon={'EditIcon'}
+                    autoComplete="current-password"
                 />
                 {edit && (
                     <div className={style.button__container}>
