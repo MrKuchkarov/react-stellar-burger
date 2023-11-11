@@ -2,10 +2,10 @@ import React from 'react';
 import style from "./feed.module.css";
 import {OrderList} from "../../components/orderList/order-list";
 import {OrderBoard} from "../../components/order-board/order-board";
-import {useUnAuthSocket} from "../../hooks/useUnAuthSocket";
+import {useSocket} from "../../hooks/useSocket";
 
 const FeedPage = () => {
-    useUnAuthSocket()
+    useSocket(false)
 
     return (
         <div className={`${style["container"]} pt-10`}>

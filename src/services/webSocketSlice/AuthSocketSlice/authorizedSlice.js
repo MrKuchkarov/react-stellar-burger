@@ -8,7 +8,7 @@ const initialState = {
     isLoading: false,
 };
 
-const authorizedSlice = createSlice({
+const AuthorizedSlice = createSlice({
     name: "$$authorized",
     initialState,
     reducers: {
@@ -39,5 +39,5 @@ const authorizedSlice = createSlice({
     },
 });
 
-export const authorizedActions = authorizedSlice.actions;
-export default authorizedSlice.reducer;
+export const AuthorizedActions = AuthorizedSlice.actions;
+export default AuthorizedSlice.reducer;

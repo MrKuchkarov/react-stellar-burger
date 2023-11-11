@@ -7,7 +7,7 @@ import {selectFeedById} from "../../services/webSocketSlice/AuthSocketSlice/auth
 import {useStatus} from "../../hooks/useStatus";
 import useIngredientInfo from "../../hooks/useIngredientInfo";
 import TotalPriceBurger from "../total-price-burger/total-price-burger";
-import {useAuthSocket} from "../../hooks/useAuthSocket";
+
 import {selectFeedByUnId} from "../../services/webSocketSlice/UnAuthSocketSlice/unauth-ws-selector";
 
 const FeedDetails = ({useFeedDetails}) => {
@@ -26,7 +26,6 @@ const FeedDetails = ({useFeedDetails}) => {
 
     const status_color_success = currentFeed && currentFeed.status === "done" ? "text_color_success" : "";
 
-    useAuthSocket()
 
     return (
         currentFeed && (

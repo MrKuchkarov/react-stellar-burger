@@ -1,4 +1,4 @@
-const createAuthSocketMiddleWare = (authorizedActions) => {
+const createSocketMiddleWare = (actions) => {
     let socket = null;
     const {
         connectingBeginning,
@@ -6,7 +6,7 @@ const createAuthSocketMiddleWare = (authorizedActions) => {
         connectingError,
         getMessage,
         connectingClose,
-    } = authorizedActions;
+    } = actions;
 
     const onSocketOpen = (dispatch) => {
         dispatch(connectingOpened());
@@ -31,19 +31,19 @@ const createAuthSocketMiddleWare = (authorizedActions) => {
     return (store) => (next) => (action) => {
         const {dispatch} = store;
         const {type, payload} = action;
-       
-        if (type === connectingBeginning.type) {
+
+        if (type === connectingBeginning().type) {
             if (!isSocketOpen()) {
                 // Проверка, что WebSocket ещё не открыт
                 socket = new WebSocket(payload);
                 socket.onopen = () => onSocketOpen(dispatch);
                 socket.onerror = () => onSocketError(dispatch);
-                socket.onmessage = onSocketMessage(dispatch, authorizedActions, getMessage);
+                socket.onmessage = onSocketMessage(dispatch, actions, getMessage);
             }
         }
 
         if (socket) {
-            if (isSocketOpen() && type === authorizedActions.connectingClose.type) {
+            if (isSocketOpen() && type === connectingClose().type) {
                 // Проверка, что WebSocket открыт перед закрытием
                 socket.close(1000, "close normal");
             }
@@ -54,4 +54,4 @@ const createAuthSocketMiddleWare = (authorizedActions) => {
     };
 };
 
-export default createAuthSocketMiddleWare;
+export default createSocketMiddleWare;

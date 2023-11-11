@@ -10,38 +10,38 @@ const initialState = {
     isLoading: false,
 };
 
-const unauthorizedSlice = createSlice({
+const UnAuthorizedSlice = createSlice({
     name: "$$unauthorized",
     initialState,
     reducers: {
-        UnConnectingBeginning(state) {
+        connectingBeginning(state) {
             state.UnWsConnected = true;
             state.error = false;
         },
-        UnConnectingOpened(state) {
+        connectingOpened(state) {
             state.UnWsConnected = true;
         },
-        UnConnectingError(state) {
+        connectingError(state) {
             state.UnWsConnected = false;
             state.error = true;
         },
-        UnConnectingClose(state) {
+        connectingClose(state) {
             state.UnWsConnected = false;
         },
-        UnGetMessage(state, action) {
+        getMessage(state, action) {
             const {orders, total, totalToday} = action.payload;
             state.orders = orders;
             state.total = total;
             state.totalToday = totalToday;
         },
-        UnLoadingStart(state) {
+        loadingStart(state) {
             state.isLoading = true;
         },
-        UnLoadingComplete(state) {
+        loadingComplete(state) {
             state.isLoading = false;
         },
     },
 });
 
-export const unauthorizedActions = unauthorizedSlice.actions;
-export default unauthorizedSlice.reducer;
+export const UnAuthorizedActions = UnAuthorizedSlice.actions;
+export default UnAuthorizedSlice.reducer;

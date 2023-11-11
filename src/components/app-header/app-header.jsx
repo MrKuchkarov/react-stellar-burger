@@ -25,7 +25,7 @@ function AppHeader() {
                         className={`${style["header-links"]} pt-5 pr-5 pb-5 text text_type_main-default ${isConstructorActive ? style.active : ""}`}
                     >
                         <BurgerIcon
-                            type={isConstructorActive ? 'secondary' : 'primary'}
+                            type={isConstructorActive ? 'primary' : 'secondary'}
                         />
                     </NavLinkButton>
                     <NavLinkButton
@@ -34,7 +34,7 @@ function AppHeader() {
                         className={`${style["header-links"]} p-5 text text_type_main-default ${isOrdersActive ? style.active : ""}`}
                     >
                         <ListIcon
-                            type={isOrdersActive ? 'secondary' : 'primary'}
+                            type={isOrdersActive ? 'primary' : 'secondary'}
                         />
                     </NavLinkButton>
                 </nav>
@@ -50,7 +50,7 @@ function AppHeader() {
                     className={`${style["header-links"]} pt-5 pb-5 pl-5 text text_type_main-default ${isProfileActive ? style.active : ""}`}
                 >
                     <ProfileIcon
-                        type={isProfileActive ? 'secondary' : 'primary'}
+                        type={isProfileActive ? 'primary' : 'secondary'}
                     />
                 </NavLinkButton>
             </div>

@@ -4,13 +4,12 @@ import constructorSlice from "../constructorSlice/constructorSlice";
 import ingredientDetailsSlice from "../ingredientDetailsSlice/ingredientDetailsSlice";
 import orderDetailsSlice from "../orderDetailsSlice.js/orderDetailsSlice";
 import authReducer from "../auth/auth-slice";
-import authorizedSlice, {authorizedActions} from "../webSocketSlice/AuthSocketSlice/authorizedSlice";
-import unauthorizedSlice, {unauthorizedActions} from "../webSocketSlice/UnAuthSocketSlice/unauthorizedSlice";
-import createAuthSocketMiddleWare from "../webSocketSlice/AuthSocketSlice/AuthSocketMiddleWare";
-import createUnAuthSocketMiddleWare from "../webSocketSlice/UnAuthSocketSlice/UnAuthSocketMiddleWare";
+import AuthorizedSlice, {AuthorizedActions} from "../webSocketSlice/AuthSocketSlice/authorizedSlice";
+import UnAuthorizedSlice, {UnAuthorizedActions} from "../webSocketSlice/UnAuthSocketSlice/unauthorizedSlice";
+import createSocketMiddleWare from "../webSocketSlice/SocketMiddleWare";
 
-const authorizedSocketMiddleware = createAuthSocketMiddleWare(authorizedActions);
-const UnAuthorizedSocketMiddleware = createUnAuthSocketMiddleWare(unauthorizedActions);
+const authorizedSocketMiddleware = createSocketMiddleWare(AuthorizedActions);
+const UnAuthorizedSocketMiddleware = createSocketMiddleWare(UnAuthorizedActions);
 export const store = configureStore({
     reducer: {
         ingredients: ingredientsSlice,
@@ -18,8 +17,8 @@ export const store = configureStore({
         details: ingredientDetailsSlice,
         order: orderDetailsSlice,
         auth: authReducer,
-        authorized: authorizedSlice,
-        unauthorized: unauthorizedSlice,
+        authorized: AuthorizedSlice,
+        unauthorized: UnAuthorizedSlice,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(authorizedSocketMiddleware, UnAuthorizedSocketMiddleware),
