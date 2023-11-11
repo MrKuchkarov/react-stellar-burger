@@ -3,8 +3,8 @@ import {useEffect} from 'react';
 import {webSocketUrl} from '../utils/consts';
 import {getCookie} from '../utils/cookie';
 import {useDispatch} from "react-redux";
-import {AuthorizedActions} from "../services/webSocketSlice/AuthSocketSlice/AuthorizedSlice";
-import {UnAuthorizedActions} from "../services/webSocketSlice/UnAuthSocketSlice/UnAuthorizedSlice";
+import {AuthorizedActions} from "../services/webSocketSlice/AuthSocketSlice/authorizedSlice";
+import {UnAuthorizedActions} from "../services/webSocketSlice/UnAuthSocketSlice/unauthorizedSlice";
 
 
 export function useSocket(useSocketActions) {
