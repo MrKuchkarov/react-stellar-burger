@@ -1,4 +1,4 @@
-const createSocketMiddleWare = (wsActions) => {
+const createSocketMiddleWare = (actions) => {
     let socket = null;
     const {
         connectingBeginning,
@@ -6,7 +6,7 @@ const createSocketMiddleWare = (wsActions) => {
         connectingError,
         getMessage,
         connectingClose,
-    } = wsActions;
+    } = actions;
 
     const onSocketOpen = (dispatch) => {
         dispatch(connectingOpened());
@@ -32,18 +32,18 @@ const createSocketMiddleWare = (wsActions) => {
         const {dispatch} = store;
         const {type, payload} = action;
 
-        if (type === connectingBeginning.type) {
+        if (type === connectingBeginning().type) {
             if (!isSocketOpen()) {
                 // Проверка, что WebSocket ещё не открыт
                 socket = new WebSocket(payload);
                 socket.onopen = () => onSocketOpen(dispatch);
                 socket.onerror = () => onSocketError(dispatch);
-                socket.onmessage = onSocketMessage(dispatch, wsActions, getMessage);
+                socket.onmessage = onSocketMessage(dispatch, actions, getMessage);
             }
         }
 
         if (socket) {
-            if (isSocketOpen() && type === wsActions.connectingClose.type) {
+            if (isSocketOpen() && type === connectingClose().type) {
                 // Проверка, что WebSocket открыт перед закрытием
                 socket.close(1000, "close normal");
             }

@@ -3,13 +3,14 @@ import {useEffect} from 'react';
 import {webSocketUrl} from '../utils/consts';
 import {getCookie} from '../utils/cookie';
 import {useDispatch} from "react-redux";
-import {wsActions} from "../services/webSocketSlice/ws-slice";
+import {AuthorizedActions} from "../services/webSocketSlice/AuthSocketSlice/authorizedSlice";
+import {UnAuthorizedActions} from "../services/webSocketSlice/UnAuthSocketSlice/unauthorizedSlice";
 
 
-export function useSocket() {
+export function useSocket(useSocketActions) {
     const location = useLocation();
     const dispatch = useDispatch();
-    const {connectingBeginning, connectingClose} = wsActions;
+    const {connectingBeginning, connectingClose} = useSocketActions ? AuthorizedActions : UnAuthorizedActions;
 
     useEffect(() => {
         if (location.pathname.startsWith("/feed")) {

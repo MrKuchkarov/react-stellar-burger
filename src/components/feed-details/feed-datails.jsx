@@ -3,16 +3,17 @@ import style from "./feed-details.module.css";
 import {FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useParams} from "react-router-dom";
 import {useSelector} from "react-redux";
-import {selectFeedById} from "../../services/webSocketSlice/ws-selector";
+import {selectFeedById} from "../../services/webSocketSlice/AuthSocketSlice/auth-ws-selector";
 import {useStatus} from "../../hooks/useStatus";
-import {useSocket} from "../../hooks/useSocket";
 import useIngredientInfo from "../../hooks/useIngredientInfo";
 import TotalPriceBurger from "../total-price-burger/total-price-burger";
 
-const FeedDetails = () => {
+import {selectFeedByUnId} from "../../services/webSocketSlice/UnAuthSocketSlice/unauth-ws-selector";
+
+const FeedDetails = ({useFeedDetails}) => {
 
     const {id} = useParams();
-    const currentFeed = useSelector(selectFeedById(id))
+    const currentFeed = useSelector(useFeedDetails ? selectFeedById(id) : selectFeedByUnId(id))
     const status = useStatus(currentFeed ? currentFeed.status : null);
     const ingredientsWithInfo = useIngredientInfo(currentFeed ? currentFeed.ingredients : null)
 
@@ -25,7 +26,6 @@ const FeedDetails = () => {
 
     const status_color_success = currentFeed && currentFeed.status === "done" ? "text_color_success" : "";
 
-    useSocket()
 
     return (
         currentFeed && (
