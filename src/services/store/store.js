@@ -4,8 +4,8 @@ import constructorSlice from "../constructorSlice/constructorSlice";
 import ingredientDetailsSlice from "../ingredientDetailsSlice/ingredientDetailsSlice";
 import orderDetailsSlice from "../orderDetailsSlice.js/orderDetailsSlice";
 import authReducer from "../auth/auth-slice";
-import AuthorizedSlice, {AuthorizedActions} from "../webSocketSlice/AuthSocketSlice/authorizedSlice";
-import UnAuthorizedSlice, {UnAuthorizedActions} from "../webSocketSlice/UnAuthSocketSlice/unauthorizedSlice";
+import AuthorizedSlice, {AuthorizedActions} from "../webSocketSlice/AuthSocketSlice/AuthorizedSlice";
+import UnAuthorizedSlice, {UnAuthorizedActions} from "../webSocketSlice/UnAuthSocketSlice/UnAuthorizedSlice";
 import createSocketMiddleWare from "../webSocketSlice/SocketMiddleWare";
 
 const authorizedSocketMiddleware = createSocketMiddleWare(AuthorizedActions);

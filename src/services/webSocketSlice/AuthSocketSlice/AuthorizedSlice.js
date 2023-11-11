@@ -1,38 +1,34 @@
-// unauthorizedSlice.js
+// AuthorizedSlice.js
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
-    UnWsConnected: false,
+    wsConnected: false,
     orders: [],
-    total: null,
-    totalToday: null,
     error: false,
     isLoading: false,
 };
 
-const UnAuthorizedSlice = createSlice({
-    name: "$$unauthorized",
+const AuthorizedSlice = createSlice({
+    name: "$$authorized",
     initialState,
     reducers: {
         connectingBeginning(state) {
-            state.UnWsConnected = true;
+            state.wsConnected = true;
             state.error = false;
         },
         connectingOpened(state) {
-            state.UnWsConnected = true;
+            state.wsConnected = true;
         },
         connectingError(state) {
-            state.UnWsConnected = false;
+            state.wsConnected = false;
             state.error = true;
         },
         connectingClose(state) {
-            state.UnWsConnected = false;
+            state.wsConnected = false;
         },
         getMessage(state, action) {
-            const {orders, total, totalToday} = action.payload;
+            const {orders} = action.payload;
             state.orders = orders;
-            state.total = total;
-            state.totalToday = totalToday;
         },
         loadingStart(state) {
             state.isLoading = true;
@@ -43,5 +39,5 @@ const UnAuthorizedSlice = createSlice({
     },
 });
 
-export const UnAuthorizedActions = UnAuthorizedSlice.actions;
-export default UnAuthorizedSlice.reducer;
+export const AuthorizedActions = AuthorizedSlice.actions;
+export default AuthorizedSlice.reducer;

@@ -6,6 +6,7 @@ const createSocketMiddleWare = (actions) => {
         connectingError,
         getMessage,
         connectingClose,
+        refreshTokenAction,
     } = actions;
 
     const onSocketOpen = (dispatch) => {
@@ -19,9 +20,18 @@ const createSocketMiddleWare = (actions) => {
     const onSocketMessage = (dispatch) => (event) => {
         const {data} = event;
         const parsedData = JSON.parse(data);
-        dispatch(getMessage(parsedData));
-    };
 
+        // Добавлена проверка на сообщение 'Invalid or missing token'
+        if (parsedData.message === 'Invalid or missing token') {
+            // Диспетчеризация действия для обновления токена
+            dispatch(refreshTokenAction());
+        } else if (parsedData.success) {
+            dispatch(getMessage(parsedData));
+        } else {
+            dispatch(connectingError(parsedData.message || 'Unknown error'));
+        }
+    }
+    
     const onSocketClose = (dispatch) => {
         dispatch(connectingClose());
     };
