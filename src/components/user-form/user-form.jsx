@@ -10,6 +10,7 @@ const UserForm = () => {
     const {name, email, password} = useSelector(selectAuthUser);
     const [edit, setEdit] = useState(false);
     const dispatch = useDispatch();
+    console.log(name)
     // Используется хук useLocalStorage для управления данными формы
     const [form, setForm] = useLocalStorage("userFormData", {
         name: name,
@@ -41,15 +42,6 @@ const UserForm = () => {
         localStorage.removeItem("userFormData");
     };
 
-    useEffect(() => {
-        if (name && email) {
-            setForm({
-                name: name,
-                email: email,
-                password: "",
-            });
-        }
-    }, [name, email]);
 
     return (
         <form className={style.form} onSubmit={handleSubmit}>

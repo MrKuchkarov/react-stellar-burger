@@ -7,10 +7,12 @@ import {
 } from "./auth-async-thunks";
 
 const initialState = {
-    user: null,
+    user: {
+        name: '',
+        email: '',
+    },
     isAuthChecked: false,
     error: null,
-
 };
 
 const authSlice = createSlice({
@@ -19,6 +21,8 @@ const authSlice = createSlice({
     reducers: {
         setUser(state, action) {
             state.user = action.payload;
+            state.user.name = action.payload.user.name;
+            state.user.email = action.payload.user.email;
         },
         setAuthChecked(state, action) {
             state.isAuthChecked = action.payload;
