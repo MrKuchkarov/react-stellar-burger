@@ -10,7 +10,7 @@ const UserForm = () => {
     const {name, email, password} = useSelector(selectAuthUser);
     const [edit, setEdit] = useState(false);
     const dispatch = useDispatch();
-    console.log(name)
+  
     // Используется хук useLocalStorage для управления данными формы
     const [form, setForm] = useLocalStorage("userFormData", {
         name: name,
