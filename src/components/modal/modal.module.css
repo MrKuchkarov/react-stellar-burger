@@ -13,7 +13,7 @@
     position: relative;
     z-index: 20;
     width: 720px;
-    max-height: 718px;
+    max-height: 780px;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;

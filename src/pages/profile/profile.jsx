@@ -3,7 +3,7 @@ import ProfileNavigation from "../../components/profile-navigation/profile-navig
 import UserForm from "../../components/user-form/user-form";
 import style from "./profile.module.css";
 
-const Profile = () => {
+const ProfilePage = () => {
     return (
         <div className={`${style["container"]}`}>
             <ProfileNavigation/>
@@ -12,4 +12,4 @@ const Profile = () => {
     );
 };
 
-export {Profile};
+export {ProfilePage};

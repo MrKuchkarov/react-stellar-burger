@@ -6,6 +6,12 @@ const BurgerComponentsPropTypes = {
         image: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
+        number: PropTypes.number.isRequired,
+        status: PropTypes.func,
+        ingredients: PropTypes.array,
+        createdAt: PropTypes.string,
+        showStatus: PropTypes.bool,
+
     })).isRequired,
 };
 

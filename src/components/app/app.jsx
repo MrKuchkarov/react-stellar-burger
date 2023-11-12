@@ -3,7 +3,7 @@ import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 import {HomePages} from "../../pages/home-pages/home-pages";
 import {Login} from "../../pages/login/login";
-import {Profile} from "../../pages/profile/profile";
+import {ProfilePage} from "../../pages/profile/profile";
 import {Register} from "../../pages/register/register";
 import {IngredietnsPage} from "../../pages/ingredients/ingredietns-page";
 import {ForgotPassword} from "../../pages/forgot-password/forgot-password";
@@ -18,7 +18,9 @@ import Modal from "../modal/modal";
 import NotFound404 from "../../pages/NotFound404/NotFound404";
 import ConditionalLoader from "./components/pre-loader-conditions";
 import {routes} from "../../utils/consts";
-
+import {OrdersPage} from "../../pages/orders/orders";
+import {FeedPage} from "../../pages/feed/feed";
+import {FeedDetails} from "../feed-details/feed-datails";
 
 function App() {
     const navigate = useNavigate();
@@ -45,7 +47,7 @@ function App() {
                 <Route path={routes.login} element={<OnlyUnAuth component={<Login/>}/>}/>
                 <Route
                     path={routes.profile}
-                    element={<OnlyAuth component={<Profile/>}/>}
+                    element={<OnlyAuth component={<ProfilePage/>}/>}
                 />
                 <Route
                     path={routes.register}
@@ -60,6 +62,16 @@ function App() {
                     path={routes.resetPassword}
                     element={<OnlyUnAuth component={<ResetPassword/>}/>}
                 />
+                <Route
+                    path={routes.profileOrder}
+                    element={<OnlyAuth component={<OrdersPage/>}/>}
+                />
+                <Route
+                    path={routes.profileOrderId}
+                    element={<OnlyAuth component={<FeedDetails/>}/>}
+                />
+                <Route path={routes.feed} element={<FeedPage/>}/>
+                <Route path={routes.feedId} element={<FeedDetails/>}/>
                 <Route path="*" element={<NotFound404/>}/>
             </Routes>
             {background && (
@@ -69,6 +81,22 @@ function App() {
                         element={
                             <Modal title={"Детали ингредиентов"} closeModal={handleCloseModal}>
                                 <IngredientDetails/>
+                            </Modal>
+                        }
+                    />
+                    <Route
+                        path={routes.profileOrderId}
+                        element={
+                            <Modal title={"Информация о заказе"} closeModal={handleCloseModal}>
+                                <OnlyAuth component={<FeedDetails useFeedDetails={true}/>}/>
+                            </Modal>
+                        }
+                    />
+                    <Route
+                        path={routes.feedId}
+                        element={
+                            <Modal title={"Информация о заказе"} closeModal={handleCloseModal}>
+                                <FeedDetails useFeedDetails={false}/>
                             </Modal>
                         }
                     />

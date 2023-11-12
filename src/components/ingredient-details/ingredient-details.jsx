@@ -6,7 +6,7 @@ import {selectIngredientById} from "../../services/ingredientsSlice/ingredients-
 
 const IngredientDetails = () => {
     // const data = useSelector(selectIngredientDetails);
-    const {id} = useParams()
+    const {id} = useParams();
     const data = useSelector(selectIngredientById(id));
     if (!data) return null;
 

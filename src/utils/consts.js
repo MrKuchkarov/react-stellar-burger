@@ -1,7 +1,7 @@
 import {getCookie} from "./cookie";
 
 export const BURGER_API_URL = "https://norma.nomoreparties.space/api";
-
+export const webSocketUrl = "wss://norma.nomoreparties.space/orders";
 
 export const Method = {
     get: "GET",
@@ -18,7 +18,11 @@ export const routes = {
     register: "/register",
     forgotPassword: "/forgot-password",
     resetPassword: "/reset-password",
-    ingredientsId: "/ingredients/:id"
+    ingredientsId: "/ingredients/:id",
+    feed: "/feed",
+    feedId: "/feed/:id",
+    profileOrder: "/profile/orders",
+    profileOrderId: "/profile/orders/:id",
 };
 
 export const ingredientCategories = {

@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./burger-total-price.module.css";
-import iconPrice from "../../../images/constructor/icon 36x36.svg";
 import Modal from "../../modal/modal";
 import OrderDetails from "../../oreder-details/order-details";
 import {makeOrder} from "../../../utils/ApiService";
@@ -10,6 +9,7 @@ import {selectAuthUser} from "../../../services/auth/auth-selector";
 import {useNavigate} from "react-router-dom";
 import {clearIngredients} from "../../../services/constructorSlice/constructorSlice";
 import {selectFillingBun, selectFillingOther} from "../../../services/constructorSlice/constructor-selector";
+import TotalPriceBurger from "../../total-price-burger/total-price-burger";
 
 
 const BurgerTotalPrice = ({totalPrice, isOrderButtonEnabled}) => {
@@ -55,10 +55,7 @@ const BurgerTotalPrice = ({totalPrice, isOrderButtonEnabled}) => {
     return (
         <div>
             <div className={`${style["total-price-container"]} mt-10`}>
-                <div className={`${style["total-price"]}`}>
-                    <span className={"text text_type_digits-medium"}>{totalPrice}</span>
-                    <img src={iconPrice} alt="Иконка ценны ингредиентов"/>
-                </div>
+                <TotalPriceBurger sum={totalPrice} bigPrice={true}/>
                 <Button
                     htmlType="button"
                     type="primary"

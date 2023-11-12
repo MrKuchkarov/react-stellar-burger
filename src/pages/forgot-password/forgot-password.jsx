@@ -5,7 +5,6 @@ import {
     EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useNavigate} from "react-router-dom";
-import {forgotPassword} from "../../services/auth/auth-async-thunks";
 import {fetchForgotPassword} from "../../services/auth/auth-async-thunks";
 import {useDispatch} from "react-redux";
 
@@ -23,9 +22,6 @@ const ForgotPassword = () => {
         navigate("/reset-password")
     };
 
-    // if (!isAuth) {
-    //     return <Navigate to={"/"}/>;
-    // }
 
     return (
         <div className={`${style["container"]}`}>

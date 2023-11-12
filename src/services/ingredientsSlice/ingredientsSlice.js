@@ -10,7 +10,7 @@ const initialState = {
 }
 
 const ingredientsSlice = createSlice({
-    name: 'ingredients',
+    name: "$$ingredients",
     initialState,
     reducers: {
         setIngredients(state, action) {

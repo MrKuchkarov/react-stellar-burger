@@ -11,13 +11,14 @@
 }
 
 .header-links {
-    color: var(--text-primary-color);
+    color: var(--text-inactive-color);
     text-decoration: none;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 8px;
 }
+
 
 .navigation {
     display: flex;
@@ -31,5 +32,6 @@
 }
 
 .active {
-    color: var(--text-inactive-color)
+    color: var(--text-primary-color);
+
 }

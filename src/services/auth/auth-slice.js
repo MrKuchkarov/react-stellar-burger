@@ -10,7 +10,8 @@ const initialState = {
     user: null,
     isAuthChecked: false,
     error: null,
-
+    name: "",
+    email: "",
 };
 
 const authSlice = createSlice({
@@ -19,6 +20,8 @@ const authSlice = createSlice({
     reducers: {
         setUser(state, action) {
             state.user = action.payload;
+            state.user.name = action.payload.user.name;
+            state.user.email = action.payload.user.email;
         },
         setAuthChecked(state, action) {
             state.isAuthChecked = action.payload;
