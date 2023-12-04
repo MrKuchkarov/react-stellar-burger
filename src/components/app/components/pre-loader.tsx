@@ -1,8 +1,12 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {Hourglass} from "react-loader-spinner";
 import style from "./pre-loader.module.css";
 
-const PreLoader = ({title}) => {
+interface PropsTitle {
+    title: string;
+}
+
+const PreLoader: FC<PropsTitle> = ({title}) => {
     return (
         <div className={`${style["loader-container"]}`}>
             <h1 className={`${style["loader-title"]} text text_type_main-large`}>

@@ -21,11 +21,12 @@ import {routes} from "../../utils/consts";
 import {OrdersPage} from "../../pages/orders/orders";
 import {FeedPage} from "../../pages/feed/feed";
 import {FeedDetails} from "../feed-details/feed-datails";
+import {useAppDispatch} from "../../services/store/store";
 
 function App() {
     const navigate = useNavigate();
     const location = useLocation();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const background = location.state && location.state.background;
 
 

@@ -3,9 +3,10 @@ import PreLoader from "./pre-loader";
 import {useSelector} from "react-redux";
 import {selectIngredientsState} from "../../../services/ingredientsSlice/ingredients-selector";
 import style from "./pre-loader.module.css";
+import {useAppSelector} from "../../../services/store/store";
 
 const ConditionalLoader = () => {
-    const {error, isLoading, ingredients} = useSelector(selectIngredientsState);
+    const {error, isLoading, ingredients} = useAppSelector(selectIngredientsState);
 
     if (isLoading) {
         return <PreLoader title={"Загрузка ингредиентов"}/>;

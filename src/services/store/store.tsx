@@ -7,6 +7,7 @@ import authReducer from "../auth/auth-slice";
 import AuthorizedSlice, {AuthorizedActions} from "../webSocketSlice/AuthSocketSlice/authorizedSlice";
 import UnAuthorizedSlice, {UnAuthorizedActions} from "../webSocketSlice/UnAuthSocketSlice/unauthorizedSlice";
 import createSocketMiddleWare from "../webSocketSlice/SocketMiddleWare";
+import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 
 const authorizedSocketMiddleware = createSocketMiddleWare(AuthorizedActions);
 const UnAuthorizedSocketMiddleware = createSocketMiddleWare(UnAuthorizedActions);
@@ -22,5 +23,11 @@ export const store = configureStore({
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(authorizedSocketMiddleware, UnAuthorizedSocketMiddleware),
-    serializableCheck: false,
+    // serializableCheck: false as const,
 });
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch: () => AppDispatch = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+

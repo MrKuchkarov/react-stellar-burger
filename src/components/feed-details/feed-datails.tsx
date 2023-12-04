@@ -9,11 +9,11 @@ import useIngredientInfo from "../../hooks/useIngredientInfo";
 import TotalPriceBurger from "../total-price-burger/total-price-burger";
 
 import {selectFeedByUnId} from "../../services/webSocketSlice/UnAuthSocketSlice/unauth-ws-selector";
+import {useAppSelector} from "../../services/store/store";
 
 const FeedDetails = ({useFeedDetails}) => {
-
     const {id} = useParams();
-    const currentFeed = useSelector(useFeedDetails ? selectFeedById(id) : selectFeedByUnId(id))
+    const currentFeed = useAppSelector(useFeedDetails ? selectFeedById(id) : selectFeedByUnId(id))
     const status = useStatus(currentFeed ? currentFeed.status : null);
     const ingredientsWithInfo = useIngredientInfo(currentFeed ? currentFeed.ingredients : null)
 
