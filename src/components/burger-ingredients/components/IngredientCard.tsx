@@ -3,17 +3,18 @@ import style from "./IngredientCard.module.css";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {ingredientsDetails} from "../../../services/ingredientDetailsSlice/ingredientDetailsSlice";
 import {showModal} from "../../../services/ingredientsSlice/ingredientsSlice";
-import {useDispatch, useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
 import {selectFillingBun, selectFillingOther} from "../../../services/constructorSlice/constructor-selector";
+import {useAppDispatch, useAppSelector} from "../../../services/store/store";
+import {IIngredient} from "../../../types";
 
-const IngredientCard = ({ingredients}) => {
-    const dispatch = useDispatch();
-    const bun = useSelector(selectFillingBun);
-    const other = useSelector(selectFillingOther);
+const IngredientCard = ({ingredients}: { ingredients: IIngredient }) => {
+    const dispatch = useAppDispatch();
+    const bun = useAppSelector(selectFillingBun);
+    const other = useAppSelector(selectFillingOther);
 
 
-    const handleOpenModal = (ingredients) => {
+    const handleOpenModal = (ingredients: IIngredient) => {
         dispatch(ingredientsDetails(ingredients));
         dispatch(showModal());
     };
