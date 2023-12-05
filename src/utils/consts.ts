@@ -25,7 +25,7 @@ export const routes = {
     profileOrderId: "/profile/orders/:id",
 };
 
-export const ingredientCategories = {
+export const ingredientCategories: Record<string, string> = {
     bun: "Булки",
     sauce: "Соусы",
     main: "Начинки",

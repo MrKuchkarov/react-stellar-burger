@@ -1,7 +1,6 @@
-import React, {useMemo} from "react";
+import React, {FC, RefObject, useMemo} from "react";
 import style from "./burger-cards.module.css";
 import {useSelector} from "react-redux";
-import PropTypes from "prop-types";
 import {selectIngredients} from "../../../services/ingredientsSlice/ingredients-selector";
 import {useLocation} from "react-router-dom";
 import {ingredientCategories} from "../../../utils/consts";
@@ -10,10 +9,16 @@ import {renderIngredientList} from "./renderIngredientList";
 const cardContainerClass = `${style["card-container"]}`;
 const titleClass = `${style["title-buns"]} pt-10 pb-5 text text_type_main-medium`;
 
-const BurgerCards = ({bunRef, sauceRef, mainRef}) => {
+interface BurgerCardsProps {
+    bunRef: RefObject<HTMLLIElement>;
+    sauceRef: RefObject<HTMLLIElement>;
+    mainRef: RefObject<HTMLLIElement>;
+}
+
+const BurgerCards: FC<BurgerCardsProps> = ({bunRef, sauceRef, mainRef}) => {
     const ingredients = useSelector(selectIngredients);
     const ingredientsTypesSet = new Set(ingredients.map((card) => card.type))
-    const ingredientsTypes = [...ingredientsTypesSet]
+    const ingredientsTypes: string[] = [...ingredientsTypesSet]
     const location = useLocation();
     // const ingredients = useSelector(selectIngredientById);
     // const ingredientsTypesSet = new Set(ingredients.map((card) => card.type))
@@ -60,10 +65,5 @@ const BurgerCards = ({bunRef, sauceRef, mainRef}) => {
     );
 };
 
-BurgerCards.propTypes = {
-    bunRef: PropTypes.func.isRequired,
-    sauceRef: PropTypes.func.isRequired,
-    mainRef: PropTypes.func.isRequired,
-};
 
 export default BurgerCards;
