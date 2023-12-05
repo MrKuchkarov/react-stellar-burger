@@ -1,0 +1,11 @@
+.big-icon-constructor {
+    margin-right: 40px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.total-container {
+    display: flex;
+    gap: 5px;
+}

@@ -1,0 +1,19 @@
+.form {
+    margin-top: 50px;
+    width: 480px;
+    height: 480px;
+}
+
+.wrapper {
+    display: flex;
+    padding: 0;
+    flex-direction: column;
+    gap: 24px;
+    border: none;
+}
+
+
+.button__container {
+    display: flex;
+    justify-content: flex-end;
+}

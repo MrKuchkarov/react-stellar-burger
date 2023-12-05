@@ -1,0 +1,39 @@
+.container {
+    width: 480px;
+    height: 430px;
+    margin: 0 auto;
+    padding-top: 180px;
+}
+
+
+.fieldset {
+    border: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.to-suggest-paragraph {
+    margin: 0;
+}
+
+.link {
+    color: #4C4CFF;
+    text-decoration: none;
+}

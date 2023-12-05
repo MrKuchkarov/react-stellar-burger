@@ -1,0 +1,39 @@
+.scroll-ingredients {
+    max-height: 700px;
+    overflow: auto;
+    padding: 0 10px 10px 10px;
+    max-width: 635px;
+}
+
+.card-container {
+    max-width: 600px;
+}
+
+.title-buns {
+    margin: 0;
+}
+
+.cards-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0;
+    list-style-type: none;
+    margin: 0 auto;
+    gap: 32px 24px;
+}
+
+.link {
+    text-decoration: none;
+    color: var(--text-primary-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+
+
+
+
+

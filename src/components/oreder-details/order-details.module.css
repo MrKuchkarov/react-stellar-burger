@@ -1,0 +1,25 @@
+.order-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.order-number {
+
+}
+
+
+.image {
+    width: 120px;
+    height: 120px;
+}
+
+.order-start {
+
+}
+
+.order-wait {
+    color: var(--text-inactive-color);
+
+}

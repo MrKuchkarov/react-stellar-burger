@@ -1,0 +1,21 @@
+
+.container {
+    display: flex;
+    width: 600px;
+    list-style-type: none;
+    padding: 0;
+}
+
+.ingredients-elements {
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ingredients-column {
+    display: flex;
+}
+
+.title-ingredients {
+
+}
