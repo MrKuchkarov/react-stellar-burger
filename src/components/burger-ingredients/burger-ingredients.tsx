@@ -8,9 +8,14 @@ import {useInView} from "react-intersection-observer";
 const BurgerIngredients = () => {
 
     const [current, setCurrent] = useState("bun");
-    const handleCurrentTab = (str) => {
+    const handleCurrentTab = (str: string) => {
         setCurrent(str);
-        document.getElementById(str).scrollIntoView({behavior: 'smooth'});
+        const element = document.getElementById(str);
+        if (element) {
+            element.scrollIntoView({behavior: 'smooth'});
+        } else {
+            console.error(`Element with ID ${str} not found.`);
+        }
     };
 
     const options = {
