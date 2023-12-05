@@ -1,17 +1,27 @@
 export interface IRegister {
-    email: string;
-    password: string;
-    name: string;
+    user: {
+        name: string;
+        email: string;
+        password: string;
+        // Other user properties
+    };
 }
 
 export interface ILogin {
-    email: string;
-    password: string;
+    user: {
+        name: string;
+        email: string;
+        // Other user properties
+    };
 }
 
 export interface IUser {
-    email: string;
-    password: string
+    user: {
+        name: string;
+        email: string;
+        // Other user properties
+    };
+    // Other properties related to the user if any
 }
 
 export interface IUserResponse {

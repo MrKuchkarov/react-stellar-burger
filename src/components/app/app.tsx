@@ -29,7 +29,6 @@ function App() {
     const dispatch = useAppDispatch();
     const background = location.state && location.state.background;
 
-
     useEffect(() => {
         dispatch(fetchIngredients());
         dispatch(checkUserAuth());
@@ -45,32 +44,14 @@ function App() {
             <ConditionalLoader/>
             <Routes location={background || location}>
                 <Route path={routes.home} element={<HomePages/>}/>
-                <Route path={routes.login} element={<OnlyUnAuth component={<Login/>}/>}/>
-                <Route
-                    path={routes.profile}
-                    element={<OnlyAuth component={<ProfilePage/>}/>}
-                />
-                <Route
-                    path={routes.register}
-                    element={<OnlyUnAuth component={<Register/>}/>}
-                />
+                <Route path={routes.login} element={<OnlyUnAuth component={Login}/>}/>
+                <Route path={routes.profile} element={<OnlyAuth component={ProfilePage}/>}/>
+                <Route path={routes.register} element={<OnlyUnAuth component={Register}/>}/>
                 <Route path={routes.ingredientsId} element={<IngredietnsPage/>}/>
-                <Route
-                    path={routes.forgotPassword}
-                    element={<OnlyUnAuth component={<ForgotPassword/>}/>}
-                />
-                <Route
-                    path={routes.resetPassword}
-                    element={<OnlyUnAuth component={<ResetPassword/>}/>}
-                />
-                <Route
-                    path={routes.profileOrder}
-                    element={<OnlyAuth component={<OrdersPage/>}/>}
-                />
-                <Route
-                    path={routes.profileOrderId}
-                    element={<OnlyAuth component={<FeedDetails/>}/>}
-                />
+                <Route path={routes.forgotPassword} element={<OnlyUnAuth component={ForgotPassword}/>}/>
+                <Route path={routes.resetPassword} element={<OnlyUnAuth component={ResetPassword}/>}/>
+                <Route path={routes.profileOrder} element={<OnlyAuth component={OrdersPage}/>}/>
+                <Route path={routes.profileOrderId} element={<OnlyAuth component={FeedDetails}/>}/>
                 <Route path={routes.feed} element={<FeedPage/>}/>
                 <Route path={routes.feedId} element={<FeedDetails/>}/>
                 <Route path="*" element={<NotFound404/>}/>
@@ -89,7 +70,7 @@ function App() {
                         path={routes.profileOrderId}
                         element={
                             <Modal title={"Информация о заказе"} closeModal={handleCloseModal}>
-                                <OnlyAuth component={<FeedDetails useFeedDetails={true}/>}/>
+                                <OnlyAuth component={FeedDetails} useFeedDetails={true}/>
                             </Modal>
                         }
                     />

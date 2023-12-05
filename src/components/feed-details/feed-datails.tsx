@@ -12,7 +12,7 @@ import {selectFeedByUnId} from "../../services/webSocketSlice/UnAuthSocketSlice/
 import {useAppSelector} from "../../services/store/store";
 
 interface FeedDetailsProps {
-    useFeedDetails: boolean;
+    useFeedDetails?: boolean;
 }
 
 const FeedDetails: FC<FeedDetailsProps> = ({useFeedDetails}) => {

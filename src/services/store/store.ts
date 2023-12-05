@@ -11,7 +11,7 @@ import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 
 const authorizedSocketMiddleware = createSocketMiddleWare(AuthorizedActions);
 const UnAuthorizedSocketMiddleware = createSocketMiddleWare(UnAuthorizedActions);
-const store = configureStore({
+export const store = configureStore({
     reducer: {
         ingredients: ingredientsSlice,
         filling: constructorSlice,
@@ -25,7 +25,6 @@ const store = configureStore({
         getDefaultMiddleware().concat(authorizedSocketMiddleware, UnAuthorizedSocketMiddleware),
     //
 });
-export default store;
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
