@@ -1,4 +1,4 @@
-import React, {useCallback, useRef} from "react";
+import React, {FC, useCallback, useRef} from "react";
 import {
     ConstructorElement, DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -8,13 +8,17 @@ import {
     moveCard, removeOtherIngredient,
 } from "../../../services/constructorSlice/constructorSlice";
 import {useDispatch} from "react-redux";
-import {useDrag, useDrop} from "react-dnd";
-import {BurgerIngredientsPropTypes} from "../../../utils/burger-components-propTypes";
+import {DropTargetMonitor, useDrag, useDrop} from "react-dnd";
+import {IIngredient} from "../../../types";
 
+type TBurgerFillings = {
+    filling: IIngredient;
+    index: number;
+}
 
-const BurgerFillings = ({filling, index}) => {
+const BurgerFillings: FC<TBurgerFillings> = ({filling, index}) => {
     const dispatch = useDispatch();
-    const ref = useRef(null);
+    const ref = useRef<HTMLLIElement>(null);
     const id = filling._id;
 
     //Удаление ингредиентов
@@ -27,7 +31,7 @@ const BurgerFillings = ({filling, index}) => {
         accept: 'constructor-item',
         collect: (monitor) => ({
             handlerId: monitor.getHandlerId(),
-        }), hover(item, monitor) {
+        }), hover(item: any, monitor: DropTargetMonitor) {
             if (!ref.current) {
                 return
             }
@@ -36,9 +40,13 @@ const BurgerFillings = ({filling, index}) => {
             if (dragIndex === hoverIndex) {
                 return
             }
-            const hoverBoundingRect = ref.current?.getBoundingClientRect()
+            const hoverBoundingRect = ref.current?.getBoundingClientRect();
+            if (!hoverBoundingRect) {
+                return;
+            }
             const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
-            const clientOffset = monitor.getClientOffset()
+            const clientOffset = monitor.getClientOffset();
+            // @ts-ignore
             const hoverClientY = clientOffset.y - hoverBoundingRect.top
             if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
                 return
@@ -82,11 +90,10 @@ const BurgerFillings = ({filling, index}) => {
                 text={filling.name}
                 thumbnail={filling.image}
                 price={filling.price}
-                handleClose={() => removeIngredient(filling)}
+                handleClose={() => removeIngredient()}
             />
         </li>
     );
 };
 
-BurgerFillings.propTypes = BurgerIngredientsPropTypes;
 export default BurgerFillings;
