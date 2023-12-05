@@ -12,7 +12,6 @@ import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import {OnlyAuth, OnlyUnAuth} from "../protected-route/protected-route";
 import {fetchIngredients} from "../../utils/ApiService";
 import {checkUserAuth} from "../../services/auth/auth-async-thunks";
-import {useDispatch} from "react-redux";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 import NotFound404 from "../../pages/NotFound404/NotFound404";

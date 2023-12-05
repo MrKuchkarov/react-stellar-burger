@@ -3,15 +3,16 @@ import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-compon
 import BurgerFillings from "./components/burger-fillings";
 import style from "./burger-constructor.module.css";
 import BurgerTotalPrice from "./components/burger-total-price";
-import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
 import {addOtherIngredient, setBun} from "../../services/constructorSlice/constructorSlice";
 import {selectFillingBun, selectFillingOther} from "../../services/constructorSlice/constructor-selector";
+import {useAppDispatch, useAppSelector} from "../../services/store/store";
+import {IIngredient} from "../../types";
 
 const BurgerConstructor = () => {
-    const seBun = useSelector(selectFillingBun);
-    const setOther = useSelector(selectFillingOther);
-    const dispatch = useDispatch();
+    const seBun = useAppSelector(selectFillingBun);
+    const setOther = useAppSelector(selectFillingOther);
+    const dispatch = useAppDispatch();
 
     // Проверка, есть ли выбранная булка и другие ингредиенты
     const bun = seBun || null;
@@ -37,7 +38,7 @@ const BurgerConstructor = () => {
     //DROP для добавление ингредиентов в конструктор
     const [{isOver, canDrop}, dropTarget] = useDrop({
         accept: 'ingredient',
-        drop(ingredient) {
+        drop(ingredient: IIngredient) {
             dispatch(
                 ingredient.type !== 'bun'
                     ? addOtherIngredient(ingredient)
