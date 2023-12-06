@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import BurgerCards from "./components/burger-cards";
 import style from "./burger-ingredients.module.css";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -7,15 +7,13 @@ import {useInView} from "react-intersection-observer";
 
 const BurgerIngredients = () => {
 
+    // const bunRef = useRef<HTMLLIElement>(null);
+    // const mainRef = useRef<HTMLLIElement>(null);
+    // const sauceRef = useRef<HTMLLIElement>(null);
     const [current, setCurrent] = useState("bun");
     const handleCurrentTab = (str: string) => {
         setCurrent(str);
-        const element = document.getElementById(str);
-        if (element) {
-            element.scrollIntoView({behavior: 'smooth'});
-        } else {
-            console.error(`Element with ID ${str} not found.`);
-        }
+        document.getElementById(str)!.scrollIntoView({behavior: "smooth"});
     };
 
     const options = {
@@ -29,11 +27,11 @@ const BurgerIngredients = () => {
 
     useEffect(() => {
         if (inViewBun) {
-            setCurrent('bun');
+            setCurrent("bun");
         } else if (inViewSauce) {
-            setCurrent('sauce');
+            setCurrent("sauce");
         } else if (inViewMain) {
-            setCurrent('main');
+            setCurrent("main");
         }
     }, [inViewBun, inViewMain, inViewSauce]);
     return (

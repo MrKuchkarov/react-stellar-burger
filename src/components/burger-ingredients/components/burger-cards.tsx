@@ -4,7 +4,8 @@ import {useSelector} from "react-redux";
 import {selectIngredients} from "../../../services/ingredientsSlice/ingredients-selector";
 import {useLocation} from "react-router-dom";
 import {ingredientCategories} from "../../../utils/consts";
-import {renderIngredientList} from "./renderIngredientList";
+import RenderIngredientList from "./renderIngredientList";
+import {IIngredient} from "../../../types";
 
 const cardContainerClass = `${style["card-container"]}`;
 const titleClass = `${style["title-buns"]} pt-10 pb-5 text text_type_main-medium`;
@@ -17,8 +18,8 @@ interface BurgerCardsProps {
 
 const BurgerCards: FC<BurgerCardsProps> = ({bunRef, sauceRef, mainRef}) => {
     const ingredients = useSelector(selectIngredients);
-    const ingredientsTypesSet = new Set(ingredients.map((card) => card.type))
-    const ingredientsTypes: string[] = [...ingredientsTypesSet]
+    const ingredientsTypesSet = new Set(ingredients.map((card: IIngredient) => card.type))
+    const ingredientsTypes: string[] = ingredientsTypesSet.size ? [...ingredientsTypesSet] : [];
     const location = useLocation();
     // const ingredients = useSelector(selectIngredientById);
     // const ingredientsTypesSet = new Set(ingredients.map((card) => card.type))
@@ -28,16 +29,16 @@ const BurgerCards: FC<BurgerCardsProps> = ({bunRef, sauceRef, mainRef}) => {
 
     // Фильтрация игрениентов по катигориям
     const categorizedIngredients = useMemo(() => ({
-        buns: ingredients.filter((item) => item.type === "bun"),
-        sauces: ingredients.filter((item) => item.type === "sauce"),
-        mains: ingredients.filter((item) => item.type === "main"),
+        buns: ingredients.filter((item: IIngredient) => item.type === "bun"),
+        sauces: ingredients.filter((item: IIngredient) => item.type === "sauce"),
+        mains: ingredients.filter((item: IIngredient) => item.type === "main"),
     }), [ingredients]);
 
 
     return (
         <>
             <div className={`${style["scroll-ingredients"]} custom-scroll`}>
-                {ingredientsTypes.map((type) => (
+                {ingredientsTypes.length > 0 && ingredientsTypes.map((type) => (
                     <div key={type} className={cardContainerClass}>
                         <h2
                             id={`${type}Section`}
@@ -45,17 +46,31 @@ const BurgerCards: FC<BurgerCardsProps> = ({bunRef, sauceRef, mainRef}) => {
                         >
                             {ingredientCategories[type]}
                         </h2>
-                        {type === "bun"
-                            &&
-                            renderIngredientList(type, categorizedIngredients.buns, bunRef, location)
+                        {type === "bun" &&
+                            <RenderIngredientList
+                                type={type}
+                                ingredients={categorizedIngredients.buns}
+                                ref={bunRef}
+                                location={location.pathname}
+                            />
                         }
-                        {type === "sauce"
-                            &&
-                            renderIngredientList(type, categorizedIngredients.sauces, sauceRef, location)
+
+                        {type === "sauce" &&
+                            <RenderIngredientList
+                                type={type}
+                                ingredients={categorizedIngredients.sauces}
+                                ref={sauceRef}
+                                location={location.pathname}
+                            />
                         }
-                        {type === "main"
-                            &&
-                            renderIngredientList(type, categorizedIngredients.mains, mainRef, location)
+
+                        {type === "main" &&
+                            <RenderIngredientList
+                                type={type}
+                                ingredients={categorizedIngredients.mains}
+                                ref={mainRef}
+                                location={location.pathname}
+                            />
                         }
                     </div>
                 ))}
