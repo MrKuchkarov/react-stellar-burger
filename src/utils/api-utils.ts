@@ -14,13 +14,13 @@ export const createOptions = (method: Method, data: object | undefined, token?: 
     };
 };
 
-export const checkReponse = (response: Response) => {
+export const checkResponse = (response: Response) => {
     return response.ok
         ? response.json()
         : response.json().then((err) => Promise.reject(err));
 };
 
-export const request = (url: string, options?: ReturnType<typeof createOptions>) => fetch(url, options).then(checkReponse);
+export const request = (url: string, options?: ReturnType<typeof createOptions>) => fetch(url, options).then(checkResponse);
 
 export const refreshToken = async () => {
     try {
@@ -32,7 +32,7 @@ export const refreshToken = async () => {
             body: JSON.stringify({
                 token: localStorage.getItem("refreshToken"),
             }),
-        }).then(checkReponse)
+        }).then(checkResponse)
 
         const data = await response.json();
 
@@ -50,19 +50,21 @@ export const refreshToken = async () => {
 export const fetchWithRefresh = async (url: string, options?: ReturnType<typeof createOptions>) => {
     try {
         const res = await fetch(url, options);
-        return await checkReponse(res);
+        return await checkResponse(res);
     } catch (err) {
         console.log(err);
-        if (err.message === "jwt expired") {
+        if (err instanceof Error && err.message === "jwt expired") {
             const refreshData = await refreshToken();
             if (!refreshData.success) {
                 return Promise.reject(refreshData);
             }
             setCookie("refreshToken", refreshData.refreshToken);
-            setCookie.setItem("accessToken", refreshData.accessToken);
-            options.headers.authorization = refreshData.accessToken;
+            setCookie("accessToken", refreshData.accessToken);
+            if (options && options.headers) {
+                options.headers.Authorization = refreshData.accessToken;
+            }
             const res = await fetch(url, options);
-            return await checkReponse(res);
+            return await checkResponse(res);
         } else {
             return Promise.reject(err);
         }
