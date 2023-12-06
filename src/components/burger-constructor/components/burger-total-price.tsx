@@ -1,27 +1,31 @@
-import React, {useState} from "react";
+import React, {FC, useState} from "react";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./burger-total-price.module.css";
 import Modal from "../../modal/modal";
 import OrderDetails from "../../oreder-details/order-details";
 import {makeOrder} from "../../../utils/ApiService";
-import {useSelector, useDispatch} from "react-redux";
 import {selectAuthUser} from "../../../services/auth/auth-selector";
 import {useNavigate} from "react-router-dom";
 import {clearIngredients} from "../../../services/constructorSlice/constructorSlice";
 import {selectFillingBun, selectFillingOther} from "../../../services/constructorSlice/constructor-selector";
 import TotalPriceBurger from "../../total-price-burger/total-price-burger";
+import {useAppDispatch, useAppSelector} from "../../../services/store/store";
 
+type TBurgerTotalPriceProps = {
+    totalPrice: number;
+    isOrderButtonEnabled: boolean | null;
+}
 
-const BurgerTotalPrice = ({totalPrice, isOrderButtonEnabled}) => {
-    const bunIngredients = useSelector(selectFillingBun);
-    const otherIngredients = useSelector(selectFillingOther);
-    const dispatch = useDispatch();
-    const isAuthUser = useSelector(selectAuthUser);
+const BurgerTotalPrice: FC<TBurgerTotalPriceProps> = ({totalPrice, isOrderButtonEnabled}) => {
+    const bunIngredients = useAppSelector(selectFillingBun);
+    const otherIngredients = useAppSelector(selectFillingOther);
+    const isAuthUser = useAppSelector(selectAuthUser);
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const [totalModal, setTotalModal] = useState(false);
 
     const handleOpenModal = () => {
-        const ingredientIds = otherIngredients.map((ingredient) => ingredient._id);
+        const ingredientIds: string[] = otherIngredients.map((ingredient) => ingredient._id);
 
         if (bunIngredients) {
             ingredientIds.unshift(bunIngredients._id);

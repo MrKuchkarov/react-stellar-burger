@@ -1,10 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {FC} from 'react';
 import style from "./total-price-burger.module.css"
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
-const TotalPriceBurger = props => {
-    const {sum, bigPrice, count} = props;
+type TTotalPriceBurgerProps = {
+    sum: number;
+    bigPrice: boolean;
+    count?: number;
+}
+const TotalPriceBurger: FC<TTotalPriceBurgerProps> = ({sum, bigPrice, count}) => {
 
     return (
         <div className={`${bigPrice ? style["big-icon-constructor"] : ''} ${style["total-container"]}`}>
@@ -31,10 +34,5 @@ const TotalPriceBurger = props => {
     );
 };
 
-TotalPriceBurger.propTypes = {
-    sum: PropTypes.number.isRequired,
-    bigPrice: PropTypes.bool,
-    count: PropTypes.number,
-};
 
 export default TotalPriceBurger;

@@ -5,13 +5,17 @@ import {
     setOrderNumber,
 } from "../services/orderDetailsSlice.js/orderDetailsSlice";
 import {getCookie} from "./cookie";
+import {IIngredientResponse} from "../types";
 
 const ApiGetTheIngredients = "https://norma.nomoreparties.space/api/ingredients";
 const ApiOrderDetails = "https://norma.nomoreparties.space/api/orders";
 // Получение список заказов
 
 
-export const fetchIngredients = createAsyncThunk(
+export const fetchIngredients = createAsyncThunk<
+    IIngredientResponse,
+    undefined
+>(
     "ingredients/fetchIngredients",
     async (_, {rejectWithValue}) => {
         try {
@@ -30,14 +34,14 @@ export const fetchIngredients = createAsyncThunk(
             }
         } catch (err) {
             console.error(err);
-            return rejectWithValue(err.message);
+            return rejectWithValue((err as Error).message);
         }
     }
 );
 // Получение номер заказа
 export const makeOrder = createAsyncThunk(
     "order/makeOrder",
-    async (ingredientIds, {rejectWithValue, dispatch}) => {
+    async (ingredientIds: string[], {rejectWithValue, dispatch}) => {
         try {
             dispatch(setLoading(true));
             const token = getCookie("accessToken");
@@ -65,10 +69,10 @@ export const makeOrder = createAsyncThunk(
             } else {
                 throw new Error("Ошибка при запросе к API или при оформлении заказа");
             }
-        } catch (error) {
+        } catch (error: any) {
             console.error(error);
             dispatch(setError(error.message));
-            return rejectWithValue(error.message);
+            return rejectWithValue((error as Error).message);
         } finally {
             dispatch(setLoading(false));
         }
