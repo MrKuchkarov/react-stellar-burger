@@ -1,7 +1,10 @@
-import React from 'react';
+import React, {FC} from 'react';
 import style from "./error-modal.module.css";
 
-const ErrorModal = ({error}) => {
+type TErrorModalProps = {
+    error: string;
+}
+const ErrorModal: FC<TErrorModalProps> = ({error}) => {
     return (
         <section className={`${style["error-container"]}`}>
             <h1>
