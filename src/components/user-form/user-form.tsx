@@ -1,16 +1,19 @@
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./user-form.module.css";
-import {useDispatch, useSelector} from "react-redux";
 import {selectAuthUser} from "../../services/auth/auth-selector";
 import {fetchUpdateUser} from "../../services/auth/auth-async-thunks";
 import {useLocalStorage} from "../../hooks/useLocalStorage"
+import {useAppDispatch, useAppSelector} from "../../services/store/store";
+import {IRegister, IUser, IUserForm} from "../../types";
 
 const UserForm = () => {
-    const {name, email, password} = useSelector(selectAuthUser);
+    const dispatch = useAppDispatch();
+    const authUser: IUser | null = useAppSelector(selectAuthUser)
+    const {name, email, password} = authUser || {};
     const [edit, setEdit] = useState(false);
-    const dispatch = useDispatch();
-  
+
+
     // Используется хук useLocalStorage для управления данными формы
     const [form, setForm] = useLocalStorage("userFormData", {
         name: name,
@@ -18,7 +21,7 @@ const UserForm = () => {
         password: password,
     });
 
-    const handleChange = (e) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setForm({...form, [e.target.name]: e.target.value});
         setEdit(true);
     };
@@ -34,7 +37,7 @@ const UserForm = () => {
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
         setEdit(false);
         dispatch(fetchUpdateUser(form));

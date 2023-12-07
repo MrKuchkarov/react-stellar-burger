@@ -1,4 +1,4 @@
-export function useStatus(status) {
+export function useStatus(status: string): string | undefined {
     let uzStatus;
     switch (status) {
         case "done":

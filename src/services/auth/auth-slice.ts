@@ -28,8 +28,8 @@ const authSlice = createSlice({
     reducers: {
         setUser(state, action: PayloadAction<IUser>) {
             state.user = action.payload;
-            state.user.name = action.payload.user.name;
-            state.user.email = action.payload.user.email;
+            state.user.name = action.payload.name;
+            state.user.email = action.payload.email;
         },
         setAuthChecked(state, action: PayloadAction<boolean>) {
             state.isAuthChecked = action.payload;

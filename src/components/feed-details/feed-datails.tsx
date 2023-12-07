@@ -16,8 +16,8 @@ interface FeedDetailsProps {
 }
 
 const FeedDetails: FC<FeedDetailsProps> = ({useFeedDetails}) => {
-    const {id} = useParams<{ id: string }>();
-    const currentFeed = useAppSelector(useFeedDetails ? selectFeedById(id) : selectFeedByUnId(id));
+    const {id} = useParams<{ id?: string }>();
+    const currentFeed = useAppSelector(useFeedDetails ? selectFeedById(id || "") : selectFeedByUnId(id || ""));
     const status = useStatus(currentFeed ? currentFeed.status : null);
     const ingredientsWithInfo = useIngredientInfo(currentFeed ? currentFeed.ingredients : null);
 

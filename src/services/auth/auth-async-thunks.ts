@@ -13,7 +13,6 @@ import {deleteCookie, getCookie, setCookie} from "../../utils/cookie";
 import {setAuthChecked, setUser} from "./auth-slice";
 import {
     ILogin,
-    ILogout,
     IRegister, IRejectValue,
     IResetForm,
     IResetResponse,
