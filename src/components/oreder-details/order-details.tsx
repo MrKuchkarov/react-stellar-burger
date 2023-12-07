@@ -42,7 +42,6 @@ const OrderDetails = () => {
                     color="#62347f"
                     ariaLabel="three-dots-loading"
                     wrapperStyle={{}}
-                    wrapperClassName=""
                     visible={true}
                 />
             ) : (

@@ -1,13 +1,13 @@
-import React from "react";
+import React, {FC} from "react";
 import style from "./order-cards.module.css";
 import {Link, useLocation} from "react-router-dom";
 import {ImageList} from "./component/image-list";
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import useIngredientInfo from "../../hooks/useIngredientInfo";
 import {useStatus} from "../../hooks/useStatus";
-import PropTypes from "prop-types";
+import {IWebSocketOrder} from "../../types/web-socket";
 
-const OrderCards = (props) => {
+const OrderCards: FC<IWebSocketOrder> = (props) => {
     const {
         _id,
         name,
@@ -67,14 +67,5 @@ const OrderCards = (props) => {
     );
 };
 
-OrderCards.propTypes = {
-    _id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    number: PropTypes.number.isRequired,
-    ingredients: PropTypes.array.isRequired,
-    createdAt: PropTypes.string.isRequired,
-    showStatus: PropTypes.bool,
-    status: PropTypes.string.isRequired
-};
 
 export {OrderCards};

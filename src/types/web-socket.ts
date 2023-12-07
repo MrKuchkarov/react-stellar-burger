@@ -6,6 +6,7 @@ export interface IWebSocketOrder {
     createdAt: Date;
     updatedAt: Date;
     name?: string;
+    showStatus: boolean;
 }
 
 export interface IWebSocketResponse {
