@@ -1,7 +1,15 @@
 // authorizedSlice.js
 import {createSlice} from "@reduxjs/toolkit";
+import {IWebSocketOrder} from "../../../types/web-socket";
 
-const initialState = {
+export type TAuthorizedSlice = {
+    wsConnected: boolean;
+    orders: IWebSocketOrder[];
+    error: boolean;
+    isLoading: boolean;
+};
+
+const initialState: TAuthorizedSlice = {
     wsConnected: false,
     orders: [],
     error: false,

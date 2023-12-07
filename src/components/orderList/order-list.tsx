@@ -1,12 +1,16 @@
-import React from "react";
+import React, {FC} from "react";
 import style from "./order-list.module.css"
 import {OrderCards} from "../order-cards/order-cards";
-import {useSelector} from "react-redux";
 import {selectUnOrders} from "../../services/webSocketSlice/UnAuthSocketSlice/unauth-ws-selector";
 import {selectOrders} from "../../services/webSocketSlice/AuthSocketSlice/auth-ws-selector";
+import {useAppSelector} from "../../services/store/store";
 
-const OrderList = ({showStatus, useUnOrders}) => {
-    const orders = useSelector(useUnOrders ? selectUnOrders : selectOrders);
+type TOrderListProps = {
+    showStatus: boolean;
+    useUnOrders: boolean;
+}
+const OrderList: FC<TOrderListProps> = ({showStatus, useUnOrders}) => {
+    const orders = useAppSelector(useUnOrders ? selectUnOrders : selectOrders);
     // Проверяю, что orders не является undefined или null, и также что массив не пуст
     return (orders && orders.length > 0) ? (
         <ul className={`${style["container"]} custom-scroll`}>
