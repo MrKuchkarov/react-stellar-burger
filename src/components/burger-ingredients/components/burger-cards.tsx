@@ -1,4 +1,4 @@
-import React, {FC, RefObject, useMemo} from "react";
+import React, {FC, ForwardedRef, forwardRef, useMemo} from "react";
 import style from "./burger-cards.module.css";
 import {useSelector} from "react-redux";
 import {selectIngredients} from "../../../services/ingredientsSlice/ingredients-selector";
@@ -11,21 +11,16 @@ const cardContainerClass = `${style["card-container"]}`;
 const titleClass = `${style["title-buns"]} pt-10 pb-5 text text_type_main-medium`;
 
 interface BurgerCardsProps {
-    bunRef: RefObject<HTMLLIElement>;
-    sauceRef: RefObject<HTMLLIElement>;
-    mainRef: RefObject<HTMLLIElement>;
+    bunRef: ForwardedRef<HTMLUListElement>;
+    sauceRef: ForwardedRef<HTMLUListElement>;
+    mainRef: ForwardedRef<HTMLUListElement>;
 }
 
-const BurgerCards: FC<BurgerCardsProps> = ({bunRef, sauceRef, mainRef}) => {
+const BurgerCards: FC<BurgerCardsProps> = forwardRef(({bunRef, sauceRef, mainRef}) => {
     const ingredients = useSelector(selectIngredients);
     const ingredientsTypesSet = new Set(ingredients.map((card: IIngredient) => card.type))
     const ingredientsTypes: string[] = ingredientsTypesSet.size ? [...ingredientsTypesSet] : [];
     const location = useLocation();
-    // const ingredients = useSelector(selectIngredientById);
-    // const ingredientsTypesSet = new Set(ingredients.map((card) => card.type))
-    // const ingredientsTypes = [...ingredientsTypesSet]
-    // const ingredientsTypes = useIngredientInfo(ingredients)
-    // const location = useLocation();
 
     // Фильтрация игрениентов по катигориям
     const categorizedIngredients = useMemo(() => ({
@@ -78,7 +73,7 @@ const BurgerCards: FC<BurgerCardsProps> = ({bunRef, sauceRef, mainRef}) => {
 
         </>
     );
-};
+});
 
 
 export default BurgerCards;

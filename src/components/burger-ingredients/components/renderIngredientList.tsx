@@ -1,22 +1,22 @@
 import style from "./burger-cards.module.css"
 import {Link} from "react-router-dom";
 import IngredientCard from "./IngredientCard";
-import {FC, RefObject} from "react";
+import {FC, ForwardedRef, forwardRef} from "react";
 import {IIngredient} from "../../../types";
 
 interface RenderIngredientListProps {
-    type: string;
+    type?: string;
     ingredients: IIngredient[];
-    ref?: RefObject<HTMLLIElement>;
+    ref?: ForwardedRef<HTMLUListElement>;
     location?: string;
 }
 
-const RenderIngredientList: FC<RenderIngredientListProps> = ({type, ingredients, ref, location}) => {
+const RenderIngredientList: FC<RenderIngredientListProps> = forwardRef(({location, ingredients}, ref: ForwardedRef<HTMLUListElement>) => {
     if (!ingredients || ingredients.length === 0) {
         return null; // Или любой другой код, который вы считаете подходящим
     }
     return (
-        <ul className={`${style["cards-list"]} `}>
+        <ul className={`${style["cards-list"]} `} ref={ref}>
             {ingredients.map((ingredient) => (
                 <Link
                     key={ingredient._id}
@@ -24,13 +24,13 @@ const RenderIngredientList: FC<RenderIngredientListProps> = ({type, ingredients,
                     state={{background: location}}
                     className={style.link}
                 >
-                    <li ref={ref}>
+                    <li>
                         <IngredientCard ingredients={ingredient}/>
                     </li>
                 </Link>
             ))}
         </ul>
     );
-};
+});
 
 export default RenderIngredientList;

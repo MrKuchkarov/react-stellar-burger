@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import BurgerCards from "./components/burger-cards";
 import style from "./burger-ingredients.module.css";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -6,10 +6,6 @@ import {useInView} from "react-intersection-observer";
 
 
 const BurgerIngredients = () => {
-
-    // const bunRef = useRef<HTMLLIElement>(null);
-    // const mainRef = useRef<HTMLLIElement>(null);
-    // const sauceRef = useRef<HTMLLIElement>(null);
     const [current, setCurrent] = useState("bun");
     const handleCurrentTab = (str: string) => {
         setCurrent(str);
