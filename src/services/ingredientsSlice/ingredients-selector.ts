@@ -6,5 +6,5 @@ export const selectIsLoading = (store: RootState) => store.ingredients.status;
 export const selectError = (store: RootState) => store.ingredients.error;
 
 export const selectVisible = (store: RootState) => store.ingredients.visible;
-export const selectIngredientById = (id: string) => (store: RootState) =>
-    store.ingredients.ingredients.find((ingredients) => ingredients._id === id);
+export const selectIngredientById = (id: string | undefined) => (store: RootState) =>
+    id ? store.ingredients.ingredients.find((ingredient) => ingredient._id === id) : undefined;

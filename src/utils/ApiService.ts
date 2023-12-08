@@ -12,10 +12,7 @@ const ApiOrderDetails = "https://norma.nomoreparties.space/api/orders";
 // Получение список заказов
 
 
-export const fetchIngredients = createAsyncThunk<
-    IIngredientResponse,
-    undefined
->(
+export const fetchIngredients = createAsyncThunk(
     "ingredients/fetchIngredients",
     async (_, {rejectWithValue}) => {
         try {
@@ -34,10 +31,11 @@ export const fetchIngredients = createAsyncThunk<
             }
         } catch (err) {
             console.error(err);
-            return rejectWithValue((err as Error).message);
+            return rejectWithValue((err as Error).message.toString());
         }
     }
 );
+
 // Получение номер заказа
 export const makeOrder = createAsyncThunk(
     "order/makeOrder",

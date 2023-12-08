@@ -1,13 +1,12 @@
 import React from "react";
 import style from "./ingredient-details.module.css";
-import {useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import {selectIngredientById} from "../../services/ingredientsSlice/ingredients-selector";
+import {useAppSelector} from "../../services/store/store";
 
 const IngredientDetails = () => {
-    // const data = useSelector(selectIngredientDetails);
-    const {id} = useParams();
-    const data = useSelector(selectIngredientById(id));
+    const {id} = useParams<{ id?: string }>();
+    const data = useAppSelector(selectIngredientById(id));
     if (!data) return null;
 
     return (

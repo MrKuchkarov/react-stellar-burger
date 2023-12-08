@@ -16,7 +16,7 @@ interface BurgerCardsProps {
     mainRef: ForwardedRef<HTMLUListElement>;
 }
 
-const BurgerCards: FC<BurgerCardsProps> = forwardRef(({bunRef, sauceRef, mainRef}) => {
+const BurgerCards: FC<BurgerCardsProps> = (({bunRef, sauceRef, mainRef}) => {
     const ingredients = useSelector(selectIngredients);
     const ingredientsTypesSet = new Set(ingredients.map((card: IIngredient) => card.type))
     const ingredientsTypes: string[] = ingredientsTypesSet.size ? [...ingredientsTypesSet] : [];

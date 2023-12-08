@@ -1,7 +1,17 @@
 import {fetchIngredients} from '../../utils/ApiService';
 import {createSlice} from '@reduxjs/toolkit';
+import {IIngredient} from "../../types";
+import {TStatus} from "../../types/status";
 
-const initialState = {
+type TIngredientsSlice = {
+    ingredients: IIngredient[];
+    status: TStatus;
+    isLoading: boolean;
+    error: string | null;
+    visible: boolean;
+}
+
+const initialState: TIngredientsSlice = {
     ingredients: [],
     status: "idle",
     isLoading: true,
@@ -29,13 +39,13 @@ const ingredientsSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(fetchIngredients.pending, (state) => {
-                state.status = "Loading";
+                state.status = "loading";
                 state.error = null;
                 state.isLoading = true;
             })
             .addCase(fetchIngredients.rejected, (state, action) => {
                 state.status = "rejected";
-                state.error = action.payload || "Cannot load data";
+                state.error = action.payload as string || "Cannot load data";
                 state.isLoading = false;
             })
             .addCase(fetchIngredients.fulfilled, (state, action) => {
@@ -49,6 +59,6 @@ const ingredientsSlice = createSlice({
 })
 
 
-export const {setIngredients, setSelectedCard, showModal, hideModal} = ingredientsSlice.actions;
+export const {setIngredients, showModal, hideModal} = ingredientsSlice.actions;
 
 export default ingredientsSlice.reducer;
