@@ -1,19 +1,23 @@
-import React, {useCallback, useEffect} from "react";
+import React, {FC, useCallback, useEffect} from "react";
 import style from "./modal.module.css";
 import ReactDOM from "react-dom";
 import CloseButton from "../close-button/close-button";
 import ModalOverlay from "../modal-overlay/modal-overlay";
-import PropTypes from "prop-types";
 
-const modalRoot = document.getElementById("react-modals");
 
-const Modal = ({title, closeModal, children}) => {
+type TModalProps = {
+    title: string;
+    closeModal: () => void;
+}
+const modalRoot = document.getElementById("react-modals") as HTMLElement;
+
+const Modal: FC<TModalProps> = ({title, closeModal, children}) => {
     const handleCloseModal = useCallback(() => {
         closeModal();
     }, [closeModal]);
 
     useEffect(() => {
-        const onEscKeydown = (evt) => {
+        const onEscKeydown = (evt: KeyboardEvent) => {
             evt.key === "Escape" && handleCloseModal();
         };
 
@@ -39,12 +43,6 @@ const Modal = ({title, closeModal, children}) => {
         </>,
         modalRoot
     );
-};
-
-Modal.propTypes = {
-    children: PropTypes.node.isRequired,
-    closeModal: PropTypes.func.isRequired,
-    title: PropTypes.string.isRequired,
 };
 
 export default Modal;
