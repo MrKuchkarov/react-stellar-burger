@@ -5,7 +5,6 @@ import {
     setOrderNumber,
 } from "../services/orderDetailsSlice.js/orderDetailsSlice";
 import {getCookie} from "./cookie";
-import {IIngredientResponse} from "../types";
 
 const ApiGetTheIngredients = "https://norma.nomoreparties.space/api/ingredients";
 const ApiOrderDetails = "https://norma.nomoreparties.space/api/orders";
