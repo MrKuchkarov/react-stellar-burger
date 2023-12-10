@@ -5,7 +5,7 @@ import {OrderList} from "../../components/orderList/order-list";
 import {useSocket} from "../../hooks/useSocket";
 
 const OrdersPage = () => {
-    useSocket(true)
+    useSocket({useSocketActions: true});
     return (
         <div className={`${style["container-order"]}`}>
             <ProfileNavigation/>

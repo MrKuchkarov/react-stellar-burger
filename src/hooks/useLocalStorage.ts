@@ -1,7 +1,11 @@
-import {useState} from "react";
+import {useState, Dispatch, SetStateAction} from 'react';
 
-export const useLocalStorage = (key, initialValue) => {
-    const [storedValue, setStoredValue] = useState(() => {
+// Обобщенные типы для хранения значения и функции его обновления
+export const useLocalStorage = <T>(
+    key: string,
+    initialValue: T
+): [T, Dispatch<SetStateAction<T>>] => {
+    const [storedValue, setStoredValue] = useState<T>(() => {
         try {
             const item = localStorage.getItem(key);
             return item ? JSON.parse(item) : initialValue;
@@ -10,7 +14,7 @@ export const useLocalStorage = (key, initialValue) => {
         }
     });
 
-    const setValue = (value) => {
+    const setValue: Dispatch<SetStateAction<T>> = (value) => {
         try {
             setStoredValue(value);
             localStorage.setItem(key, JSON.stringify(value));
@@ -21,4 +25,3 @@ export const useLocalStorage = (key, initialValue) => {
 
     return [storedValue, setValue];
 };
-

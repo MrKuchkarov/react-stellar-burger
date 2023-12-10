@@ -5,7 +5,7 @@ import {OrderBoard} from "../../components/order-board/order-board";
 import {useSocket} from "../../hooks/useSocket";
 
 const FeedPage = () => {
-    useSocket(false)
+    useSocket({useSocketActions: false});
 
     return (
         <div className={`${style["container"]} pt-10`}>

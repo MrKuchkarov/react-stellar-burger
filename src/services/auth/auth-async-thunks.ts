@@ -111,7 +111,7 @@ export const checkUserAuth = () => {
 
 export const fetchUpdateUser = createAsyncThunk<
     IUser,
-    IUserUpdateResponse
+    IRegister
 >(
     "$$auth/fetchUpdateUser",
     async (form) => {

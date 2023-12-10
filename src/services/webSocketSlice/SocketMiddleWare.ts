@@ -115,7 +115,7 @@ export default createSocketMiddleWare;
 //     const onSocketError = (dispatch) => {
 //         dispatch(connectingError());
 //     };
-//
+
 //     const onSocketMessage = (dispatch) => async (event) => {
 //         const {data} = event;
 //         const parsedData = JSON.parse(data);

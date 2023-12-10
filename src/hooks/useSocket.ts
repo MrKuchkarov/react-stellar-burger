@@ -2,19 +2,24 @@ import {useLocation} from 'react-router-dom';
 import {useEffect} from 'react';
 import {webSocketUrl} from '../utils/consts';
 import {getCookie} from '../utils/cookie';
-import {useDispatch} from "react-redux";
 import {AuthorizedActions} from "../services/webSocketSlice/AuthSocketSlice/authorizedSlice";
 import {UnAuthorizedActions} from "../services/webSocketSlice/UnAuthSocketSlice/unauthorizedSlice";
+import {useAppDispatch} from "../services/store/store";
+
+type TUseSocketProps = {
+    useSocketActions: boolean;
+}
 
 
-export function useSocket(useSocketActions) {
+export function useSocket({useSocketActions}: TUseSocketProps) {
     const location = useLocation();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const {connectingBeginning, connectingClose} = useSocketActions ? AuthorizedActions : UnAuthorizedActions;
 
     useEffect(() => {
         if (location.pathname.startsWith("/feed")) {
             dispatch(connectingBeginning(`${webSocketUrl}/all`));
+            
         } else {
             const accessToken = getCookie("accessToken").replace(
                 "Bearer ",

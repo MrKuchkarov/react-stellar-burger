@@ -1,7 +1,7 @@
 export interface IRegister {
-    email: string;
-    password: string;
-    name: string;
+    email?: string;
+    password?: string;
+    name?: string;
 }
 
 export interface ILogin {
@@ -16,8 +16,8 @@ export interface IUserForm {
 }
 
 export interface IUser {
-    name: string;
-    email: string;
+    name?: string;
+    email?: string;
     password?: string;
 }
 
@@ -42,6 +42,7 @@ export interface IResetResponse {
     success: boolean;
     message: string;
 }
+
 
 export interface IResetForm {
     password: string;
