@@ -1,4 +1,3 @@
-import {useSelector} from "react-redux";
 import {selectIngredients} from "../services/ingredientsSlice/ingredients-selector";
 import {IIngredientsWithCount} from "../types";
 import {useAppSelector} from "../services/store/store";
@@ -12,22 +11,25 @@ const useIngredientInfo = (ingredientsId: string[] | null): IIngredientsWithCoun
 
     const ingredientsWithInfo = ingredientsId.map((id) =>
         allIngredients.find((ingredient) => ingredient._id === id),
-    );
+    ).filter(Boolean); // Filter out undefined values
 
     if (ingredientsWithInfo.length !== ingredientsId.length) {
         return null;
     }
 
-    const uniqueIngredients = Array.from(new Set(ingredientsWithInfo));
-    return uniqueIngredients.map((ingredient) => ({
-        ...ingredient,
-        count: ingredientsWithInfo.reduce((count, item) => {
-            if (ingredient!._id === item!._id) {
-                count += 1;
+    const ingredientsWithCount = ingredientsWithInfo.reduce((acc, ingredient) => {
+        const existingIngredient = acc.find((item) => item._id === ingredient?._id);
+        if (!existingIngredient) {
+            acc.push({...ingredient, count: 1} as IIngredientsWithCount);
+        } else {
+            if (existingIngredient) {
+                existingIngredient.count += 1;
             }
-            return count;
-        }, 0),
-    }));
+        }
+        return acc;
+    }, [] as IIngredientsWithCount[]);
+
+    return ingredientsWithCount;
 };
 
 export default useIngredientInfo;

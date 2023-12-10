@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {ChangeEvent, FormEvent, useState} from "react";
 import style from "../login/login.module.css";
 import {
     Button,
@@ -18,11 +18,11 @@ const Register = () => {
         name: "",
     });
 
-    const onChange = (e) => {
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setForm({...form, [e.target.name]: e.target.value});
     };
 
-    const handleRegister = (e) => {
+    const handleRegister = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(fetchRegister(form));
     };

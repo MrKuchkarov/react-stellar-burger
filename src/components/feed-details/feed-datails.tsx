@@ -2,7 +2,6 @@ import React, {FC, useMemo} from 'react';
 import style from "./feed-details.module.css";
 import {FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useParams} from "react-router-dom";
-import {useSelector} from "react-redux";
 import {selectFeedById} from "../../services/webSocketSlice/AuthSocketSlice/auth-ws-selector";
 import {useStatus} from "../../hooks/useStatus";
 import useIngredientInfo from "../../hooks/useIngredientInfo";
@@ -18,10 +17,13 @@ interface FeedDetailsProps {
 const FeedDetails: FC<FeedDetailsProps> = ({useFeedDetails}) => {
     const {id} = useParams<{ id?: string }>();
     const currentFeed = useAppSelector(useFeedDetails ? selectFeedById(id || "") : selectFeedByUnId(id || ""));
-    const status = useStatus(currentFeed ? currentFeed.status : null);
+    const status = useStatus(currentFeed ? currentFeed.status : "");
     const ingredientsWithInfo = useIngredientInfo(currentFeed ? currentFeed.ingredients : null);
 
     const ingredientsTotalPrice = useMemo(() => {
+        if (!ingredientsWithInfo) {
+            return 0;
+        }
         return ingredientsWithInfo.reduce(
             (acc, ingredient) => acc + ingredient.price * ingredient.count,
             0,
@@ -56,7 +58,7 @@ const FeedDetails: FC<FeedDetailsProps> = ({useFeedDetails}) => {
                 </h2>
 
                 <ul className={`${style["lists"]} custom-scroll`}>
-                    {ingredientsWithInfo.map((ingredient) => (
+                    {ingredientsWithInfo && ingredientsWithInfo.map((ingredient) => (
                         <Link
                             to={`/ingredients/${ingredient._id}`}
                             // to={`${location.pathname}/${ingredient._id}`}

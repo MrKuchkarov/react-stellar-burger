@@ -24,7 +24,7 @@ import {Dispatch} from "react";
 
 export const fetchRegister = createAsyncThunk<
     IRegister,
-    IUserResponse
+    IUser
 >(
     "$$auth/fetchRegister",
     async (form) => {
@@ -39,7 +39,7 @@ export const fetchRegister = createAsyncThunk<
 );
 export const fetchLogin = createAsyncThunk<
     ILogin,
-    IUserResponse
+    IRegister
 >(
     "$$auth/fetchLogin",
     async (form) => {

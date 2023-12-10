@@ -4,7 +4,7 @@ import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 type TTotalPriceBurgerProps = {
     sum: number;
-    bigPrice: boolean;
+    bigPrice?: boolean;
     count?: number;
 }
 const TotalPriceBurger: FC<TTotalPriceBurgerProps> = ({sum, bigPrice, count}) => {

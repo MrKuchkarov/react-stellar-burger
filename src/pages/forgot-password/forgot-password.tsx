@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {ChangeEvent, FormEvent, useState} from "react";
 import style from "../login/login.module.css";
 import {
     Button,
@@ -12,11 +12,11 @@ const ForgotPassword = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch()
     const [email, setEmail] = useState("")
-    const onChangeEmail = e => {
+    const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value)
     }
 
-    const resetPassword = e => {
+    const resetPassword = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(fetchForgotPassword({email}))
         navigate("/reset-password")
