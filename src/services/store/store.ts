@@ -6,12 +6,12 @@ import orderDetailsSlice from "../orderDetailsSlice.js/orderDetailsSlice";
 import authReducer from "../auth/auth-slice";
 import AuthorizedSlice, {AuthorizedActions} from "../webSocketSlice/AuthSocketSlice/authorizedSlice";
 import UnAuthorizedSlice, {UnAuthorizedActions} from "../webSocketSlice/UnAuthSocketSlice/unauthorizedSlice";
-import SocketMiddleWare from "../webSocketSlice/SocketMiddleWare";
+import socketMiddleware from "../webSocketSlice/SocketMiddleWare";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 
 
-const authorizedSocketMiddleware = SocketMiddleWare(AuthorizedActions);
-const UnAuthorizedSocketMiddleware = SocketMiddleWare(UnAuthorizedActions);
+const authorizedSocketMiddleware = socketMiddleware(AuthorizedActions);
+const UnAuthorizedSocketMiddleware = socketMiddleware(UnAuthorizedActions);
 export const store = configureStore({
     reducer: {
         ingredients: ingredientsSlice,

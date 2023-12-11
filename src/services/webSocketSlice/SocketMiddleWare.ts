@@ -16,7 +16,7 @@ export type TWebSocketAction = {
     connectingClose: ActionCreatorWithoutPayload,
 };
 
-const SocketMiddleWare = (actions: TWebSocketAction): Middleware => {
+const socketMiddleware = (actions: TWebSocketAction): Middleware => {
     return ({dispatch}: MiddlewareAPI<AppDispatch, RootState>) => {
         let socket: WebSocket | null = null;
 
@@ -87,7 +87,7 @@ const SocketMiddleWare = (actions: TWebSocketAction): Middleware => {
     };
 };
 
-export default SocketMiddleWare;
+export default socketMiddleware;
 
 
 // import {refreshToken} from "../../utils/api-utils";
