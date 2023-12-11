@@ -18,7 +18,6 @@ import {
     IResetResponse,
     IUser,
     IUserResponse,
-    IUserUpdateResponse
 } from "../../types";
 import {Dispatch} from "react";
 

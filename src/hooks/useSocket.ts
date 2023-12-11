@@ -19,7 +19,7 @@ export function useSocket({useSocketActions}: TUseSocketProps) {
     useEffect(() => {
         if (location.pathname.startsWith("/feed")) {
             dispatch(connectingBeginning(`${webSocketUrl}/all`));
-            
+
         } else {
             const accessToken = getCookie("accessToken").replace(
                 "Bearer ",

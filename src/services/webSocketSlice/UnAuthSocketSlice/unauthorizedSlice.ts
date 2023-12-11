@@ -1,5 +1,5 @@
 // unauthorizedSlice.js
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IWebSocketOrder} from "../../../types/web-socket";
 
 export type TUnauthorizedSlice = {
@@ -24,14 +24,14 @@ const UnauthorizedSlice = createSlice({
     name: "$$unauthorized",
     initialState,
     reducers: {
-        connectingBeginning(state) {
+        connectingBeginning(state, action: PayloadAction<string>) {
             state.UnWsConnected = true;
             state.error = false;
         },
         connectingOpened(state) {
             state.UnWsConnected = true;
         },
-        connectingError(state) {
+        connectingError(state, action: PayloadAction<string>) {
             state.UnWsConnected = false;
             state.error = true;
         },

@@ -8,7 +8,7 @@ import {refreshToken} from '../../utils/api-utils';
 import {IWebSocketResponse} from '../../types/web-socket';
 import {AppDispatch, RootState} from '../store/store';
 
-type TWebSocketAction = {
+export type TWebSocketAction = {
     connectingBeginning: ActionCreatorWithPayload<string>,
     connectingOpened: ActionCreatorWithoutPayload,
     connectingError: ActionCreatorWithPayload<string>,
@@ -16,22 +16,16 @@ type TWebSocketAction = {
     connectingClose: ActionCreatorWithoutPayload,
 };
 
-const createSocketMiddleWare = (actions: TWebSocketAction): Middleware => {
+const SocketMiddleWare = (actions: TWebSocketAction): Middleware => {
     return ({dispatch}: MiddlewareAPI<AppDispatch, RootState>) => {
         let socket: WebSocket | null = null;
 
-        const onSocketOpen = (openText: string) => {
-            return (event: Event) => {
-                console.log("WebSocket opened:", openText, event);
-                dispatch(actions.connectingBeginning(openText));
-            };
+        const onSocketOpen = (dispatch: AppDispatch) => {
+            dispatch(actions.connectingBeginning("Сокет открыт"));
         };
 
-        const onSocketError = (errorText: string) => {
-            return (event: Event) => {
-                console.error("WebSocket error occurred:", errorText, event);
-                dispatch(actions.connectingError(errorText));
-            };
+        const onSocketError = (dispatch: AppDispatch) => {
+            dispatch(actions.connectingError("Ошибка в сокете"));
         };
 
         const onSocketMessage = async (event: MessageEvent) => {
@@ -72,11 +66,11 @@ const createSocketMiddleWare = (actions: TWebSocketAction): Middleware => {
         return (next) => (action) => {
             const {type, payload} = action as { type: string, payload?: any };
 
-            if (type === actions.connectingBeginning("Opened").type) {
+            if (type === actions.connectingBeginning("Сокет открыт").type) {
                 if (!isSocketOpen()) {
                     socket = new WebSocket(payload);
-                    socket.onopen = onSocketOpen("Connection opened");
-                    socket.onerror = onSocketError("Connection Error");
+                    socket.onopen = () => onSocketOpen(dispatch);
+                    socket.onerror = () => onSocketError(dispatch);
                     socket.onmessage = onSocketMessage;
                 }
             }
@@ -93,29 +87,34 @@ const createSocketMiddleWare = (actions: TWebSocketAction): Middleware => {
     };
 };
 
-export default createSocketMiddleWare;
+export default SocketMiddleWare;
 
 
 // import {refreshToken} from "../../utils/api-utils";
+// import {ActionCreatorWithoutPayload, ActionCreatorWithPayload, Middleware, MiddlewareAPI} from "@reduxjs/toolkit";
+// import {IWebSocketResponse} from "../../types/web-socket";
+// import {AppDispatch, RootState} from "../store/store";
 //
-// const createSocketMiddleWare = (actions) => {
-//     let socket = null;
-//     const {
-//         connectingBeginning,
-//         connectingOpened,
-//         connectingError,
-//         getMessage,
-//         connectingClose,
-//     } = actions;
+// type TWebSocketAction = {
+//     connectingBeginning: ActionCreatorWithoutPayload,
+//     connectingOpened: ActionCreatorWithoutPayload,
+//     connectingError: ActionCreatorWithoutPayload,
+//     getMessage: ActionCreatorWithPayload<IWebSocketResponse>,
+//     connectingClose: ActionCreatorWithoutPayload,
+// };
+//
+// const createSocketMiddleWare = (actions: TWebSocketAction): Middleware => {
+//     return (store: MiddlewareAPI<AppDispatch, RootState>) => {
+//         let socket: WebSocket | null = null;
 //
 //     const onSocketOpen = (dispatch) => {
-//         dispatch(connectingOpened());
+//         dispatch(actions.connectingBeginning());
 //     };
 //
 //     const onSocketError = (dispatch) => {
-//         dispatch(connectingError());
+//         dispatch(actions.connectingError());
 //     };
-
+//
 //     const onSocketMessage = (dispatch) => async (event) => {
 //         const {data} = event;
 //         const parsedData = JSON.parse(data);
@@ -126,7 +125,7 @@ export default createSocketMiddleWare;
 //                 const refreshResult = await refreshToken();
 //                 if (refreshResult instanceof Error) {
 //                     console.error('Error refreshing token:', refreshResult.message);
-//                     dispatch(connectingError(refreshResult.message));
+//                     dispatch(actions.connectingError(refreshResult.message));
 //                 } else {
 //                     console.log('Token refreshed successfully. Sending updated token to the server...');
 //                     // Обновление токена успешно, повторно отправляем запрос с новым токеном
@@ -134,17 +133,17 @@ export default createSocketMiddleWare;
 //                 }
 //             } catch (error) {
 //                 console.error('Failed to refresh token:', error);
-//                 dispatch(connectingError('Failed to refresh token.'));
+//                 dispatch(actions.connectingError('Failed to refresh token.'));
 //             }
 //         } else if (parsedData.success) {
 //             dispatch(getMessage(parsedData));
 //         } else {
 //             console.error('Received an error message:', parsedData.message || 'Unknown error');
-//             dispatch(connectingError(parsedData.message || 'Unknown error'));
+//             dispatch(actions.connectingError(parsedData.message || 'Unknown error'));
 //         }
 //     }
 //     const onSocketClose = (dispatch) => {
-//         dispatch(connectingClose());
+//         dispatch(actions.connectingClose());
 //     };
 //
 //     const isSocketOpen = () => socket && socket.readyState === WebSocket.OPEN;
@@ -153,7 +152,7 @@ export default createSocketMiddleWare;
 //         const {dispatch} = store;
 //         const {type, payload} = action;
 //
-//         if (type === connectingBeginning().type) {
+//         if (type === actions.connectingBeginning().type) {
 //             if (!isSocketOpen()) {
 //                 // Проверка, что WebSocket ещё не открыт
 //                 socket = new WebSocket(payload);
@@ -164,7 +163,7 @@ export default createSocketMiddleWare;
 //         }
 //
 //         if (socket) {
-//             if (isSocketOpen() && type === connectingClose().type) {
+//             if (isSocketOpen() && type === actions.connectingClose().type) {
 //                 // Проверка, что WebSocket открыт перед закрытием
 //                 socket.close(1000, "close normal");
 //             }
@@ -175,4 +174,4 @@ export default createSocketMiddleWare;
 //     };
 // };
 // export default createSocketMiddleWare;
-
+//
