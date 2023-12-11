@@ -11,8 +11,8 @@ type TAuthSlice = {
     user: IUser | null;
     isAuthChecked: boolean;
     error: string | null;
-    name: "",
-    email: "",
+    name: string,
+    email: string,
 }
 const initialState: TAuthSlice = {
     user: null,
@@ -26,10 +26,12 @@ const authSlice = createSlice({
     name: "$$auth",
     initialState,
     reducers: {
-        setUser(state, action: PayloadAction<IUser>) {
+        setUser(state, action: PayloadAction<IUser | null>) {
             state.user = action.payload;
-            state.user.name = action.payload.name;
-            state.user.email = action.payload.email;
+            if (state.user && action.payload) {
+                state.user.name = action.payload.name; // Обновление имени, если пользователь существует
+                state.user.email = action.payload.email; // Обновление email, если пользователь существует
+            }
         },
         setAuthChecked(state, action: PayloadAction<boolean>) {
             state.isAuthChecked = action.payload;

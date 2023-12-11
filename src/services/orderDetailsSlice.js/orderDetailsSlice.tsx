@@ -1,7 +1,4 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {createOptions, request} from "../../utils/api-utils";
-import {BURGER_API_URL, Method} from "../../utils/consts";
-import {getCookie} from "../../utils/cookie";
+import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
     orderNumber: [],
@@ -27,7 +24,7 @@ const initialState = {
 //     },
 // );
 
-const orderDeatailsSlice = createSlice({
+const orderDetailsSlice = createSlice({
     name: "order",
     initialState,
     reducers: {
@@ -63,6 +60,6 @@ const orderDeatailsSlice = createSlice({
 });
 
 export const {setOrderNumber, setLoading, setError} =
-    orderDeatailsSlice.actions;
+    orderDetailsSlice.actions;
 
-export default orderDeatailsSlice.reducer;
+export default orderDetailsSlice.reducer;

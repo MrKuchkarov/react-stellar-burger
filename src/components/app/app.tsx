@@ -5,7 +5,7 @@ import {HomePages} from "../../pages/home-pages/home-pages";
 import {Login} from "../../pages/login/login";
 import {ProfilePage} from "../../pages/profile/profile";
 import {Register} from "../../pages/register/register";
-import {IngredietnsPage} from "../../pages/ingredients/ingredietns-page";
+import {IngredientsPage} from "../../pages/ingredients/ingredietns-page";
 import {ForgotPassword} from "../../pages/forgot-password/forgot-password";
 import {ResetPassword} from "../../pages/reset-password/reset-password";
 import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
@@ -46,7 +46,7 @@ function App() {
                 <Route path={routes.login} element={<OnlyUnAuth component={Login}/>}/>
                 <Route path={routes.profile} element={<OnlyAuth component={ProfilePage}/>}/>
                 <Route path={routes.register} element={<OnlyUnAuth component={Register}/>}/>
-                <Route path={routes.ingredientsId} element={<IngredietnsPage/>}/>
+                <Route path={routes.ingredientsId} element={<IngredientsPage/>}/>
                 <Route path={routes.forgotPassword} element={<OnlyUnAuth component={ForgotPassword}/>}/>
                 <Route path={routes.resetPassword} element={<OnlyUnAuth component={ResetPassword}/>}/>
                 <Route path={routes.profileOrder} element={<OnlyAuth component={OrdersPage}/>}/>

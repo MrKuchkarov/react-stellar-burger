@@ -9,7 +9,7 @@ type TProtectedRoute = RouteProps & {
     useFeedDetails?: boolean;
 };
 
-const Protected: FC<TProtectedRoute> = ({onlyUnAuth = false, component: Component}: TProtectedRoute) => {
+const Protected: FC<TProtectedRoute> = ({onlyUnAuth = false, component: Component, useFeedDetails}: TProtectedRoute) => {
     const isAuth = useAppSelector(selectIsAuthChecked);
     const user = useAppSelector(selectAuthUser);
     const location = useLocation();
@@ -27,7 +27,7 @@ const Protected: FC<TProtectedRoute> = ({onlyUnAuth = false, component: Componen
         return <Navigate to="/login" state={{from: location}}/>;
     }
 
-    return <Component/>;
+    return <Component useFeedDetails={useFeedDetails}/>;
 };
 
 export const OnlyAuth: FC<TProtectedRoute> = Protected;

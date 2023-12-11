@@ -7,6 +7,7 @@ export interface IWebSocketOrder {
     updatedAt: Date;
     name?: string;
     showStatus: boolean;
+    useUnOrders: boolean;
 }
 
 export interface IWebSocketResponse {

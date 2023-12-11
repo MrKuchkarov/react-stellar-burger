@@ -21,7 +21,7 @@ const socketMiddleware = (actions: TWebSocketAction): Middleware => {
         let socket: WebSocket | null = null;
 
         const onSocketOpen = (dispatch: AppDispatch) => {
-            dispatch(actions.connectingBeginning("Сокет открыт"));
+            dispatch(actions.connectingOpened());
         };
 
         const onSocketError = (dispatch: AppDispatch) => {
@@ -66,7 +66,7 @@ const socketMiddleware = (actions: TWebSocketAction): Middleware => {
         return (next) => (action) => {
             const {type, payload} = action as { type: string, payload?: any };
 
-            if (type === actions.connectingBeginning("Сокет открыт").type) {
+            if (type === actions.connectingBeginning("").type) {
                 if (!isSocketOpen()) {
                     socket = new WebSocket(payload);
                     socket.onopen = () => onSocketOpen(dispatch);
