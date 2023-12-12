@@ -24,15 +24,7 @@ export const request = (url: string, options?: ReturnType<typeof createOptions>)
 
 export const refreshToken = async () => {
     try {
-        const response = await fetch(`${BURGER_API_URL}/auth/token`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json;charset=utf-8",
-            },
-            body: JSON.stringify({
-                token: localStorage.getItem("refreshToken"),
-            }),
-        }).then(checkResponse)
+        const response = await request(`${BURGER_API_URL}/auth/token`);
 
         const data = await response.json();
 
@@ -49,7 +41,7 @@ export const refreshToken = async () => {
 };
 export const fetchWithRefresh = async (url: string, options?: ReturnType<typeof createOptions>) => {
     try {
-        const res = await fetch(url, options);
+        const res = await request(url, options);
         return await checkResponse(res);
     } catch (err) {
         console.log(err);

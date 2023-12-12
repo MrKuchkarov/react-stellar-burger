@@ -15,7 +15,7 @@ const OrderCards: FC<IWebSocketOrder> = (props) => {
         status,
         ingredients: ingredientsId,
         createdAt,
-        showStatus
+        showStatus,
     } = props;
     const location = useLocation();
     const ingredientsWithInfo = useIngredientInfo(ingredientsId);

@@ -23,5 +23,5 @@ export interface IIngredientResponse {
 }
 
 export interface IIngredientsWithCount extends IIngredient {
-    count: number
+    count: number;
 }

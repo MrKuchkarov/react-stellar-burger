@@ -1,6 +1,5 @@
 import React from 'react';
 import PreLoader from "./pre-loader";
-import {useSelector} from "react-redux";
 import {selectIngredientsState} from "../../../services/ingredientsSlice/ingredients-selector";
 import style from "./pre-loader.module.css";
 import {useAppSelector} from "../../../services/store/store";

@@ -6,6 +6,10 @@
     margin: 0 auto;
 }
 
+.feed__number {
+    justify-self: center;
+}
+
 .order-number {
     text-align: center;
 }

@@ -12,14 +12,14 @@ import {useAppSelector} from "../../services/store/store";
 
 interface FeedDetailsProps {
     useFeedDetails?: boolean;
+    isModal?: boolean;
 }
 
-const FeedDetails: FC<FeedDetailsProps> = ({useFeedDetails}) => {
-    const {id} = useParams<{ id?: string }>();
-    const currentFeed = useAppSelector(useFeedDetails ? selectFeedById(id || "") : selectFeedByUnId(id || ""));
+const FeedDetails: FC<FeedDetailsProps> = ({useFeedDetails, isModal}) => {
+    const {id} = useParams<{ id: string }>();
+    const currentFeed = useAppSelector(useFeedDetails ? selectFeedById(id || "") : selectFeedByUnId(id || "") || null);
     const status = useStatus(currentFeed ? currentFeed.status : "");
     const ingredientsWithInfo = useIngredientInfo(currentFeed ? currentFeed.ingredients : null);
-
     const ingredientsTotalPrice = useMemo(() => {
         if (!ingredientsWithInfo) {
             return 0;
@@ -32,12 +32,14 @@ const FeedDetails: FC<FeedDetailsProps> = ({useFeedDetails}) => {
 
     const status_color_success = currentFeed && currentFeed.status === "done" ? "text_color_success" : "";
 
+    const layout = !isModal && style.feed__number;
 
     return (
         currentFeed && (
             <section className={`${style["container-feed-details"]} `}>
                 <p
-                    className={`${style["order-number"]} text text_type_digits-default`}
+                    className={`${style["order-number"]} text text_type_digits-default ${layout}`}
+
                 >
                     #{currentFeed.number}
                 </p>
@@ -97,4 +99,4 @@ const FeedDetails: FC<FeedDetailsProps> = ({useFeedDetails}) => {
     ) || null;
 };
 
-export {FeedDetails};
+export default FeedDetails;

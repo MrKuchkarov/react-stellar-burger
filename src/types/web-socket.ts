@@ -8,6 +8,7 @@ export interface IWebSocketOrder {
     name?: string;
     showStatus: boolean;
     useUnOrders: boolean;
+    // orders?: IWebSocketOrder[];
 }
 
 export interface IWebSocketResponse {

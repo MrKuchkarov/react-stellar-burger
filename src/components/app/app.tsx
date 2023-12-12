@@ -19,7 +19,7 @@ import ConditionalLoader from "./components/pre-loader-conditions";
 import {routes} from "../../utils/consts";
 import {OrdersPage} from "../../pages/orders/orders";
 import {FeedPage} from "../../pages/feed/feed";
-import {FeedDetails} from "../feed-details/feed-datails";
+import FeedDetails from "../feed-details/feed-datails";
 import {useAppDispatch} from "../../services/store/store";
 
 function App() {
@@ -52,7 +52,7 @@ function App() {
                 <Route path={routes.profileOrder} element={<OnlyAuth component={OrdersPage}/>}/>
                 <Route path={routes.profileOrderId} element={<OnlyAuth component={FeedDetails}/>}/>
                 <Route path={routes.feed} element={<FeedPage/>}/>
-                <Route path={routes.feedId} element={<FeedDetails/>}/>
+                <Route path={routes.feedId} element={<FeedDetails useFeedDetails={false}/>}/>
                 <Route path="*" element={<NotFound404/>}/>
             </Routes>
             {background && (

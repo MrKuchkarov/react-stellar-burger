@@ -5,9 +5,10 @@ import {
     setOrderNumber,
 } from "../services/orderDetailsSlice.js/orderDetailsSlice";
 import {getCookie} from "./cookie";
+import {BURGER_API_URL} from "./consts";
 
-const ApiGetTheIngredients = "https://norma.nomoreparties.space/api/ingredients";
-const ApiOrderDetails = "https://norma.nomoreparties.space/api/orders";
+const ApiGetTheIngredients = `${BURGER_API_URL}/ingredients`;
+const ApiOrderDetails = `${BURGER_API_URL}/orders`;
 // Получение список заказов
 
 
