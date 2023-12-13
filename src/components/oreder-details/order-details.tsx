@@ -4,11 +4,12 @@ import done from "../../images/constructor/ingredient item/done.svg";
 import {useSelector} from "react-redux";
 import {ThreeCircles, ThreeDots} from "react-loader-spinner";
 import {selectOrderIsLoading, selectOrderNumber} from "../../services/orderDetailsSlice.js/orderDetails-selector";
+import {useAppSelector} from "../../services/store/store";
 
 
 const OrderDetails = () => {
-    const orderNumber = useSelector(selectOrderNumber);
-    const isLoading = useSelector(selectOrderIsLoading);
+    const orderNumber = useAppSelector(selectOrderNumber);
+    const isLoading = useAppSelector(selectOrderIsLoading);
     return (
         <section className={`${style["order-details"]} `}>
             <h2 className={`${style["title"]} text text_type_digits-large pt-10`}>

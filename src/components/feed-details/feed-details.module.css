@@ -78,3 +78,9 @@
     margin: 40px 0 0 0;
     padding: 0 35px;
 }
+
+.feed-loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -2,7 +2,7 @@ import React, {FC, useMemo} from 'react';
 import style from "./feed-details.module.css";
 import {FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useParams} from "react-router-dom";
-import {selectFeedById} from "../../services/webSocketSlice/AuthSocketSlice/auth-ws-selector";
+import {selectFeedById, selectWebSocketIsLoading} from "../../services/webSocketSlice/AuthSocketSlice/auth-ws-selector";
 import {useStatus} from "../../hooks/useStatus";
 import useIngredientInfo from "../../hooks/useIngredientInfo";
 import TotalPriceBurger from "../total-price-burger/total-price-burger";
@@ -10,6 +10,7 @@ import TotalPriceBurger from "../total-price-burger/total-price-burger";
 import {selectFeedByUnId} from "../../services/webSocketSlice/UnAuthSocketSlice/unauth-ws-selector";
 import {useAppSelector} from "../../services/store/store";
 import {useSocket} from "../../hooks/useSocket";
+import {ThreeDots} from "react-loader-spinner";
 
 interface FeedDetailsProps {
     useFeedDetails?: boolean;
@@ -19,6 +20,7 @@ interface FeedDetailsProps {
 const FeedDetails: FC<FeedDetailsProps> = ({useFeedDetails, isModal}) => {
     const {id} = useParams<{ id: string }>();
     const currentFeed = useAppSelector(useFeedDetails ? selectFeedById(id || "") : selectFeedByUnId(id || "") || null);
+    const isLoading = useAppSelector(selectWebSocketIsLoading)
     const status = useStatus(currentFeed ? currentFeed.status : "");
     const ingredientsWithInfo = useIngredientInfo(currentFeed ? currentFeed.ingredients : null);
     useSocket({useSocketActions: false})
@@ -98,7 +100,18 @@ const FeedDetails: FC<FeedDetailsProps> = ({useFeedDetails, isModal}) => {
                 </div>
             </section>
         )
-    ) || null;
+    ) || <div className={`${style["feed-loader"]} `}>
+        <ThreeDots
+            height="80"
+            width="80"
+            radius="9"
+            color="#62347f"
+            ariaLabel="three-dots-loading"
+            wrapperStyle={{}}
+            visible={true}
+        />
+    </div>
+
 };
 
 export default FeedDetails;
