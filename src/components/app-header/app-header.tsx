@@ -20,7 +20,7 @@ function AppHeader() {
             <div className={style["header-container"]}>
                 <nav className={style.navigation}>
                     <NavLinkButton
-                        to="/login"
+                        to="/"
                         text={"Конструктор"}
                         className={`${style["header-links"]} pt-5 pr-5 pb-5 text text_type_main-default ${isConstructorActive ? style.active : ""}`}
                     >

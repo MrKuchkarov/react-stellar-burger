@@ -48,7 +48,6 @@ const BurgerTotalPrice: FC<TBurgerTotalPriceProps> = ({totalPrice, isOrderButton
         dispatch(makeOrder(ingredientIds));
         setTotalModal(true);
         // Не сбрасываем состояние ингредиентов, а сбрасиваем после заказа
-        // dispatch(clearIngredients())
     };
 
     const handleCloseModal = () => {

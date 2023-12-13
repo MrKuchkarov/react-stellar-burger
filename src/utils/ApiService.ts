@@ -65,6 +65,7 @@ export const makeOrder = createAsyncThunk(
                 responseData.order.number
             ) {
                 dispatch(setOrderNumber(responseData.order.number));
+                // Здесь добавляем дополнительное действие, чтобы сбросить состояние ингредиентов после успешного заказа
                 dispatch(clearIngredients())
             } else {
                 throw new Error("Ошибка при запросе к API или при оформлении заказа");
