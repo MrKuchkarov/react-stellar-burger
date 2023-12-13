@@ -6,6 +6,7 @@ import {
 } from "../services/orderDetailsSlice.js/orderDetailsSlice";
 import {getCookie} from "./cookie";
 import {BURGER_API_URL} from "./consts";
+import {clearIngredients} from "../services/constructorSlice/constructorSlice";
 
 const ApiGetTheIngredients = `${BURGER_API_URL}/ingredients`;
 const ApiOrderDetails = `${BURGER_API_URL}/orders`;
@@ -64,6 +65,7 @@ export const makeOrder = createAsyncThunk(
                 responseData.order.number
             ) {
                 dispatch(setOrderNumber(responseData.order.number));
+                dispatch(clearIngredients())
             } else {
                 throw new Error("Ошибка при запросе к API или при оформлении заказа");
             }

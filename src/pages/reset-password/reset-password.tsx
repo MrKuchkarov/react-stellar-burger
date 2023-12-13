@@ -20,7 +20,7 @@ const ResetPassword = () => {
 
     const handleSubmit = () => {
         dispatch(fetchResetPassword(form))
-        navigate("/")
+        navigate("/login")
     };
 
 
