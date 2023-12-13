@@ -9,6 +9,7 @@ import TotalPriceBurger from "../total-price-burger/total-price-burger";
 
 import {selectFeedByUnId} from "../../services/webSocketSlice/UnAuthSocketSlice/unauth-ws-selector";
 import {useAppSelector} from "../../services/store/store";
+import {useSocket} from "../../hooks/useSocket";
 
 interface FeedDetailsProps {
     useFeedDetails?: boolean;
@@ -20,6 +21,7 @@ const FeedDetails: FC<FeedDetailsProps> = ({useFeedDetails, isModal}) => {
     const currentFeed = useAppSelector(useFeedDetails ? selectFeedById(id || "") : selectFeedByUnId(id || "") || null);
     const status = useStatus(currentFeed ? currentFeed.status : "");
     const ingredientsWithInfo = useIngredientInfo(currentFeed ? currentFeed.ingredients : null);
+    useSocket({useSocketActions: false})
     const ingredientsTotalPrice = useMemo(() => {
         if (!ingredientsWithInfo) {
             return 0;
