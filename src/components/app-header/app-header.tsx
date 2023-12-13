@@ -6,37 +6,37 @@ import {
     ProfileIcon,
     BurgerIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import {NavLink, useMatch} from "react-router-dom";
-import NavLinkButton from "./components/header-button";
+import {NavLink, useLocation} from "react-router-dom";
+import CustomNavLinkButton from "./components/header-button";
+import {routes} from "../../utils/consts";
 
 function AppHeader() {
-    const isConstructorActive = useMatch("/");
-    const isOrdersActive = useMatch("/feed");
-    const isProfileActive = useMatch("/profile");
+    const location = useLocation();
 
 
     return (
         <header className={style.header}>
             <div className={style["header-container"]}>
                 <nav className={style.navigation}>
-                    <NavLinkButton
-                        to="/"
-                        text={"Конструктор"}
-                        className={`${style["header-links"]} pt-5 pr-5 pb-5 text text_type_main-default ${isConstructorActive ? style.active : ""}`}
+                    <CustomNavLinkButton
+                        to={routes.home}
+                        isActive={location.pathname === "/"}
+                        className={`${style["header-links"]} pt-5 pr-5 pb-5 text text_type_main-default`}
                     >
                         <BurgerIcon
-                            type={isConstructorActive ? 'primary' : 'secondary'}
+                            type={location.pathname === "/" ? "primary" : "secondary"}
                         />
-                    </NavLinkButton>
-                    <NavLinkButton
-                        to="/feed"
-                        text={"Лента заказов"}
-                        className={`${style["header-links"]} p-5 text text_type_main-default ${isOrdersActive ? style.active : ""}`}
+                        <span className={location.pathname === "/" ? style.active : ""}>Конструктор</span>
+                    </CustomNavLinkButton>
+                    <CustomNavLinkButton
+                        to={routes.feed}
+                        className={`${style["header-links"]} pt-5 pr-5 pb-5 text text_type_main-default`}
                     >
                         <ListIcon
-                            type={isOrdersActive ? 'primary' : 'secondary'}
+                            type={location.pathname === "/feed" ? "primary" : "secondary"}
                         />
-                    </NavLinkButton>
+                        <span className={location.pathname === "/feed" ? style.active : ""}>Лента заказов</span>
+                    </CustomNavLinkButton>
                 </nav>
                 <NavLink
                     className={style.logo}
@@ -44,15 +44,15 @@ function AppHeader() {
                 >
                     <Logo/>
                 </NavLink>
-                <NavLinkButton
-                    to="/profile"
-                    text={"Личный кабинет"}
-                    className={`${style["header-links"]} pt-5 pb-5 pl-5 text text_type_main-default ${isProfileActive ? style.active : ""}`}
+                <CustomNavLinkButton
+                    to={routes.profile}
+                    className={`${style["header-links"]} pt-5 pr-5 pb-5 text text_type_main-default`}
                 >
                     <ProfileIcon
-                        type={isProfileActive ? 'primary' : 'secondary'}
+                        type={location.pathname === "/profile" || location.pathname === "/profile/orders" ? "primary" : "secondary"}
                     />
-                </NavLinkButton>
+                    <span className={location.pathname === "/profile" ? style.active : ""}>Лента заказов</span>
+                </CustomNavLinkButton>
             </div>
         </header>
     );
