@@ -21,6 +21,7 @@ import {
 } from "../../types";
 import {Dispatch} from "react";
 
+
 export const fetchRegister = createAsyncThunk<
     IRegister,
     IUser
@@ -52,21 +53,27 @@ export const fetchLogin = createAsyncThunk<
     }
 );
 
-
-export const fetchGetUser = async (): Promise<void> => { // Указываем, что функция возвращает промис типа void
-    const token: string | undefined = getCookie("accessToken");
-    return fetchWithRefresh(
-        `${BURGER_API_URL}/auth/user`,
-        createOptions(Method.get, undefined, token)
-    ).then((res: IUserResponse) => {
-        setUser(res.user);
-    });
+export const fetchGetUser = () => {
+    return (dispatch: Dispatch<any>) => {
+        const token: string | undefined = getCookie("accessToken");
+        return fetchWithRefresh(
+            `${BURGER_API_URL}/auth/user`,
+            createOptions(Method.get, undefined, token)
+        )
+            .then((res: IUserResponse) => {
+                dispatch(setUser(res.user));
+            })
+            .catch((error) => {
+                console.error("Error fetching user:", error);
+            });
+    };
 };
 
+
 export const checkUserAuth = () => {
-    return (dispatch: Dispatch<any>) => {
+    return (dispatch: any) => {
         if (getCookie("accessToken")) {
-            fetchGetUser()
+            dispatch(fetchGetUser())
                 .catch(() => {
                     console.log("fail get user");
                     deleteCookie("accessToken");
@@ -79,20 +86,48 @@ export const checkUserAuth = () => {
         }
     };
 };
+
 // export const fetchGetUser = () => {
-//     return (dispatch) => {
+//     return async (dispatch: any) => {
 //         const token: string | undefined = getCookie("accessToken");
-//         return fetchWithRefresh(
-//             `${BURGER_API_URL}/auth/user`,
-//             createOptions(Method.get, undefined, token)
-//         ).then((res: IUserResponse) => {
+//         try {
+//             const res: IUserResponse = await fetchWithRefresh(
+//                 `${BURGER_API_URL}/auth/user`,
+//                 createOptions(Method.get, undefined, token)
+//             );
 //             dispatch(setUser(res.user));
-//         });
+//         } catch (error) {
+//             console.error("Error fetching user:", error);
+//             // Handle error if needed
+//         }
 //     };
 // };
+
+// export const fetchGetUser = () => {
+//     return async (dispatch: Dispatch<any>) => {
+//         try {
+//             const token = getCookie("accessToken");
+//             const response = await fetchWithRefresh(
+//                 `${BURGER_API_URL}/auth/user`,
+//                 createOptions(Method.get, undefined, token)
+//             );
+//
+//             if (response.ok) {
+//                 const res = await response.json();
+//                 dispatch(setUser(res));
+//             } else {
+//                 throw new Error("Ошибка запроса");
+//             }
+//         } catch (error) {
+//             console.error("Произошла ошибка:", error);
+//         }
+//     };
+// };
+
+
 //
 // export const checkUserAuth = () => {
-//     return (dispatch) => {
+//     return (dispatch: any) => {
 //         if (getCookie("accessToken")) {
 //             dispatch(fetchGetUser())
 //                 .catch(() => {

@@ -1,14 +1,13 @@
-import {Navigate, useLocation, RouteProps} from "react-router-dom";
-import {ElementType, FC} from "react";
+import {Navigate, useLocation} from "react-router-dom";
 import {useAppSelector} from "../../services/store/store";
 import {selectAuthUser, selectIsAuthChecked} from "../../services/auth/auth-selector";
 
-type TProtectedRoute = RouteProps & {
+type TProtectedRoute = {
     onlyUnAuth?: boolean;
-    component: ElementType;
+    component: JSX.Element;
 };
 
-const Protected: FC<TProtectedRoute> = ({onlyUnAuth = false, component: Component}: TProtectedRoute) => {
+const Protected = ({onlyUnAuth = false, component}: TProtectedRoute) => {
     const isAuth = useAppSelector(selectIsAuthChecked);
     const user = useAppSelector(selectAuthUser);
     const location = useLocation();
@@ -26,10 +25,11 @@ const Protected: FC<TProtectedRoute> = ({onlyUnAuth = false, component: Componen
         return <Navigate to="/login" state={{from: location}}/>;
     }
 
-    return <Component/>;
+    return component;
 };
 
-export const OnlyAuth: FC<TProtectedRoute> = Protected;
-export const OnlyUnAuth: FC<TProtectedRoute> = ({component}) => (
-    <Protected onlyUnAuth={true} component={component as ElementType}/>
+export const OnlyAuth = Protected;
+
+export const OnlyUnAuth = ({component}: { component: JSX.Element }) => (
+    <Protected onlyUnAuth={true} component={component}/>
 );

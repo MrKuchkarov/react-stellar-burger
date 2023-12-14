@@ -63,16 +63,37 @@ export const fetchWithRefresh = async (url: string, options?: ReturnType<typeof 
     }
 };
 
-// export const forgotPassword = (email) => {
-//   return request(
-//     `${BURGER_API_URL}/password-reset`,
-//     createOptions(Method.post, email)
-//   );
-// };
 
-// export const resetPassword = (form) => {
-//   return request(
-//     `${BURGER_API_URL}/password-reset/reset`,
-//     createOptions(Method.post, form)
-//   );
+// export const refreshToken = () => {
+//     return fetch(`${BURGER_API_URL}/auth/token`, {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json;charset=utf-8",
+//         },
+//         body: JSON.stringify({
+//             token: localStorage.getItem("refreshToken"),
+//         }),
+//     }).then(checkResponse);
+// };
+//
+// export const fetchWithRefresh = async (url: string, options: ReturnType<typeof createOptions>) => {
+//     try {
+//         const res = await fetch(url, options);
+//         return await checkResponse(res);
+//     } catch (err: any) {
+//         console.log(err);
+//         if (err.message === "jwt expired") {
+//             const refreshData = await refreshToken();
+//             if (!refreshData.success) {
+//                 return Promise.reject(refreshData);
+//             }
+//             setCookie("refreshToken", refreshData.refreshToken);
+//             setCookie("accessToken", refreshData.accessToken);
+//             options.headers.Authorization = refreshData.accessToken;
+//             const res = await fetch(url, options);
+//             return await checkResponse(res);
+//         } else {
+//             return Promise.reject(err);
+//         }
+//     }
 // };

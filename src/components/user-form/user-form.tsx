@@ -5,7 +5,7 @@ import {selectAuthUser} from "../../services/auth/auth-selector";
 import {fetchUpdateUser} from "../../services/auth/auth-async-thunks";
 import {useLocalStorage} from "../../hooks/useLocalStorage"
 import {useAppDispatch, useAppSelector} from "../../services/store/store";
-import {IRegister, IUser} from "../../types";
+import {IUser} from "../../types";
 
 const UserForm = () => {
     const dispatch = useAppDispatch();
@@ -15,7 +15,7 @@ const UserForm = () => {
 
 
     // Использование хука useLocalStorage для управления данными формы
-    const [form, setForm] = useLocalStorage<IRegister>("userFormData", {
+    const [form, setForm] = useLocalStorage<IUser>("userFormData", {
         name: name,
         email: email,
         password: password,

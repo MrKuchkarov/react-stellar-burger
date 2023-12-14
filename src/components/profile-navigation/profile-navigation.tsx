@@ -1,17 +1,19 @@
-import React from 'react';
+import React, {MouseEventHandler} from 'react';
 import style from "./profile-navigation.module.css";
 import CustomNavLinkButton from "../app-header/components/header-button";
 import {useLocation, useMatch} from "react-router-dom";
-import {useDispatch} from "react-redux";
+
 import {fetchLogout} from "../../services/auth/auth-async-thunks";
+import {useAppDispatch} from "../../services/store/store";
+
 
 const ProfileNavigation = () => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const {pathname} = useLocation();
     const isProfileActive = useMatch("/profile");
     const isProfileOrderActive = useMatch("/profile/orders");
 
-    const logout = () => {
+    const logout: MouseEventHandler<HTMLButtonElement> = () => {
         dispatch(fetchLogout());
     };
     return (
