@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {Hourglass} from "react-loader-spinner";
 import style from "./pre-loader.module.css";
 
-interface PropsTitle {
+type PropsTitle = {
     title: string;
 }
 

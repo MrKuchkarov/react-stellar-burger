@@ -6,11 +6,11 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useNavigate} from "react-router-dom";
 import {fetchForgotPassword} from "../../services/auth/auth-async-thunks";
-import {useDispatch} from "react-redux";
+import {useAppDispatch} from "../../services/store/store";
 
 const ForgotPassword = () => {
     const navigate = useNavigate();
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const [email, setEmail] = useState("")
     const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value)

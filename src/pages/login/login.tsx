@@ -2,13 +2,13 @@ import React, {FormEvent} from 'react';
 import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link} from "react-router-dom";
 import style from "./login.module.css";
-import {useDispatch} from "react-redux";
 import {fetchLogin} from "../../services/auth/auth-async-thunks";
 import {useForm} from "../../hooks/useForm";
+import {useAppDispatch} from "../../services/store/store";
 
 
 const Login = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const {values, handleChange} = useForm({
         email: "",
         password: "",

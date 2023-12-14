@@ -1,7 +1,6 @@
 import React from "react";
 import style from "./order-details.module.css";
 import done from "../../images/constructor/ingredient item/done.svg";
-import {useSelector} from "react-redux";
 import {ThreeCircles, ThreeDots} from "react-loader-spinner";
 import {selectOrderIsLoading, selectOrderNumber} from "../../services/orderDetailsSlice.js/orderDetails-selector";
 import {useAppSelector} from "../../services/store/store";

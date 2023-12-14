@@ -6,7 +6,6 @@ import OrderDetails from "../../oreder-details/order-details";
 import {makeOrder} from "../../../utils/ApiService";
 import {selectAuthUser} from "../../../services/auth/auth-selector";
 import {useNavigate} from "react-router-dom";
-import {clearIngredients} from "../../../services/constructorSlice/constructorSlice";
 import {selectFillingBun, selectFillingOther} from "../../../services/constructorSlice/constructor-selector";
 import TotalPriceBurger from "../../total-price-burger/total-price-burger";
 import {useAppDispatch, useAppSelector} from "../../../services/store/store";

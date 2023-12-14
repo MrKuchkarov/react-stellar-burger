@@ -1,11 +1,11 @@
 import React, {FC, ForwardedRef, forwardRef, useMemo} from "react";
 import style from "./burger-cards.module.css";
-import {useSelector} from "react-redux";
 import {selectIngredients} from "../../../services/ingredientsSlice/ingredients-selector";
 import {useLocation} from "react-router-dom";
 import {ingredientCategories} from "../../../utils/consts";
 import RenderIngredientList from "./renderIngredientList";
 import {IIngredient} from "../../../types";
+import {useAppSelector} from "../../../services/store/store";
 
 const cardContainerClass = `${style["card-container"]}`;
 const titleClass = `${style["title-buns"]} pt-10 pb-5 text text_type_main-medium`;
@@ -17,7 +17,7 @@ interface BurgerCardsProps {
 }
 
 const BurgerCards: FC<BurgerCardsProps> = (({bunRef, sauceRef, mainRef}) => {
-    const ingredients = useSelector(selectIngredients);
+    const ingredients = useAppSelector(selectIngredients);
     const ingredientsTypesSet = new Set(ingredients.map((card: IIngredient) => card.type))
     const ingredientsTypes: string[] = ingredientsTypesSet.size ? [...ingredientsTypesSet] : [];
     const location = useLocation();

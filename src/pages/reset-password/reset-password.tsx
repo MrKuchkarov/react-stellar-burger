@@ -2,11 +2,11 @@ import React, {ChangeEvent, useState} from 'react';
 import style from "../login/login.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
 import {fetchResetPassword} from "../../services/auth/auth-async-thunks";
+import {useAppDispatch} from "../../services/store/store";
 
 const ResetPassword = () => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
     const [form, setForm] = useState({

@@ -7,11 +7,11 @@ import {
     PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link} from "react-router-dom";
-import {useDispatch} from "react-redux";
 import {fetchRegister} from "../../services/auth/auth-async-thunks";
+import {useAppDispatch} from "../../services/store/store";
 
 const Register = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [form, setForm] = useState({
         email: "",
         password: "",
