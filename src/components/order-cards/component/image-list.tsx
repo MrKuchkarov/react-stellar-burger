@@ -1,12 +1,16 @@
 import React from 'react';
 import style from "./image-list.module.css";
 import {Counter} from "@ya.praktikum/react-developer-burger-ui-components";
-import {IIngredientsWithCount} from "../../../types";
+import {IIngredient} from "../../../types";
 
-const ImageList = ({ingredientsWithInfo}: any) => {
+
+type IngredientsWithCount = IIngredient & {
+    count: number;
+};
+const ImageList = ({ingredientsWithInfo}: { ingredientsWithInfo: IngredientsWithCount[] }) => {
     return (
         <ul className={`${style["list-ingredient"]}`}>
-            {ingredientsWithInfo.slice(0, 6).map((obj: IIngredientsWithCount, index: number) =>
+            {ingredientsWithInfo.slice(0, 6).map((obj, index) =>
                 index < 5 ? (
                     <li
                         key={obj._id}
