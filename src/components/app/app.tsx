@@ -69,7 +69,7 @@ function App() {
                         path={routes.profileOrderId}
                         element={
                             <Modal title={"Информация о заказе"} closeModal={handleCloseModal}>
-                                <OnlyAuth component={FeedDetails} useFeedDetails={true}/>
+                                <OnlyAuth component={FeedDetails}/>
                             </Modal>
                         }
                     />

@@ -11,15 +11,11 @@ type TAuthSlice = {
     user: IUser | null;
     isAuthChecked: boolean;
     error: string | null;
-    name: string,
-    email: string,
 }
 const initialState: TAuthSlice = {
     user: null,
     isAuthChecked: false,
     error: null,
-    name: "",
-    email: "",
 };
 
 const authSlice = createSlice({

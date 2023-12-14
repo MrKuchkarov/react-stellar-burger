@@ -6,10 +6,9 @@ import {selectAuthUser, selectIsAuthChecked} from "../../services/auth/auth-sele
 type TProtectedRoute = RouteProps & {
     onlyUnAuth?: boolean;
     component: ElementType;
-    useFeedDetails?: boolean;
 };
 
-const Protected: FC<TProtectedRoute> = ({onlyUnAuth = false, component: Component, useFeedDetails}: TProtectedRoute) => {
+const Protected: FC<TProtectedRoute> = ({onlyUnAuth = false, component: Component}: TProtectedRoute) => {
     const isAuth = useAppSelector(selectIsAuthChecked);
     const user = useAppSelector(selectAuthUser);
     const location = useLocation();
@@ -27,10 +26,10 @@ const Protected: FC<TProtectedRoute> = ({onlyUnAuth = false, component: Componen
         return <Navigate to="/login" state={{from: location}}/>;
     }
 
-    return <Component useFeedDetails={useFeedDetails}/>;
+    return <Component/>;
 };
 
 export const OnlyAuth: FC<TProtectedRoute> = Protected;
-export const OnlyUnAuth: FC<TProtectedRoute> = ({component, onlyUnAuth}) => (
+export const OnlyUnAuth: FC<TProtectedRoute> = ({component}) => (
     <Protected onlyUnAuth={true} component={component as ElementType}/>
 );
