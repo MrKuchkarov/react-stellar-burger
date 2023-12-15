@@ -5,11 +5,11 @@ import {
 import style from "../burger-constructor.module.css";
 
 import {
-    moveCard, removeOtherIngredient,
+    removeOtherIngredient,
 } from "../../../services/constructorSlice/constructorSlice";
-import {DropTargetMonitor, useDrag, useDrop} from "react-dnd";
 import {IIngredient} from "../../../types";
 import {useAppDispatch} from "../../../services/store/store";
+import {useDragLogic, useDropLogic} from "./useDragAndDropSortLogic";
 
 type TBurgerFillings = {
     filling: IIngredient;
@@ -27,46 +27,11 @@ const BurgerFillings: FC<TBurgerFillings> = ({filling, index}) => {
     }, [dispatch, filling]);
 
     //drop для сортировки ингредиентов
-    const [{handlerId}, drop] = useDrop({
-        accept: 'constructor-item',
-        collect: (monitor) => ({
-            handlerId: monitor.getHandlerId(),
-        }), hover(item: any, monitor: DropTargetMonitor) {
-            if (!ref.current) {
-                return
-            }
-            const dragIndex = item.index
-            const hoverIndex = index
-            if (dragIndex === hoverIndex) {
-                return
-            }
-            const hoverBoundingRect = ref.current?.getBoundingClientRect();
-            if (!hoverBoundingRect) {
-                return;
-            }
-            const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
-            const clientOffset = monitor.getClientOffset();
-            // @ts-ignore
-            const hoverClientY = clientOffset.y - hoverBoundingRect.top
-            if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-                return
-            }
-            if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-                return
-            }
-            dispatch(moveCard({dragIndex, hoverIndex}))
-            item.index = hoverIndex
-        },
-    });
+    const [{handlerId}, drop] = useDropLogic(index, dispatch);
 
     //drag для сортировки ингредиентов
-    const [{isDragging}, drag] = useDrag({
-        type: 'constructor-item', item: () => {
-            return {id, index}
-        }, collect: (monitor) => ({
-            isDragging: monitor.isDragging(),
-        }),
-    })
+    const [{isDragging}, drag] = useDragLogic(id, index);
+
     const opacityStyles = {
         opacity: isDragging ? 0 : 1,
         transition: 'opacity 0.1s ease-in-out',

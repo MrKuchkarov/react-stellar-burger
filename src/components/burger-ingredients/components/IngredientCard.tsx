@@ -3,10 +3,10 @@ import style from "./IngredientCard.module.css";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {ingredientsDetails} from "../../../services/ingredientDetailsSlice/ingredientDetailsSlice";
 import {showModal} from "../../../services/ingredientsSlice/ingredientsSlice";
-import {useDrag} from "react-dnd";
 import {selectFillingBun, selectFillingOther} from "../../../services/constructorSlice/constructor-selector";
 import {useAppDispatch, useAppSelector} from "../../../services/store/store";
 import {IIngredient} from "../../../types";
+import {useIngredientDrag} from "./useIngredientDrag";
 
 const IngredientCard = ({ingredients}: { ingredients: IIngredient }) => {
     const dispatch = useAppDispatch();
@@ -20,13 +20,7 @@ const IngredientCard = ({ingredients}: { ingredients: IIngredient }) => {
     };
 
     //drag для добавление ингредиентов в конструктор
-    const [{isDrag}, ingredientDragRef] = useDrag({
-        type: 'ingredient',
-        item: ingredients,
-        collect: (monitor) => ({
-            isDrag: monitor.isDragging(),
-        }),
-    });
+    const {isDrag, ingredientDragRef} = useIngredientDrag(ingredients);
 
     //Счетчик для ингредиентов
     const count = useMemo(() => {

@@ -3,16 +3,16 @@ import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-compon
 import BurgerFillings from "./components/burger-fillings";
 import style from "./burger-constructor.module.css";
 import BurgerTotalPrice from "./components/burger-total-price";
-import {useDrop} from "react-dnd";
-import {addOtherIngredient, IIngredientWithKey, setBun} from "../../services/constructorSlice/constructorSlice";
+
 import {selectFillingBun, selectFillingOther} from "../../services/constructorSlice/constructor-selector";
-import {useAppDispatch, useAppSelector} from "../../services/store/store";
+import {useAppSelector} from "../../services/store/store";
+import {calculateIngredientsTotalPrice} from "./components/calculateIngredientsTotalPrice";
+import useIngredientDrop from "./components/useIngredientDrop";
 
 
 const BurgerConstructor = () => {
     const seBun = useAppSelector(selectFillingBun);
     const setOther = useAppSelector(selectFillingOther);
-    const dispatch = useAppDispatch();
 
     // Проверка, есть ли выбранная булка и другие ингредиенты
     const bun = seBun || null;
@@ -24,39 +24,14 @@ const BurgerConstructor = () => {
 
     // Вычисление общей стоимости ингредиентов
     const ingredientsTotalPrice = useMemo(() => {
-        const bunPrice = (topBun ? topBun.price : 0) + (bottomBun ? bottomBun.price : 0);
-        const otherIngredientsPrice = [...otherIngredients].reduce(
-            (acc, ingredient) => acc + (ingredient ? ingredient.price : 0),
-            0
-        );
-        return bunPrice + otherIngredientsPrice;
+        return calculateIngredientsTotalPrice({topBun, bottomBun, otherIngredients});
     }, [topBun, bottomBun, otherIngredients]);
 
     // Условие есть констурктор пустой, нельзя оформлять заказ.
     const isOrderButtonEnabled = topBun && otherIngredients.length > 0;
 
     //DROP для добавление ингредиентов в конструктор
-    const [{isOver, canDrop}, dropTarget] = useDrop({
-        accept: 'ingredient',
-        drop(ingredient: IIngredientWithKey) {
-            dispatch(
-                ingredient.type !== 'bun'
-                    ? addOtherIngredient(ingredient)
-                    : setBun(ingredient)
-            );
-        },
-        collect: (monitor) => ({
-            isOver: monitor.isOver(),
-            canDrop: monitor.canDrop(),
-        }),
-    });
-
-    let border = 'transparent';
-    if (canDrop && isOver) {
-        border = '2px dashed green';
-    } else if (canDrop) {
-        border = '2px dashed aquamarine';
-    }
+    const {dropTarget, border} = useIngredientDrop();
 
     return (
         <section className={style["main-container"]} ref={dropTarget}>
