@@ -1,9 +1,9 @@
 import {DropTargetMonitor, useDrag, useDrop} from "react-dnd";
-import {moveCard} from "../../../services/constructorSlice/constructorSlice";
+import {moveCard} from "../services/constructorSlice/constructorSlice";
 import {useRef} from "react";
 
 //Функция drop для сортировки ингредиентов
-import {useAppDispatch} from "../../../services/store/store";
+import {useAppDispatch} from "../services/store/store";
 
 type TDropItem = {
     index: number;

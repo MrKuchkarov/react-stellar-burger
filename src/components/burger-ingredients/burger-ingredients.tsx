@@ -2,7 +2,7 @@ import React, {useRef, useState} from "react";
 import BurgerCards from "./components/burger-cards";
 import style from "./burger-ingredients.module.css";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useScrollGroups} from "./components/useScrollGroups";
+import {useScrollGroups} from "../../hooks/useScrollGroups";
 
 
 const BurgerIngredients = () => {

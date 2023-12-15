@@ -9,7 +9,7 @@ import {
 } from "../../../services/constructorSlice/constructorSlice";
 import {IIngredient} from "../../../types";
 import {useAppDispatch} from "../../../services/store/store";
-import {useDragLogic, useDropLogic} from "./useDragAndDropSortLogic";
+import {useDragLogic, useDropLogic} from "../../../hooks/useDragAndDropSortLogic";
 
 type TBurgerFillings = {
     filling: IIngredient;
@@ -33,11 +33,11 @@ const BurgerFillings: FC<TBurgerFillings> = ({filling, index}) => {
 
     const opacityStyles = {
         opacity: isDragging ? 0 : 1,
-        transition: 'opacity 0.1s ease-in-out',
+        transition: "opacity 0.1s ease-in-out",
     };
     const hoverOpacityStyles = {
         opacity: 0.9,
-        transition: 'opacity 0.1s ease-in-out',
+        transition: "opacity 0.1s ease-in-out",
     };
     drag(drop(ref))
 

@@ -1,6 +1,6 @@
 import {useDrop} from 'react-dnd';
-import {useAppDispatch} from "../../../services/store/store";
-import {addOtherIngredient, IIngredientWithKey, setBun} from "../../../services/constructorSlice/constructorSlice";
+import {useAppDispatch} from "../services/store/store";
+import {addOtherIngredient, IIngredientWithKey, setBun} from "../services/constructorSlice/constructorSlice";
 
 //Функция DROP для добавление ингредиентов в конструктор
 const useIngredientDrop = () => {

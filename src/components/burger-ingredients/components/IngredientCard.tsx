@@ -6,7 +6,7 @@ import {showModal} from "../../../services/ingredientsSlice/ingredientsSlice";
 import {selectFillingBun, selectFillingOther} from "../../../services/constructorSlice/constructor-selector";
 import {useAppDispatch, useAppSelector} from "../../../services/store/store";
 import {IIngredient} from "../../../types";
-import {useIngredientDrag} from "./useIngredientDrag";
+import {useIngredientDrag} from "../../../hooks/useIngredientDrag";
 
 const IngredientCard = ({ingredients}: { ingredients: IIngredient }) => {
     const dispatch = useAppDispatch();

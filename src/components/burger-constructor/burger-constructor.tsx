@@ -6,14 +6,13 @@ import BurgerTotalPrice from "./components/burger-total-price";
 
 import {selectFillingBun, selectFillingOther} from "../../services/constructorSlice/constructor-selector";
 import {useAppSelector} from "../../services/store/store";
-import {calculateIngredientsTotalPrice} from "./components/calculateIngredientsTotalPrice";
-import useIngredientDrop from "./components/useIngredientDrop";
+import useIngredientDrop from "../../hooks/useIngredientDrop";
 
 
 const BurgerConstructor = () => {
     const seBun = useAppSelector(selectFillingBun);
     const setOther = useAppSelector(selectFillingOther);
-
+    //
     // Проверка, есть ли выбранная булка и другие ингредиенты
     const bun = seBun || null;
     const otherIngredients = useMemo(() => setOther || [], [setOther]);
@@ -21,11 +20,7 @@ const BurgerConstructor = () => {
     // Получение верхней и нижней булки
     const topBun = bun;
     const bottomBun = bun;
-
-    // Вычисление общей стоимости ингредиентов
-    const ingredientsTotalPrice = useMemo(() => {
-        return calculateIngredientsTotalPrice({topBun, bottomBun, otherIngredients});
-    }, [topBun, bottomBun, otherIngredients]);
+    //
 
     // Условие есть констурктор пустой, нельзя оформлять заказ.
     const isOrderButtonEnabled = topBun && otherIngredients.length > 0;
@@ -85,7 +80,7 @@ const BurgerConstructor = () => {
                         Добавьте булку, чтобы создать бургер
                     </div>
                 )}
-                <BurgerTotalPrice totalPrice={ingredientsTotalPrice} isOrderButtonEnabled={isOrderButtonEnabled}/>
+                <BurgerTotalPrice isOrderButtonEnabled={isOrderButtonEnabled}/>
             </div>
         </section>
     );
