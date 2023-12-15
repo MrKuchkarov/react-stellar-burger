@@ -37,7 +37,7 @@ const BurgerFillings: FC<TBurgerFillings> = ({filling, index}) => {
         transition: 'opacity 0.1s ease-in-out',
     };
     const hoverOpacityStyles = {
-        opacity: 0.4,
+        opacity: 0.9,
         transition: 'opacity 0.1s ease-in-out',
     };
     drag(drop(ref))

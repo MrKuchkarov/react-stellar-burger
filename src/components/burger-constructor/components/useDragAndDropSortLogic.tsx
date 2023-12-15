@@ -2,7 +2,7 @@ import {DropTargetMonitor, useDrag, useDrop} from "react-dnd";
 import {moveCard} from "../../../services/constructorSlice/constructorSlice";
 import {Dispatch, useRef} from "react";
 
-//drop для сортировки ингредиентов
+//Функция drop для сортировки ингредиентов
 export const useDropLogic = (index: number, dispatch: Dispatch<any>) => {
     const ref = useRef<HTMLLIElement>(null);
     return useDrop({
@@ -39,7 +39,7 @@ export const useDropLogic = (index: number, dispatch: Dispatch<any>) => {
     });
 };
 
-//drag для сортировки ингредиентов
+//Функция drag для сортировки ингредиентов
 export const useDragLogic = (id: string, index: number) => {
     return useDrag({
         type: 'constructor-item',

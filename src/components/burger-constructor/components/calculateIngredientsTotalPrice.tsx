@@ -1,5 +1,6 @@
 import {IIngredient} from "../../../types";
 
+// Функция вычисление общей стоимости ингредиентов
 export type TCalculateIngredientsTotalPriceProps = {
     topBun: IIngredient | null,
     bottomBun: IIngredient | null,
