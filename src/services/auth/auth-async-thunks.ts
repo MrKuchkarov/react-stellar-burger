@@ -87,62 +87,6 @@ export const checkUserAuth = (): ThunkAction<void, RootState, unknown, Action> =
     };
 };
 
-// export const fetchGetUser = () => {
-//     return async (dispatch: any) => {
-//         const token: string | undefined = getCookie("accessToken");
-//         try {
-//             const res: IUserResponse = await fetchWithRefresh(
-//                 `${BURGER_API_URL}/auth/user`,
-//                 createOptions(Method.get, undefined, token)
-//             );
-//             dispatch(setUser(res.user));
-//         } catch (error) {
-//             console.error("Error fetching user:", error);
-//             // Handle error if needed
-//         }
-//     };
-// };
-
-// export const fetchGetUser = () => {
-//     return async (dispatch: Dispatch<any>) => {
-//         try {
-//             const token = getCookie("accessToken");
-//             const response = await fetchWithRefresh(
-//                 `${BURGER_API_URL}/auth/user`,
-//                 createOptions(Method.get, undefined, token)
-//             );
-//
-//             if (response.ok) {
-//                 const res = await response.json();
-//                 dispatch(setUser(res));
-//             } else {
-//                 throw new Error("Ошибка запроса");
-//             }
-//         } catch (error) {
-//             console.error("Произошла ошибка:", error);
-//         }
-//     };
-// };
-
-
-//
-// export const checkUserAuth = () => {
-//     return (dispatch: any) => {
-//         if (getCookie("accessToken")) {
-//             dispatch(fetchGetUser())
-//                 .catch(() => {
-//                     console.log("fail get user");
-//                     deleteCookie("accessToken");
-//                     deleteCookie("refreshToken");
-//                     dispatch(setUser(null));
-//                 })
-//                 .finally(() => dispatch(setAuthChecked(true)));
-//         } else {
-//             dispatch(setAuthChecked(true));
-//         }
-//     };
-// };
-
 export const fetchUpdateUser = createAsyncThunk<
     IUser,
     IRegister
@@ -206,34 +150,3 @@ export const fetchResetPassword = createAsyncThunk<
             return rejectWithValue("Unknown error");
         }
     });
-
-//   export const fetchLogout = createAsyncThunk(
-//     "$$auth/fetchLogout",
-//     async (_, {rejectWithValue}) => {
-//         try {
-//             return request(
-//                 `${BURGER_API_URL}/auth/logout`,
-//                 createOptions(Method.post, {token}),
-//             );
-//         } catch (error) {
-//             if (error instanceof Error) {
-//                 return rejectWithValue({message: error.message, code: error.code});
-//             }
-//             return rejectWithValue("Unknown error");
-//         }
-//     },
-// );
-
-// export const forgotPassword = (email) => {
-//   return request(
-//     `${BURGER_API_URL}/password-reset`,
-//     createOptions(Method.post, email)
-//   );
-// };
-
-// export const resetPassword = (form) => {
-//   return request(
-//     `${BURGER_API_URL}/password-reset/reset`,
-//     createOptions(Method.post, form)
-//   );
-// };
