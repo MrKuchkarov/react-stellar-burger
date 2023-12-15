@@ -1,5 +1,5 @@
 import style from "./burger-cards.module.css"
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import IngredientCard from "./IngredientCard";
 import {FC, ForwardedRef, forwardRef} from "react";
 import {IIngredient} from "../../../types";
@@ -11,7 +11,8 @@ interface RenderIngredientListProps {
     location?: string;
 }
 
-const RenderIngredientList: FC<RenderIngredientListProps> = forwardRef(({location, ingredients}, ref: ForwardedRef<HTMLUListElement>) => {
+const RenderIngredientList: FC<RenderIngredientListProps> = forwardRef(({ingredients}, ref: ForwardedRef<HTMLUListElement>) => {
+    const location = useLocation();
     if (!ingredients || ingredients.length === 0) {
         return null; // Или любой другой код, который вы считаете подходящим
     }

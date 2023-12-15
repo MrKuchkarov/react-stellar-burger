@@ -1,7 +1,6 @@
 import React, {RefObject, useMemo} from "react";
 import style from "./burger-cards.module.css";
 import {selectIngredients} from "../../../services/ingredientsSlice/ingredients-selector";
-import {useLocation} from "react-router-dom";
 import {ingredientCategories} from "../../../utils/consts";
 import RenderIngredientList from "./renderIngredientList";
 import {IIngredient} from "../../../types";
@@ -21,7 +20,6 @@ const BurgerCards = (({handleScrollGroups, bunsRef, saucesRef, mainsRef}: TBurge
     const ingredients = useAppSelector(selectIngredients);
     const ingredientsTypesSet = new Set(ingredients.map((card: IIngredient) => card.type))
     const ingredientsTypes: string[] = ingredientsTypesSet.size ? [...ingredientsTypesSet] : [];
-    const location = useLocation();
 
     // Фильтрация игрениентов по катигориям
     const categorizedIngredients = useMemo(() => ({
@@ -47,7 +45,6 @@ const BurgerCards = (({handleScrollGroups, bunsRef, saucesRef, mainsRef}: TBurge
                                 type={type}
                                 ingredients={categorizedIngredients.buns}
                                 ref={bunsRef}
-                                location={location.pathname}
                             />
                         }
 
@@ -56,7 +53,6 @@ const BurgerCards = (({handleScrollGroups, bunsRef, saucesRef, mainsRef}: TBurge
                                 type={type}
                                 ingredients={categorizedIngredients.sauces}
                                 ref={saucesRef}
-                                location={location.pathname}
                             />
                         }
 
@@ -65,7 +61,6 @@ const BurgerCards = (({handleScrollGroups, bunsRef, saucesRef, mainsRef}: TBurge
                                 type={type}
                                 ingredients={categorizedIngredients.mains}
                                 ref={mainsRef}
-                                location={location.pathname}
                             />
                         }
                     </div>
