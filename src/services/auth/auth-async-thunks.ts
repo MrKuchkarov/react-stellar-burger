@@ -1,4 +1,4 @@
-import {createAsyncThunk} from "@reduxjs/toolkit";
+import {Action, createAsyncThunk, ThunkAction} from "@reduxjs/toolkit";
 import {
     createOptions,
     fetchWithRefresh,
@@ -16,10 +16,10 @@ import {
     IRegister, IRejectValue,
     IResetForm,
     IResetResponse,
-    IUser,
-    IUserResponse,
+    IUser, IUserResponse,
 } from "../../types";
 import {Dispatch} from "react";
+import {RootState} from "../store/store";
 
 
 export const fetchRegister = createAsyncThunk<
@@ -54,24 +54,24 @@ export const fetchLogin = createAsyncThunk<
 );
 
 export const fetchGetUser = () => {
-    return (dispatch: Dispatch<any>) => {
-        const token: string | undefined = getCookie("accessToken");
-        return fetchWithRefresh(
-            `${BURGER_API_URL}/auth/user`,
-            createOptions(Method.get, undefined, token)
-        )
-            .then((res: IUserResponse) => {
-                dispatch(setUser(res.user));
-            })
-            .catch((error) => {
-                console.error("Error fetching user:", error);
-            });
+    return async (dispatch: Dispatch<Action>) => {
+        try {
+            const token = getCookie("accessToken");
+            const res: IUserResponse = await fetchWithRefresh(
+                `${BURGER_API_URL}/auth/user`,
+                createOptions(Method.get, undefined, token)
+            );
+
+            dispatch(setUser(res.user));
+        } catch (error) {
+            console.error("Error fetching user:", error);
+        }
     };
 };
 
 
-export const checkUserAuth = () => {
-    return (dispatch: any) => {
+export const checkUserAuth = (): ThunkAction<void, RootState, unknown, Action> => {
+    return (dispatch) => {
         if (getCookie("accessToken")) {
             dispatch(fetchGetUser())
                 .catch(() => {

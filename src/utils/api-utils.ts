@@ -41,7 +41,7 @@ export const refreshToken = async () => {
 };
 export const fetchWithRefresh = async (url: string, options?: ReturnType<typeof createOptions>) => {
     try {
-        const res = await request(url, options);
+        const res = await fetch(url, options);
         return await checkResponse(res);
     } catch (err) {
         console.log(err);
