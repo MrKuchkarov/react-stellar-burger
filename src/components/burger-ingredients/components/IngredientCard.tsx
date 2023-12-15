@@ -41,34 +41,31 @@ const IngredientCard = ({ingredients}: { ingredients: IIngredient }) => {
 
 
     return (
-        <>
-            {!isDrag && (<div className={`${style["cards"]}`}
-                              onClick={() => handleOpenModal(ingredients)}
-                              ref={ingredientDragRef}>
-
-                    {count > 0 && <Counter count={count}/>}
-                    <img
-                        className={`${style["cards-photo"]} pl-4 pr-4`}
-                        src={ingredients.image}
-                        alt={ingredients.name}
-                    />
-                    <div className={style["container-price"]}>
-                        <p
-                            className={`${style["cards-price"]} pt-2 pb-2 pr-4 text text_type_digits-default`}
-                        >
-                            {ingredients.price}
-                        </p>
-                        <CurrencyIcon type="primary"/>
-                    </div>
-                    <p
-                        className={`${style["cards-description"]} text text_type_main-default`}
-                    >
-                        {ingredients.name}
-                    </p>
-
-                </div>
-            )}
-        </>
+        <div
+            className={`${style["cards"]} ${isDrag ? style["dragging"] : ""}`}
+            onClick={() => handleOpenModal(ingredients)}
+            ref={ingredientDragRef}
+        >
+            {count > 0 && <Counter count={count}/>}
+            <img
+                className={`${style["cards-photo"]} pl-4 pr-4`}
+                src={ingredients.image}
+                alt={ingredients.name}
+            />
+            <div className={style["container-price"]}>
+                <p
+                    className={`${style["cards-price"]} pt-2 pb-2 pr-4 text text_type_digits-default`}
+                >
+                    {ingredients.price}
+                </p>
+                <CurrencyIcon type="primary"/>
+            </div>
+            <p
+                className={`${style["cards-description"]} text text_type_main-default`}
+            >
+                {ingredients.name}
+            </p>
+        </div>
     );
 };
 
