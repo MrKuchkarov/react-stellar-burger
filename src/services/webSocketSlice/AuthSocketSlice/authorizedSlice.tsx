@@ -1,6 +1,7 @@
 // authorizedSlice.js
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {IWebSocketOrder} from "../../../types/web-socket";
+import {IWebSocketOrder} from "../../../types";
+
 
 export type TAuthorizedSlice = {
     wsConnected: boolean;

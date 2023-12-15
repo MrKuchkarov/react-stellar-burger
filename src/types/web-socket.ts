@@ -5,10 +5,7 @@ export interface IWebSocketOrder {
     number: number;
     createdAt: Date;
     updatedAt: Date;
-    name?: string;
-    showStatus: boolean;
-    useUnOrders: boolean;
-    // orders?: IWebSocketOrder[];
+    name: string;
 }
 
 export interface IWebSocketResponse {

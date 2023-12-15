@@ -1,13 +1,17 @@
-import React, {FC} from "react";
+import React from "react";
 import style from "./order-cards.module.css";
 import {Link, useLocation} from "react-router-dom";
 import {ImageList} from "./component/image-list";
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import useIngredientInfo from "../../hooks/useIngredientInfo";
 import {useStatus} from "../../hooks/useStatus";
-import {IWebSocketOrder} from "../../types/web-socket";
+import {IWebSocketOrder} from "../../types";
 
-const OrderCards: FC<IWebSocketOrder> = (props) => {
+type OrderCardsProps = {
+    showStatus: boolean;
+} & IWebSocketOrder;
+
+const OrderCards = (props: OrderCardsProps) => {
     const {
         _id,
         name,

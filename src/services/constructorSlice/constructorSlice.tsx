@@ -4,12 +4,13 @@ import {v4 as uuidv4} from "uuid";
 import {IIngredient} from "../../types";
 
 
-export type TMoveIndex = {
+type TMoveIndex = {
     dragIndex: number;
     hoverIndex: number;
 };
+export type IIngredientWithKey = IIngredient & { key: string };
 
-export type TConstructorSlice = {
+type TConstructorSlice = {
     other: IIngredient[]
     bun: IIngredient | null;
 };
@@ -31,7 +32,7 @@ const constructorSlice = createSlice({
                 const ingredient = action.payload;
                 state.other.push(ingredient); //Добавление остальных ингредиентов
             },
-            prepare: (ingredient: IIngredient) => {
+            prepare: (ingredient: IIngredientWithKey) => {
                 const uid = uuidv4(); // Генерирую уникальный идентификатор с помощью uuidv4
                 return {payload: {...ingredient, key: uid}}; // Добавлю поле 'key' с сгенерированным UID к объекту ингредиента
             },

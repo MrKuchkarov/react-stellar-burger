@@ -4,10 +4,10 @@ import BurgerFillings from "./components/burger-fillings";
 import style from "./burger-constructor.module.css";
 import BurgerTotalPrice from "./components/burger-total-price";
 import {useDrop} from "react-dnd";
-import {addOtherIngredient, setBun} from "../../services/constructorSlice/constructorSlice";
+import {addOtherIngredient, IIngredientWithKey, setBun} from "../../services/constructorSlice/constructorSlice";
 import {selectFillingBun, selectFillingOther} from "../../services/constructorSlice/constructor-selector";
 import {useAppDispatch, useAppSelector} from "../../services/store/store";
-import {IIngredient} from "../../types";
+
 
 const BurgerConstructor = () => {
     const seBun = useAppSelector(selectFillingBun);
@@ -38,7 +38,7 @@ const BurgerConstructor = () => {
     //DROP для добавление ингредиентов в конструктор
     const [{isOver, canDrop}, dropTarget] = useDrop({
         accept: 'ingredient',
-        drop(ingredient: IIngredient) {
+        drop(ingredient: IIngredientWithKey) {
             dispatch(
                 ingredient.type !== 'bun'
                     ? addOtherIngredient(ingredient)
