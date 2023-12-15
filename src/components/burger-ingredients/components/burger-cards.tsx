@@ -1,4 +1,4 @@
-import React, {FC, ForwardedRef, forwardRef, useMemo} from "react";
+import React, {RefObject, useMemo} from "react";
 import style from "./burger-cards.module.css";
 import {selectIngredients} from "../../../services/ingredientsSlice/ingredients-selector";
 import {useLocation} from "react-router-dom";
@@ -10,13 +10,14 @@ import {useAppSelector} from "../../../services/store/store";
 const cardContainerClass = `${style["card-container"]}`;
 const titleClass = `${style["title-buns"]} pt-10 pb-5 text text_type_main-medium`;
 
-interface BurgerCardsProps {
-    bunRef: ForwardedRef<HTMLUListElement>;
-    sauceRef: ForwardedRef<HTMLUListElement>;
-    mainRef: ForwardedRef<HTMLUListElement>;
-}
+type TBurgerCardsProps = {
+    bunsRef: RefObject<HTMLUListElement>;
+    saucesRef: RefObject<HTMLUListElement>;
+    mainsRef: RefObject<HTMLUListElement>;
+    handleScrollGroups: () => void;
+};
 
-const BurgerCards: FC<BurgerCardsProps> = (({bunRef, sauceRef, mainRef}) => {
+const BurgerCards = (({handleScrollGroups, bunsRef, saucesRef, mainsRef}: TBurgerCardsProps) => {
     const ingredients = useAppSelector(selectIngredients);
     const ingredientsTypesSet = new Set(ingredients.map((card: IIngredient) => card.type))
     const ingredientsTypes: string[] = ingredientsTypesSet.size ? [...ingredientsTypesSet] : [];
@@ -32,7 +33,7 @@ const BurgerCards: FC<BurgerCardsProps> = (({bunRef, sauceRef, mainRef}) => {
 
     return (
         <>
-            <div className={`${style["scroll-ingredients"]} custom-scroll`}>
+            <div className={`${style["scroll-ingredients"]} custom-scroll`} onScroll={handleScrollGroups}>
                 {ingredientsTypes.length > 0 && ingredientsTypes.map((type) => (
                     <div key={type} className={cardContainerClass}>
                         <h2
@@ -45,7 +46,7 @@ const BurgerCards: FC<BurgerCardsProps> = (({bunRef, sauceRef, mainRef}) => {
                             <RenderIngredientList
                                 type={type}
                                 ingredients={categorizedIngredients.buns}
-                                ref={bunRef}
+                                ref={bunsRef}
                                 location={location.pathname}
                             />
                         }
@@ -54,7 +55,7 @@ const BurgerCards: FC<BurgerCardsProps> = (({bunRef, sauceRef, mainRef}) => {
                             <RenderIngredientList
                                 type={type}
                                 ingredients={categorizedIngredients.sauces}
-                                ref={sauceRef}
+                                ref={saucesRef}
                                 location={location.pathname}
                             />
                         }
@@ -63,7 +64,7 @@ const BurgerCards: FC<BurgerCardsProps> = (({bunRef, sauceRef, mainRef}) => {
                             <RenderIngredientList
                                 type={type}
                                 ingredients={categorizedIngredients.mains}
-                                ref={mainRef}
+                                ref={mainsRef}
                                 location={location.pathname}
                             />
                         }

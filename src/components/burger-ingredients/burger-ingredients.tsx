@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React, {useRef, useState} from "react";
 import BurgerCards from "./components/burger-cards";
 import style from "./burger-ingredients.module.css";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useInView} from "react-intersection-observer";
+import {useScrollGroups} from "./components/useScrollGroups";
 
 
 const BurgerIngredients = () => {
@@ -11,25 +11,21 @@ const BurgerIngredients = () => {
         setCurrent(str);
         document.getElementById(str)!.scrollIntoView({behavior: "smooth"});
     };
+    const bunsRef = useRef<HTMLUListElement>(null);
+    const saucesRef = useRef<HTMLUListElement>(null);
+    const mainsRef = useRef<HTMLUListElement>(null);
+    const tabsRef = useRef<HTMLDivElement>(null);
 
-    const options = {
-        threshold: 0,
-        delay: 100,
-    };
-
-    const [bunRef, inViewBun] = useInView(options);
-    const [mainRef, inViewMain] = useInView(options);
-    const [sauceRef, inViewSauce] = useInView(options);
-
-    useEffect(() => {
-        if (inViewBun) {
-            setCurrent("bun");
-        } else if (inViewSauce) {
-            setCurrent("sauce");
-        } else if (inViewMain) {
-            setCurrent("main");
+    const handleScrollGroups = useScrollGroups(
+        {
+            tabsRef,
+            bunsRef,
+            saucesRef,
+            mainsRef,
+            current,
+            setCurrent,
         }
-    }, [inViewBun, inViewMain, inViewSauce]);
+    );
     return (
         <section>
             <div className={`${style["ingredients-elements"]} mt-10 mb-10`}>
@@ -38,10 +34,10 @@ const BurgerIngredients = () => {
                 >
                     Соберите бургер
                 </h1>
-                <div className={`${style["ingredients-column"]}`}>
+                <div ref={tabsRef} className={`${style["ingredients-column"]}`}>
                     <Tab
                         value="bunSection"
-                        active={current === 'bun'}
+                        active={current === "Булки"}
                         onClick={handleCurrentTab}
 
                     >
@@ -49,21 +45,22 @@ const BurgerIngredients = () => {
                     </Tab>
                     <Tab
                         value="mainSection"
-                        active={current === 'main'}
+                        active={current === "Начинки"}
                         onClick={handleCurrentTab}
                     >
                         Начинки
                     </Tab>
                     <Tab
                         value="sauceSection"
-                        active={current === 'sauce'}
+                        active={current === "Соусы"}
                         onClick={handleCurrentTab}
                     >
                         Соусы
                     </Tab>
                 </div>
             </div>
-            <BurgerCards bunRef={bunRef} sauceRef={sauceRef} mainRef={mainRef}/>
+            <BurgerCards handleScrollGroups={handleScrollGroups} bunsRef={bunsRef} saucesRef={saucesRef}
+                         mainsRef={mainsRef}/>
         </section>
     );
 };

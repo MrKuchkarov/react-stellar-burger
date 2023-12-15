@@ -1,55 +1,77 @@
 import {DropTargetMonitor, useDrag, useDrop} from "react-dnd";
 import {moveCard} from "../../../services/constructorSlice/constructorSlice";
-import {Dispatch, useRef} from "react";
+import {useRef} from "react";
 
 //Функция drop для сортировки ингредиентов
-export const useDropLogic = (index: number, dispatch: Dispatch<any>) => {
+import {useAppDispatch} from "../../../services/store/store";
+
+type TDropItem = {
+    index: number;
+};
+export const useDropLogic = (index: number) => {
+    const dispatch = useAppDispatch();
     const ref = useRef<HTMLLIElement>(null);
-    return useDrop({
+
+    const [{handlerId}, drop] = useDrop({
         accept: "constructor-item",
         collect: (monitor) => ({
             handlerId: monitor.getHandlerId(),
         }),
-        hover(item: any, monitor: DropTargetMonitor) {
+        hover(item: TDropItem, monitor: DropTargetMonitor) {
             if (!ref.current) {
-                return
+                return;
             }
-            const dragIndex = item.index
-            const hoverIndex = index
+
+            const dragIndex = item.index;
+            const hoverIndex = index;
+
             if (dragIndex === hoverIndex) {
-                return
+                return;
             }
+
             const hoverBoundingRect = ref.current?.getBoundingClientRect();
             if (!hoverBoundingRect) {
                 return;
             }
-            const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
+
+            const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
             const clientOffset = monitor.getClientOffset();
-            // @ts-ignore
-            const hoverClientY = clientOffset.y - hoverBoundingRect.top
+            const hoverClientY = clientOffset!.y - hoverBoundingRect.top;
+
             if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-                return
+                return;
             }
+
             if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-                return
+                return;
             }
-            dispatch(moveCard({dragIndex, hoverIndex}))
-            item.index = hoverIndex
+
+            dispatch(moveCard({dragIndex, hoverIndex}));
+            item.index = hoverIndex;
         },
     });
+
+    return {handlerId, drop, ref};
 };
+
 
 //Функция drag для сортировки ингредиентов
 export const useDragLogic = (id: string, index: number) => {
-    return useDrag({
-        type: 'constructor-item',
-        item: () => {
-            return {id, index};
-        },
+
+    const ref = useRef<HTMLLIElement>(null);
+
+    const [{isDragging}, drag] = useDrag({
+        type: "constructor-item",
+        item: () => ({
+            id,
+            index,
+        }),
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
     });
+
+    return {isDragging, drag, ref};
 };
 
 

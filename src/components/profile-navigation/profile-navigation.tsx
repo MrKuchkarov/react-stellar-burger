@@ -5,6 +5,7 @@ import {useLocation, useMatch} from "react-router-dom";
 
 import {fetchLogout} from "../../services/auth/auth-async-thunks";
 import {useAppDispatch} from "../../services/store/store";
+import {routes} from "../../utils/consts";
 
 
 const ProfileNavigation = () => {
@@ -19,12 +20,12 @@ const ProfileNavigation = () => {
     return (
         <nav className={`${style["links-navigation"]}`}>
             <CustomNavLinkButton
-                to="/profile"
+                to={routes.profile}
                 text={"Профиль"}
                 className={`${style["links"]} text text_type_main-medium text_color_inactive ${isProfileActive ? style.active : ""}`}
             />
             <CustomNavLinkButton
-                to={"/profile/orders"}
+                to={routes.profileOrder}
                 text={"История заказов"}
                 className={`${style["links"]} text text_type_main-medium text_color_inactive ${isProfileOrderActive ? style.active : ""}`}
             />
@@ -37,7 +38,7 @@ const ProfileNavigation = () => {
             <p
                 className={`${style["description"]} text text_type_main-default text_color_inactive`}
             >
-                {pathname === '/profile'
+                {pathname === "/profile"
                     ? `В этом разделе вы можете изменить свои персональные данные`
                     : `В этом разделе вы можете просмотреть свою историю заказов`}
             </p>

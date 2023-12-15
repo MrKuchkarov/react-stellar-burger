@@ -1,4 +1,4 @@
-import React, {FC, useCallback, useRef} from "react";
+import React, {FC, useCallback} from "react";
 import {
     ConstructorElement, DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -18,7 +18,6 @@ type TBurgerFillings = {
 
 const BurgerFillings: FC<TBurgerFillings> = ({filling, index}) => {
     const dispatch = useAppDispatch();
-    const ref = useRef<HTMLLIElement>(null);
     const id = filling._id;
 
     //Удаление ингредиентов
@@ -27,10 +26,10 @@ const BurgerFillings: FC<TBurgerFillings> = ({filling, index}) => {
     }, [dispatch, filling]);
 
     //drop для сортировки ингредиентов
-    const [{handlerId}, drop] = useDropLogic(index, dispatch);
+    const {handlerId, drop, ref} = useDropLogic(index);
 
     //drag для сортировки ингредиентов
-    const [{isDragging}, drag] = useDragLogic(id, index);
+    const {isDragging, drag} = useDragLogic(id, index);
 
     const opacityStyles = {
         opacity: isDragging ? 0 : 1,

@@ -6,7 +6,7 @@ import ModalOverlay from "../modal-overlay/modal-overlay";
 
 
 type TModalProps = {
-    title: string;
+    title?: string;
     closeModal: () => void;
 }
 const modalRoot = document.getElementById("react-modals") as HTMLElement;

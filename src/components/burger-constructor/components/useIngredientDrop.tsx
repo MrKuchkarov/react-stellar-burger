@@ -20,11 +20,11 @@ const useIngredientDrop = () => {
         }),
     });
 
-    let border = 'transparent';
+    let border = "transparent";
     if (canDrop && isOver) {
-        border = '2px dashed green';
+        border = "2px dashed green";
     } else if (canDrop) {
-        border = '2px dashed aquamarine';
+        border = "2px dashed aquamarine";
     }
 
     return {dropTarget, border};

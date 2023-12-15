@@ -7,7 +7,7 @@ import {useAppSelector} from "../../services/store/store";
 
 type TOrderListProps = {
     showStatus: boolean;
-    useUnOrders: boolean;
+    useUnOrders?: boolean;
 }
 const OrderList: FC<TOrderListProps> = ({showStatus, useUnOrders}) => {
     const orders = useAppSelector(useUnOrders ? selectUnOrders : selectOrders);

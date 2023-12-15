@@ -21,6 +21,8 @@ import {OrdersPage} from "../../pages/orders/orders";
 import {FeedPage} from "../../pages/feed/feed";
 import FeedDetails from "../feed-details/feed-datails";
 import {useAppDispatch} from "../../services/store/store";
+import ProfileNavigation from "../profile-navigation/profile-navigation";
+import {OrderList} from "../orderList/order-list";
 
 function App() {
     const navigate = useNavigate();
@@ -33,7 +35,7 @@ function App() {
         dispatch(checkUserAuth());
     }, [dispatch]);
 
-    const handleCloseModal = () => {
+    const handleCloseModal: () => void = () => {
         navigate(-1);
     };
 
@@ -44,13 +46,17 @@ function App() {
             <Routes location={background || location}>
                 <Route path={routes.home} element={<HomePages/>}/>
                 <Route path={routes.login} element={<OnlyUnAuth component={<Login/>}/>}/>
-                <Route path={routes.profile} element={<OnlyAuth component={<ProfilePage/>}/>}/>
+                <Route path={routes.profile} element={<OnlyAuth component={<ProfilePage/>}/>}>
+                    <Route element={<OnlyAuth component={<ProfileNavigation/>}/>}/>
+                    <Route path={routes.profileOrdersRoute}
+                           element={<OnlyAuth component={<OrderList showStatus={true}/>}/>}/>
+                </Route>
                 <Route path={routes.register} element={<OnlyUnAuth component={<Register/>}/>}/>
-                <Route path={routes.ingredientsId} element={<IngredientsPage/>}/>
+                <Route path={routes.ingredientsDynamicId} element={<IngredientsPage/>}/>
                 <Route path={routes.forgotPassword} element={<OnlyUnAuth component={<ForgotPassword/>}/>}/>
                 <Route path={routes.resetPassword} element={<OnlyUnAuth component={<ResetPassword/>}/>}/>
                 <Route path={routes.profileOrder} element={<OnlyAuth component={<OrdersPage/>}/>}/>
-                <Route path={routes.profileOrderId} element={<OnlyAuth component={<FeedDetails/>}/>}/>
+                <Route path={routes.profileOrderDynamicId} element={<OnlyAuth component={<FeedDetails/>}/>}/>
                 <Route path={routes.feed} element={<FeedPage/>}/>
                 <Route path={routes.feedId} element={<FeedDetails/>}/>
                 <Route path="*" element={<NotFound404/>}/>
@@ -58,7 +64,7 @@ function App() {
             {background && (
                 <Routes>
                     <Route
-                        path={routes.ingredientsId}
+                        path={routes.ingredientsDynamicId}
                         element={
                             <Modal title={"Детали ингредиентов"} closeModal={handleCloseModal}>
                                 <IngredientDetails/>
@@ -66,7 +72,7 @@ function App() {
                         }
                     />
                     <Route
-                        path={routes.profileOrderId}
+                        path={routes.profileOrderDynamicId}
                         element={
                             <Modal title={"Информация о заказе"} closeModal={handleCloseModal}>
                                 <OnlyAuth component={<FeedDetails/>}/>

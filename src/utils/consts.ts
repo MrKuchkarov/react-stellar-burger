@@ -18,11 +18,12 @@ export const routes = {
     register: "/register",
     forgotPassword: "/forgot-password",
     resetPassword: "/reset-password",
-    ingredientsId: "/ingredients/:id",
+    ingredientsDynamicId: "/ingredients/:id",
     feed: "/feed",
     feedId: "/feed/:id",
     profileOrder: "/profile/orders",
-    profileOrderId: "/profile/orders/:id",
+    profileOrderDynamicId: "/profile/orders/:id",
+    profileOrdersRoute: "OrderList",
 };
 
 export const ingredientCategories: Record<string, string> = {
