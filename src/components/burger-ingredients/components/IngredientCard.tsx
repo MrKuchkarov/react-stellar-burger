@@ -30,11 +30,12 @@ const IngredientCard = ({ingredients}: { ingredients: IIngredient }) => {
                 count = 2;
             }
         } else {
-            other.forEach((filling) => {
+            count = other.reduce((acc, filling) => {
                 if (filling._id === ingredients._id) {
-                    count += 1;
+                    return acc + 1;
                 }
-            });
+                return acc;
+            }, 0);
         }
         return count;
     }, [ingredients.type, bun, other, ingredients._id]);
