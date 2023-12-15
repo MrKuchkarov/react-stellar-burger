@@ -45,21 +45,21 @@ const BurgerIngredients = () => {
                         onClick={handleCurrentTab}
 
                     >
-                        Булка
+                        Булки
                     </Tab>
                     <Tab
                         value="mainSection"
                         active={current === 'main'}
                         onClick={handleCurrentTab}
                     >
-                        Начинка
+                        Начинки
                     </Tab>
                     <Tab
                         value="sauceSection"
                         active={current === 'sauce'}
                         onClick={handleCurrentTab}
                     >
-                        Соус
+                        Соусы
                     </Tab>
                 </div>
             </div>
