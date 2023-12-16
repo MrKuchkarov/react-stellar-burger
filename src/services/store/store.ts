@@ -8,7 +8,7 @@ import AuthorizedSlice, {AuthorizedActions} from "../webSocketSlice/AuthSocketSl
 import UnAuthorizedSlice, {UnAuthorizedActions} from "../webSocketSlice/UnAuthSocketSlice/unauthorizedSlice";
 import socketMiddleware from "../webSocketSlice/SocketMiddleWare";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
-
+import type {} from "redux-thunk/extend-redux";
 
 const authorizedSocketMiddleware = socketMiddleware(AuthorizedActions);
 const UnAuthorizedSocketMiddleware = socketMiddleware(UnAuthorizedActions);

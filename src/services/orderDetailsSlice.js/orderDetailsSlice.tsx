@@ -1,6 +1,6 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
-type TOrderDetailsSlice = {
+export type TOrderDetailsSlice = {
     orderNumber: string | null,
     isLoading: boolean,
     error: string | null;
@@ -17,15 +17,15 @@ const orderDetailsSlice = createSlice({
     name: "order",
     initialState,
     reducers: {
-        setOrderNumber: (state, action) => {
+        setOrderNumber: (state, action: PayloadAction<string>) => {
             state.orderNumber = action.payload;
             state.isLoading = true;
             state.error = null;
         },
-        setLoading: (state, action) => {
+        setLoading: (state, action: PayloadAction<boolean>) => {
             state.isLoading = action.payload;
         },
-        setError: (state, action) => {
+        setError: (state, action: PayloadAction<string>) => {
             state.isLoading = true;
             state.error = action.payload;
         },

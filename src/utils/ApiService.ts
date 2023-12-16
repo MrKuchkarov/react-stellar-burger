@@ -1,10 +1,12 @@
-import {createAsyncThunk} from "@reduxjs/toolkit";
+import {AnyAction, createAsyncThunk} from "@reduxjs/toolkit";
 import {ApiGetTheIngredients} from "./consts";
 import {makeOrderRequest} from "./api-utils";
+import {IIngredient, IOrderResponse} from "../types";
+import {TOrderDetailsSlice} from "../services/orderDetailsSlice.js/orderDetailsSlice";
 
 
 // Получение список заказов
-export const fetchIngredients = createAsyncThunk(
+export const fetchIngredients = createAsyncThunk<IIngredient[], undefined>(
     "ingredients/fetchIngredients",
     async (_, {rejectWithValue}) => {
         try {
@@ -29,13 +31,35 @@ export const fetchIngredients = createAsyncThunk(
 );
 
 // Создание асинхронного Thunk для оформления заказа
-export const makeOrder = createAsyncThunk(
-    "order/makeOrder",
-    async (ingredientIds: string[], {rejectWithValue, dispatch}) => {
+export const makeOrder = createAsyncThunk<
+    IOrderResponse, // Тип успешного значения
+    string[], // Тип параметра
+    {
+        rejectValue: string;
+        state: TOrderDetailsSlice
+    }
+>(
+    'order/makeOrder',
+    async (ingredientIds, {dispatch, rejectWithValue}) => {
         try {
             await makeOrderRequest(ingredientIds, dispatch);
+            return {} as IOrderResponse;
         } catch (error) {
             return rejectWithValue((error as Error).message);
         }
     }
 );
+
+
+//
+// // Создание асинхронного Thunk для оформления заказа
+// export const makeOrder = createAsyncThunk<IOrderResponse, string[]>(
+//     "order/makeOrder",
+//     async (ingredientIds, {dispatch, rejectWithValue}) => {
+//         try {
+//             await makeOrderRequest(ingredientIds, dispatch);
+//         } catch (error) {
+//             return rejectWithValue((error as Error).message);
+//         }
+//     }
+// );
