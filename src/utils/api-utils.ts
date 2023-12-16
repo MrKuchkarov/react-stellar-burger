@@ -1,6 +1,8 @@
-import {BURGER_API_URL} from "./consts";
-import {setCookie} from "./cookie";
+import {ApiOrderDetails, BURGER_API_URL} from "./consts";
+import {getCookie, setCookie} from "./cookie";
 import {Method} from "./consts";
+import {setError, setLoading, setOrderNumber} from "../services/orderDetailsSlice.js/orderDetailsSlice";
+import {clearIngredients} from "../services/constructorSlice/constructorSlice";
 
 
 export const createOptions = (method: Method, data: object | undefined, token?: string) => {
@@ -63,37 +65,42 @@ export const fetchWithRefresh = async (url: string, options?: ReturnType<typeof 
     }
 };
 
+// Функция отправки запроса к API для оформления заказа
+export const makeOrderRequest = async (ingredientIds: string[], dispatch: any) => {
+    try {
+        dispatch(setLoading(true));
+        const token = getCookie("accessToken");
+        const response = await fetch(ApiOrderDetails, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: token || "",
+            },
+            body: JSON.stringify({ingredients: ingredientIds}),
+        });
 
-// export const refreshToken = () => {
-//     return fetch(`${BURGER_API_URL}/auth/token`, {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json;charset=utf-8",
-//         },
-//         body: JSON.stringify({
-//             token: localStorage.getItem("refreshToken"),
-//         }),
-//     }).then(checkResponse);
-// };
-//
-// export const fetchWithRefresh = async (url: string, options: ReturnType<typeof createOptions>) => {
-//     try {
-//         const res = await fetch(url, options);
-//         return await checkResponse(res);
-//     } catch (err: any) {
-//         console.log(err);
-//         if (err.message === "jwt expired") {
-//             const refreshData = await refreshToken();
-//             if (!refreshData.success) {
-//                 return Promise.reject(refreshData);
-//             }
-//             setCookie("refreshToken", refreshData.refreshToken);
-//             setCookie("accessToken", refreshData.accessToken);
-//             options.headers.Authorization = refreshData.accessToken;
-//             const res = await fetch(url, options);
-//             return await checkResponse(res);
-//         } else {
-//             return Promise.reject(err);
-//         }
-//     }
-// };
+        if (!response.ok) {
+            throw new Error("Ошибка при запросе к API или при оформлении заказа");
+        }
+
+        const responseData = await response.json();
+
+        if (
+            responseData.success &&
+            responseData.order &&
+            responseData.order.number
+        ) {
+            dispatch(setOrderNumber(responseData.order.number));
+            dispatch(clearIngredients()); // Сброс состояния ингредиентов после успешного заказа
+        } else {
+            throw new Error("Ошибка при запросе к API или при оформлении заказа");
+        }
+    } catch (error: any) {
+        console.error(error);
+        dispatch(setError(error.message));
+        throw error;
+    } finally {
+        dispatch(setLoading(false));
+    }
+};
+

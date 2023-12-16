@@ -1,18 +1,9 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {
-    setError,
-    setLoading,
-    setOrderNumber,
-} from "../services/orderDetailsSlice.js/orderDetailsSlice";
-import {getCookie} from "./cookie";
-import {BURGER_API_URL} from "./consts";
-import {clearIngredients} from "../services/constructorSlice/constructorSlice";
+import {ApiGetTheIngredients} from "./consts";
+import {makeOrderRequest} from "./api-utils";
 
-const ApiGetTheIngredients = `${BURGER_API_URL}/ingredients`;
-const ApiOrderDetails = `${BURGER_API_URL}/orders`;
+
 // Получение список заказов
-
-
 export const fetchIngredients = createAsyncThunk(
     "ingredients/fetchIngredients",
     async (_, {rejectWithValue}) => {
@@ -37,45 +28,14 @@ export const fetchIngredients = createAsyncThunk(
     }
 );
 
-// Получение номер заказа
+// Создание асинхронного Thunk для оформления заказа
 export const makeOrder = createAsyncThunk(
     "order/makeOrder",
     async (ingredientIds: string[], {rejectWithValue, dispatch}) => {
         try {
-            dispatch(setLoading(true));
-            const token = getCookie("accessToken");
-            const response = await fetch(ApiOrderDetails, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: token || "",
-                },
-                body: JSON.stringify({ingredients: ingredientIds}),
-            });
-
-            if (!response.ok) {
-                throw new Error("Ошибка при запросе к API или при оформлении заказа");
-            }
-
-            const responseData = await response.json();
-
-            if (
-                responseData.success &&
-                responseData.order &&
-                responseData.order.number
-            ) {
-                dispatch(setOrderNumber(responseData.order.number));
-                // Здесь добавляем дополнительное действие, чтобы сбросить состояние ингредиентов после успешного заказа
-                dispatch(clearIngredients())
-            } else {
-                throw new Error("Ошибка при запросе к API или при оформлении заказа");
-            }
-        } catch (error: any) {
-            console.error(error);
-            dispatch(setError(error.message));
+            await makeOrderRequest(ingredientIds, dispatch);
+        } catch (error) {
             return rejectWithValue((error as Error).message);
-        } finally {
-            dispatch(setLoading(false));
         }
     }
 );

@@ -30,22 +30,6 @@ const orderDetailsSlice = createSlice({
             state.error = action.payload;
         },
     },
-    // extraReducers: (builder) => {
-    //     builder
-    //         .addCase(fetchOrder.pending, (state) => {
-    //             state.status = 'loading';
-    //             state.error = null;
-    //         })
-    //         .addCase(fetchOrder.rejected, (state, action) => {
-    //             state.status = 'rejected';
-    //             state.error = action.payload || 'Cannot send order';
-    //         })
-    //         .addCase(fetchOrder.fulfilled, (state, action) => {
-    //             state.status = 'success';
-    //             state.error = null;
-    //             state.number = action.payload.order.number;
-    //         });
-    // },
 });
 
 export const {setOrderNumber, setLoading, setError} =

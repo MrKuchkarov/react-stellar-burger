@@ -3,6 +3,9 @@ import {getCookie} from "./cookie";
 export const BURGER_API_URL = "https://norma.nomoreparties.space/api";
 export const webSocketUrl = "wss://norma.nomoreparties.space/orders";
 
+export const ApiGetTheIngredients = `${BURGER_API_URL}/ingredients`;
+export const ApiOrderDetails = `${BURGER_API_URL}/orders`;
+
 export enum Method {
     get = "GET",
     post = "POST",
