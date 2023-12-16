@@ -1,28 +1,17 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-const initialState = {
-    orderNumber: [],
-    number: null,
+type TOrderDetailsSlice = {
+    orderNumber: string | null,
+    isLoading: boolean,
+    error: string | null;
+}
+
+const initialState: TOrderDetailsSlice = {
+    orderNumber: null,
     isLoading: false,
     error: null,
 };
 
-// export const fetchOrder = createAsyncThunk(
-//     '$$order/fetchOrder',
-//     async (ingredients, {rejectWithValue}) => {
-//         try {
-//             return request(
-//                 `${BURGER_API_URL}/orders`,
-//                 createOptions(Method.post, {ingredients}, getCookie("accessToken")),
-//             );
-//         } catch (error) {
-//             if (error instanceof Error) {
-//                 return rejectWithValue(error.message);
-//             }
-//             return rejectWithValue('Unknown error');
-//         }
-//     },
-// );
 
 const orderDetailsSlice = createSlice({
     name: "order",
