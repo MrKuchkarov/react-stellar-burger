@@ -1,4 +1,4 @@
-import {AnyAction, createAsyncThunk} from "@reduxjs/toolkit";
+import {createAsyncThunk} from "@reduxjs/toolkit";
 import {ApiGetTheIngredients} from "./consts";
 import {makeOrderRequest} from "./api-utils";
 import {IIngredient, IOrderResponse} from "../types";

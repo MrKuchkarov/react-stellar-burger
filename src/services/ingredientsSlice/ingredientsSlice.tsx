@@ -1,5 +1,5 @@
 import {fetchIngredients} from '../../utils/ApiService';
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {IIngredient} from "../../types";
 import {TStatus} from "../../types/status";
 
@@ -23,7 +23,7 @@ const ingredientsSlice = createSlice({
     name: "$$ingredients",
     initialState,
     reducers: {
-        setIngredients(state, action) {
+        setIngredients(state, action: PayloadAction<IIngredient[]>) {
             state.ingredients = action.payload;
         },
         showModal(state) {

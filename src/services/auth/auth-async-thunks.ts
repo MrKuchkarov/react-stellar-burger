@@ -101,8 +101,7 @@ export const fetchUpdateUser = createAsyncThunk<
         return res.user;
     }
 );
-
-export const fetchLogout = createAsyncThunk(
+export const fetchLogout = createAsyncThunk<void, void>(
     "$$auth/fetchLogout", async () => {
         await request(
             `${BURGER_API_URL}/auth/logout`,
