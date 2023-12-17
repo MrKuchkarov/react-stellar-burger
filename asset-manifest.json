@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "./static/css/main.747615e6.css",
-    "main.js": "./static/js/main.ef4d476d.js",
-    "static/js/787.438bf4e7.chunk.js": "./static/js/787.438bf4e7.chunk.js",
+    "main.css": "./static/css/main.0050cc8d.css",
+    "main.js": "./static/js/main.783226d0.js",
+    "static/js/787.c3572a12.chunk.js": "./static/js/787.c3572a12.chunk.js",
     "static/media/Lovepik_com-832298350-Starry blue universe space galaxy simple banner.png": "./static/media/Lovepik_com-832298350-Starry blue universe space galaxy simple banner.282e38db4c100293feb5.png",
     "static/media/JetBrainsMono-Bold.woff": "./static/media/JetBrainsMono-Bold.3914674f1cb2335acf26.woff",
     "static/media/JetBrainsMono-Regular.woff": "./static/media/JetBrainsMono-Regular.f52bee61d00ce995b89f.woff",
@@ -16,12 +16,12 @@
     "static/media/earth.svg": "./static/media/earth.e50b9aa6eda6a2393296bcb84d93005d.svg",
     "static/media/rocket.svg": "./static/media/rocket.e46019d4c7684ff9d35db03b7aae8edd.svg",
     "index.html": "./index.html",
-    "main.747615e6.css.map": "./static/css/main.747615e6.css.map",
-    "main.ef4d476d.js.map": "./static/js/main.ef4d476d.js.map",
-    "787.438bf4e7.chunk.js.map": "./static/js/787.438bf4e7.chunk.js.map"
+    "main.0050cc8d.css.map": "./static/css/main.0050cc8d.css.map",
+    "main.783226d0.js.map": "./static/js/main.783226d0.js.map",
+    "787.c3572a12.chunk.js.map": "./static/js/787.c3572a12.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.747615e6.css",
-    "static/js/main.ef4d476d.js"
+    "static/css/main.0050cc8d.css",
+    "static/js/main.783226d0.js"
   ]
 }
