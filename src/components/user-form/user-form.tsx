@@ -14,7 +14,7 @@ const UserForm = () => {
     const [edit, setEdit] = useState(false);
 
 
-    // Использование хука useLocalStorage для управления данными формы
+    // Using the useLocalStorage hook to manage form data
     const [form, setForm] = useLocalStorage<IUser>("userFormData", {
         name: name,
         email: email,
@@ -41,7 +41,7 @@ const UserForm = () => {
         e.preventDefault();
         setEdit(false);
         dispatch(fetchUpdateUser(form));
-        // Удаление данных из локального хранилища при успешном сохранении
+        // Deleting data from the local storage upon successful saving
         localStorage.removeItem("userFormData");
     };
 
