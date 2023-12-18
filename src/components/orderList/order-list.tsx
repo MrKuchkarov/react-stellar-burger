@@ -11,7 +11,7 @@ type TOrderListProps = {
 }
 const OrderList: FC<TOrderListProps> = ({showStatus, useUnOrders}) => {
     const orders = useAppSelector(useUnOrders ? selectUnOrders : selectOrders);
-    // Проверяю, что orders не является undefined или null, и также что массив не пуст
+    // I check that orders is not undefined or null, and also that the array is not empty
     return (orders && orders.length > 0) ? (
         <ul className={`${style["container"]} custom-scroll`}>
             {
@@ -19,7 +19,7 @@ const OrderList: FC<TOrderListProps> = ({showStatus, useUnOrders}) => {
             }
         </ul>
     ) : (
-        // Если orders пуст или не определен, вернул сообщение(компонент) "заказов нет"
+        // If orders is empty or not defined, returned the message (component) "Заказов нет"
         <p className={`${style["null-orders"]} text text_type_main-medium`}>Заказов нет, попробуйте обнавить ленту
             заказов</p>
     )
