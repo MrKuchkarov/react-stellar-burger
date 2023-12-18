@@ -20,15 +20,15 @@ const BurgerFillings: FC<TBurgerFillings> = ({filling, index}) => {
     const dispatch = useAppDispatch();
     const id = filling._id;
 
-    //Удаление ингредиентов
+    // Removing ingredients
     const removeIngredient = useCallback(() => {
         dispatch(removeOtherIngredient(filling));
     }, [dispatch, filling]);
 
-    //drop для сортировки ингредиентов
+    // Drop to sort the ingredients
     const {handlerId, drop, ref} = useDropLogic(index);
 
-    //drag для сортировки ингредиентов
+    // Drag to sort the ingredients
     const {isDragging, drag} = useDragLogic(id, index);
 
     const opacityStyles = {
