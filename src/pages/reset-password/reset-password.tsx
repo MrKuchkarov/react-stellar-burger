@@ -1,29 +1,24 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {FormEvent} from 'react';
 import style from "../login/login.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useNavigate} from "react-router-dom";
 import {fetchResetPassword} from "../../services/auth/auth-async-thunks";
 import {useAppDispatch} from "../../services/store/store";
+import {useForm} from "../../hooks/useForm";
 
 const ResetPassword = () => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
-
-    const [form, setForm] = useState({
+    // Используем useForm для управления значениями формы
+    const {values, handleChange} = useForm({
         password: "",
         token: "",
     });
-
-    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setForm({...form, [e.target.name]: e.target.value});
-    };
-
-    const handleSubmit = () => {
-        dispatch(fetchResetPassword(form))
-        navigate("/login")
-    };
-
-
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        dispatch(fetchResetPassword(values));
+        navigate("/login");
+    }
     return (
         <div className={`${style["container"]}`}>
             <form onSubmit={handleSubmit} className={`${style["form"]}`}>
@@ -32,16 +27,16 @@ const ResetPassword = () => {
                         Восстановление пароля
                     </h1>
                     <PasswordInput
-                        onChange={onChange}
+                        onChange={handleChange}
                         placeholder={"Введите новый пароль"}
-                        value={form.password}
+                        value={values.password}
                         name={'password'}
                         extraClass="mb-6"
 
                     />
                     <Input
-                        value={form.token}
-                        onChange={onChange}
+                        value={values.token}
+                        onChange={handleChange}
                         placeholder={'Введите код из письма'}
                         name={'token'}
                         size={'default'}

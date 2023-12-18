@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FormEvent, useState} from "react";
+import React, {FormEvent} from "react";
 import style from "../login/login.module.css";
 import {
     Button,
@@ -7,22 +7,20 @@ import {
 import {Link, useNavigate} from "react-router-dom";
 import {fetchForgotPassword} from "../../services/auth/auth-async-thunks";
 import {useAppDispatch} from "../../services/store/store";
+import {useForm} from "../../hooks/useForm";
 
 const ForgotPassword = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch()
-    const [email, setEmail] = useState("")
-    const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
-        setEmail(e.target.value)
-    }
-
+    // Используем useForm для управления значением email
+    const {values, handleChange} = useForm({
+        email: ""
+    });
     const resetPassword = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        dispatch(fetchForgotPassword({email}))
+        dispatch(fetchForgotPassword({email: values.email}));
         navigate("/reset-password")
-    };
-
-
+    }
     return (
         <div className={`${style["container"]}`}>
             <form onSubmit={resetPassword} className={`${style["form"]}`}>
@@ -31,13 +29,13 @@ const ForgotPassword = () => {
                         Восстановление пароля
                     </h1>
                     <EmailInput
-                        onChange={onChangeEmail}
-                        value={email}
+                        onChange={handleChange}
+                        value={values.email}
                         name={"email"}
                         isIcon={false}
                         extraClass="mb-6"
                     />
-                    {email && (
+                    {values.email && (
                         <Button
                             extraClass="mb-20"
                             htmlType="submit"
