@@ -24,7 +24,7 @@ const OrderCards = (props: OrderCardsProps) => {
     const location = useLocation();
     const ingredientsWithInfo = useIngredientInfo(ingredientsId);
     const uzStatus = useStatus(status);
-    // Проверяю, что ingredientsWithInfo не равно null
+    // Checking that the ingredientsWithInfo is not null
     if (ingredientsWithInfo === null) {
         return null;
     }

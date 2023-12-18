@@ -6,7 +6,7 @@ import {useAppSelector} from "../../services/store/store";
 
 const OrderBoard = () => {
     const {total, totalToday, orders} = useAppSelector(selectUnWebSocket)
-
+    // Filtering orders to determine the order status
     const statusOrders = useMemo(() => ({
         successfulOrders: orders.filter((UnOrders) => UnOrders.status === "done"),
         ordersArePending: orders.filter((UnOrders) => UnOrders.status === "pending")
