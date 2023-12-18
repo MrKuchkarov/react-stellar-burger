@@ -19,7 +19,7 @@ const ConditionalLoader = () => {
         return <p className={`${style["no-ingredients"]} text text_type_main-large`}>Ингредиенты не найдены.</p>;
     }
 
-    return null; // Если ни одно условие не выполнено, возвращаем null
+    return null; // If none of the conditions are met, we return null
 };
 
 export default ConditionalLoader;
