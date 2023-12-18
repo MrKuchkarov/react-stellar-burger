@@ -33,11 +33,11 @@ export const refreshToken = async () => {
         if (response.ok) {
             return data;
         } else {
-            // Обработка ошибок, например, выброс исключения или возврат ошибки
+            // Error handling, for example, throwing an exception or returning an error
             return new Error(data.message || 'Refresh token request failed');
         }
     } catch (error) {
-        // Обработка ошибок, например, выброс исключения или возврат ошибки
+        // Error handling, for example, throwing an exception or returning an error
         return error;
     }
 };
@@ -65,7 +65,7 @@ export const fetchWithRefresh = async (url: string, options?: ReturnType<typeof 
     }
 };
 
-// Функция отправки запроса к API для оформления заказа
+// The function of sending a request to the API for placing an order
 export const makeOrderRequest = async (ingredientIds: string[], dispatch: any) => {
     try {
         dispatch(setLoading(true));
@@ -91,7 +91,7 @@ export const makeOrderRequest = async (ingredientIds: string[], dispatch: any) =
             responseData.order.number
         ) {
             dispatch(setOrderNumber(responseData.order.number));
-            dispatch(clearIngredients()); // Сброс состояния ингредиентов после успешного заказа
+            dispatch(clearIngredients()); // Resetting the status of ingredients after a successful order
         } else {
             throw new Error("Ошибка при запросе к API или при оформлении заказа");
         }

@@ -5,7 +5,7 @@ import {IIngredient, IOrderResponse} from "../types";
 import {TOrderDetailsSlice} from "../services/orderDetailsSlice.js/orderDetailsSlice";
 
 
-// Получение список заказов
+// Getting a list of ingredients
 export const fetchIngredients = createAsyncThunk<IIngredient[], undefined>(
     "ingredients/fetchIngredients",
     async (_, {rejectWithValue}) => {
@@ -30,10 +30,10 @@ export const fetchIngredients = createAsyncThunk<IIngredient[], undefined>(
     }
 );
 
-// Создание асинхронного Thunk для оформления заказа
+// Creating an Asynchronous Thunk for Checkout
 export const makeOrder = createAsyncThunk<
-    IOrderResponse, // Тип успешного значения
-    string[], // Тип параметра
+    IOrderResponse, // Type of successful value
+    string[], // Type of parameter
     {
         rejectValue: string;
         state: TOrderDetailsSlice
@@ -50,16 +50,3 @@ export const makeOrder = createAsyncThunk<
     }
 );
 
-
-//
-// // Создание асинхронного Thunk для оформления заказа
-// export const makeOrder = createAsyncThunk<IOrderResponse, string[]>(
-//     "order/makeOrder",
-//     async (ingredientIds, {dispatch, rejectWithValue}) => {
-//         try {
-//             await makeOrderRequest(ingredientIds, dispatch);
-//         } catch (error) {
-//             return rejectWithValue((error as Error).message);
-//         }
-//     }
-// );
