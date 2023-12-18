@@ -30,16 +30,16 @@ const ResetPassword = () => {
                         onChange={handleChange}
                         placeholder={"Введите новый пароль"}
                         value={values.password}
-                        name={'password'}
+                        name={"password"}
                         extraClass="mb-6"
 
                     />
                     <Input
                         value={values.token}
                         onChange={handleChange}
-                        placeholder={'Введите код из письма'}
-                        name={'token'}
-                        size={'default'}
+                        placeholder={"Введите код из письма"}
+                        name={"token"}
+                        size={"default"}
                         extraClass="mb-6"
                     />
                     <Button extraClass="mb-20" htmlType="submit" type="primary" size="medium">

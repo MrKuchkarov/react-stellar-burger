@@ -13,7 +13,6 @@ const Login = () => {
         email: "",
         password: "",
     });
-
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(fetchLogin(values));
@@ -29,14 +28,14 @@ const Login = () => {
                     <EmailInput
                         onChange={handleChange}
                         value={values.email}
-                        name={'email'}
+                        name={"email"}
                         isIcon={false}
                         extraClass="mb-6"
                     />
                     <PasswordInput
                         onChange={handleChange}
                         value={values.password}
-                        name={'password'}
+                        name={"password"}
                         extraClass="mb-6"
                     />
                     <Button
