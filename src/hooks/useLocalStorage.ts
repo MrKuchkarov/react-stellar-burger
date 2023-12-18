@@ -1,6 +1,6 @@
 import {useState, Dispatch, SetStateAction} from 'react';
 
-// Обобщенные типы для хранения значения и функции его обновления
+// Generalized types for storing a value and its update function
 export const useLocalStorage = <T>(
     key: string,
     initialValue: T

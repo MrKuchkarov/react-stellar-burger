@@ -2,7 +2,7 @@ import {DropTargetMonitor, useDrag, useDrop} from "react-dnd";
 import {moveCard} from "../services/constructorSlice/constructorSlice";
 import {useRef} from "react";
 
-//Функция drop для сортировки ингредиентов
+// Drop function for sorting ingredients
 import {useAppDispatch} from "../services/store/store";
 
 type TDropItem = {
@@ -55,7 +55,7 @@ export const useDropLogic = (index: number) => {
 };
 
 
-//Функция drag для сортировки ингредиентов
+// Drag function for sorting ingredients
 export const useDragLogic = (id: string, index: number) => {
 
     const ref = useRef<HTMLLIElement>(null);

@@ -12,7 +12,7 @@ import {useForm} from "../../hooks/useForm";
 const ForgotPassword = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch()
-    // Используем useForm для управления значением email
+    // I use useForm to manage the email value
     const {values, handleChange} = useForm({
         email: ""
     });

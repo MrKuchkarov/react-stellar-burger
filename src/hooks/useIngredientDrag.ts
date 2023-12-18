@@ -1,7 +1,7 @@
 import {useDrag} from "react-dnd";
 import {IIngredient} from "../types";
 
-//Функция drag для добавление ингредиентов в конструктор
+// Drag function for adding ingredients to the constructor
 export const useIngredientDrag = (ingredient: IIngredient) => {
 
     const [{isDrag}, ingredientDragRef] = useDrag({

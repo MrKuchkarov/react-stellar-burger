@@ -9,7 +9,7 @@ import {useForm} from "../../hooks/useForm";
 const ResetPassword = () => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
-    // Используем useForm для управления значениями формы
+    // I use useForm to manage form values
     const {values, handleChange} = useForm({
         password: "",
         token: "",

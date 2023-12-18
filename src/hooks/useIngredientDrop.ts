@@ -2,7 +2,7 @@ import {useDrop} from 'react-dnd';
 import {useAppDispatch} from "../services/store/store";
 import {addOtherIngredient, IIngredientWithKey, setBun} from "../services/constructorSlice/constructorSlice";
 
-//Функция DROP для добавление ингредиентов в конструктор
+// Drop function for adding ingredients to the constructor
 const useIngredientDrop = () => {
     const dispatch = useAppDispatch();
     const [{isOver, canDrop}, dropTarget] = useDrop({
