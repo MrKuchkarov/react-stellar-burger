@@ -22,7 +22,6 @@ const Register = () => {
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(fetchRegister(values))
-        navigate("/login")
     }
 
     return (
