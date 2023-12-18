@@ -15,7 +15,9 @@ export const ExitPage = () => {
         <main className={`${style["exit-confirm-container"]}`}>
             <ProfileNavigation/>
             <div className={`${style["exit-confirm"]}`}>
-                <h2 className={`${style["exit-confirm-title"]} text text_type_main-large`}>Вы уверены?</h2>
+                <h2 className={`${style["exit-confirm-title"]} text text_type_main-large`}>
+                    Вы уверены?
+                </h2>
                 <div>
                     <Button
                         htmlType="button"

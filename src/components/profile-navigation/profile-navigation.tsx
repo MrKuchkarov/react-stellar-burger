@@ -25,7 +25,6 @@ const ProfileNavigation = () => {
             <CustomNavLinkButton
                 to={routes.profileExit}
                 className={`${style["exit-button"]} text text_type_main-medium text_color_inactive`}
-
             >
                 Выход
             </CustomNavLinkButton>

@@ -25,33 +25,25 @@ const BurgerTotalPrice: FC<TBurgerTotalPriceProps> = ({isOrderButtonEnabled}) =>
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const [totalModal, setTotalModal] = useState(false);
-
     const handleOpenModal = () => {
-        const ingredientIds: string[] = otherIngredients.map((ingredient) => ingredient._id);
+        // Если кнопка не доступна или пользователь не авторизован, происходит перенаправление на страницу логина
+        if (!isOrderButtonEnabled || !isAuthUser) {
+            if (!isAuthUser) {
+                navigate("/login");
+            }
+            return;
+        }
 
+        const ingredientIds: string[] = otherIngredients.map((ingredient) => ingredient._id);
+        // Проверка bunIngredients если он есть добавляю bunIngredients._id в массив 2 раза, в начало и конец
         if (bunIngredients) {
             ingredientIds.unshift(bunIngredients._id);
             ingredientIds.push(bunIngredients._id);
         }
-
-        if (!isOrderButtonEnabled) {
-            // Если кнопка "Оформить заказ" отключена, выполняется это
-            return;
-        }
-
-        // Проверю, авторизован ли пользователь
-        if (!isAuthUser) {
-            // Если не авторизован, перенаправляю на маршрут /login
-            navigate("/login");
-            return;
-        }
-
         // Если пользователь авторизован
         dispatch(makeOrder(ingredientIds));
         setTotalModal(true);
-        // Не сбрасываем состояние ингредиентов, а сбрасиваем после заказа
     };
-
     const handleCloseModal = () => {
         setTotalModal(false);
     };
