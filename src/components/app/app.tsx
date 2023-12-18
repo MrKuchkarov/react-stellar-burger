@@ -23,6 +23,7 @@ import FeedDetails from "../feed-details/feed-datails";
 import {useAppDispatch} from "../../services/store/store";
 import ProfileNavigation from "../profile-navigation/profile-navigation";
 import {OrderList} from "../orderList/order-list";
+import {ExitPage} from "../../pages/exit-Page/exit-page";
 
 function App() {
     const navigate = useNavigate();
@@ -57,6 +58,7 @@ function App() {
                 <Route path={routes.resetPassword} element={<OnlyUnAuth component={<ResetPassword/>}/>}/>
                 <Route path={routes.profileOrder} element={<OnlyAuth component={<OrdersPage/>}/>}/>
                 <Route path={routes.profileOrderDynamicId} element={<OnlyAuth component={<FeedDetails/>}/>}/>
+                <Route path={routes.profileExit} element={<OnlyAuth component={<ExitPage/>}/>}/>
                 <Route path={routes.feed} element={<FeedPage/>}/>
                 <Route path={routes.feedId} element={<FeedDetails/>}/>
                 <Route path="*" element={<NotFound404/>}/>

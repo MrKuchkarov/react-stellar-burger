@@ -16,6 +16,7 @@
     background-color: transparent;
     padding: 20px 0;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .description {

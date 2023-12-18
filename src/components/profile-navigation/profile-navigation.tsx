@@ -1,22 +1,15 @@
-import React, {MouseEventHandler} from 'react';
+import React from 'react';
 import style from "./profile-navigation.module.css";
 import CustomNavLinkButton from "../app-header/components/header-button";
 import {useLocation, useMatch} from "react-router-dom";
-
-import {fetchLogout} from "../../services/auth/auth-async-thunks";
-import {useAppDispatch} from "../../services/store/store";
 import {routes} from "../../utils/consts";
 
 
 const ProfileNavigation = () => {
-    const dispatch = useAppDispatch()
     const {pathname} = useLocation();
     const isProfileActive = useMatch("/profile");
     const isProfileOrderActive = useMatch("/profile/orders");
 
-    const logout: MouseEventHandler<HTMLButtonElement> = () => {
-        dispatch(fetchLogout());
-    };
     return (
         <nav className={`${style["links-navigation"]}`}>
             <CustomNavLinkButton
@@ -29,12 +22,13 @@ const ProfileNavigation = () => {
                 text={"История заказов"}
                 className={`${style["links"]} text text_type_main-medium text_color_inactive ${isProfileOrderActive ? style.active : ""}`}
             />
-            <button
+            <CustomNavLinkButton
+                to={routes.profileExit}
                 className={`${style["exit-button"]} text text_type_main-medium text_color_inactive`}
-                onClick={logout}
+
             >
                 Выход
-            </button>
+            </CustomNavLinkButton>
             <p
                 className={`${style["description"]} text text_type_main-default text_color_inactive`}
             >

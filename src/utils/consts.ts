@@ -27,6 +27,7 @@ export const routes = {
     profileOrder: "/profile/orders",
     profileOrderDynamicId: "/profile/orders/:id",
     profileOrdersRoute: "OrderList",
+    profileExit: "/profile/exit",
 };
 
 export const ingredientCategories: Record<string, string> = {
