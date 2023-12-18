@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FormEvent, useState} from "react";
+import React, {FormEvent} from "react";
 import style from "../login/login.module.css";
 import {
     Button,
@@ -6,53 +6,51 @@ import {
     Input,
     PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {fetchRegister} from "../../services/auth/auth-async-thunks";
 import {useAppDispatch} from "../../services/store/store";
+import {useForm} from "../../hooks/useForm";
 
 const Register = () => {
     const dispatch = useAppDispatch();
-    const [form, setForm] = useState({
+    const navigate = useNavigate()
+    const {values, handleChange} = useForm({
         email: "",
         password: "",
         name: "",
-    });
-
-    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setForm({...form, [e.target.name]: e.target.value});
-    };
-
-    const handleRegister = (e: FormEvent<HTMLFormElement>) => {
+    })
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        dispatch(fetchRegister(form));
-    };
+        dispatch(fetchRegister(values))
+        navigate("/login")
+    }
 
     return (
         <div className={`${style["container"]}`}>
-            <form onSubmit={handleRegister} className={`${style["form"]}`}>
+            <form onSubmit={handleSubmit} className={`${style["form"]}`}>
                 <fieldset className={`${style["fieldset"]}`}>
                     <h1 className={`${style["title"]} text text_type_main-medium pb-6`}>
                         Регистрация
                     </h1>
                     <Input
-                        onChange={onChange}
+                        onChange={handleChange}
                         type={"text"}
                         placeholder={"Имя"}
                         name={"name"}
                         size={"default"}
                         extraClass="mb-6"
-                        value={form.name}
+                        value={values.name}
                     />
                     <EmailInput
-                        onChange={onChange}
-                        value={form.email}
+                        onChange={handleChange}
+                        value={values.email}
                         name={"email"}
                         isIcon={false}
                         extraClass="mb-6"
                     />
                     <PasswordInput
-                        onChange={onChange}
-                        value={form.password}
+                        onChange={handleChange}
+                        value={values.password}
                         name={"password"}
                         extraClass="mb-6"
                     />
