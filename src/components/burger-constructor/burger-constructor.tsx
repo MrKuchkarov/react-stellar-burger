@@ -12,20 +12,19 @@ import useIngredientDrop from "../../hooks/useIngredientDrop";
 const BurgerConstructor = () => {
     const seBun = useAppSelector(selectFillingBun);
     const setOther = useAppSelector(selectFillingOther);
-    //
-    // Проверка, есть ли выбранная булка и другие ингредиенты
+    // Checking if there is a selected bun and other ingredients
     const bun = seBun || null;
     const otherIngredients = useMemo(() => setOther || [], [setOther]);
 
-    // Получение верхней и нижней булки
+    // Getting the upper and lower buns
     const topBun = bun;
     const bottomBun = bun;
     //
 
-    // Условие есть констурктор пустой, нельзя оформлять заказ.
+    // Condition if the constructor is empty, you cannot place an order.
     const isOrderButtonEnabled = topBun && otherIngredients.length > 0;
 
-    //DROP для добавление ингредиентов в конструктор
+    // DROP to add ingredients to the constructor
     const {dropTarget, border} = useIngredientDrop();
 
     return (
@@ -43,7 +42,7 @@ const BurgerConstructor = () => {
                 )}
                 {!topBun && (
                     <div className={`${style["top-buns-container"]}`} style={{border}}>
-                        {/* Контейнер, который отображается, когда topBun равно null */}
+                        {/* The container that is displayed when topBun is null */}
                         Добавьте булку, чтобы создать бургер
                     </div>
                 )}
@@ -76,7 +75,7 @@ const BurgerConstructor = () => {
                 )}
                 {!bottomBun && (
                     <div className={`${style["bottom-buns-container"]}`} style={{border}}>
-                        {/* Контейнер, который отображается, когда bottomBun равно null */}
+                        {/* The container that is displayed when bottomBun is null */}
                         Добавьте булку, чтобы создать бургер
                     </div>
                 )}
