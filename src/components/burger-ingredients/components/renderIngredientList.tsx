@@ -14,7 +14,7 @@ interface RenderIngredientListProps {
 const RenderIngredientList: FC<RenderIngredientListProps> = forwardRef(({ingredients}, ref: ForwardedRef<HTMLUListElement>) => {
     const location = useLocation();
     if (!ingredients || ingredients.length === 0) {
-        return null; // Или любой другой код, который вы считаете подходящим
+        return null;
     }
     return (
         <ul className={`${style["cards-list"]} `} ref={ref}>

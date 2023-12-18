@@ -19,10 +19,10 @@ const IngredientCard = ({ingredients}: { ingredients: IIngredient }) => {
         dispatch(showModal());
     };
 
-    //drag для добавление ингредиентов в конструктор
+    // Drag to add ingredients to the constructor
     const {isDrag, ingredientDragRef} = useIngredientDrag(ingredients);
 
-    //Счетчик для ингредиентов
+    // Counter for ingredients
     const count = useMemo(() => {
         let count = 0;
         if (ingredients.type === "bun") {

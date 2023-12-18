@@ -21,7 +21,7 @@ const BurgerCards = (({handleScrollGroups, bunsRef, saucesRef, mainsRef}: TBurge
     const ingredientsTypesSet = new Set(ingredients.map((card: IIngredient) => card.type))
     const ingredientsTypes: string[] = ingredientsTypesSet.size ? [...ingredientsTypesSet] : [];
 
-    // Фильтрация игрениентов по катигориям
+    // Filtering of ingredients by categories
     const categorizedIngredients = useMemo(() => ({
         buns: ingredients.filter((item: IIngredient) => item.type === "bun"),
         sauces: ingredients.filter((item: IIngredient) => item.type === "sauce"),
