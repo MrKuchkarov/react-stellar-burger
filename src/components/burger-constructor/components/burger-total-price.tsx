@@ -26,7 +26,7 @@ const BurgerTotalPrice: FC<TBurgerTotalPriceProps> = ({isOrderButtonEnabled}) =>
     const navigate = useNavigate();
     const [totalModal, setTotalModal] = useState(false);
     const handleOpenModal = () => {
-        // Если кнопка не доступна или пользователь не авторизован, происходит перенаправление на страницу логина
+        // If the button is not available or the user is not logged in, the user is redirected to the login page
         if (!isOrderButtonEnabled || !isAuthUser) {
             if (!isAuthUser) {
                 navigate("/login");
@@ -35,7 +35,7 @@ const BurgerTotalPrice: FC<TBurgerTotalPriceProps> = ({isOrderButtonEnabled}) =>
         }
 
         const ingredientIds: string[] = otherIngredients.map((ingredient) => ingredient._id);
-        // Проверка bunIngredients если он есть добавляю bunIngredients._id в массив 2 раза, в начало и конец
+        // Checking bunIngredients if it is present, i add bunIngredients._id to the array twice, at the beginning and end
         if (bunIngredients) {
             ingredientIds.unshift(bunIngredients._id);
             ingredientIds.push(bunIngredients._id);
@@ -48,15 +48,15 @@ const BurgerTotalPrice: FC<TBurgerTotalPriceProps> = ({isOrderButtonEnabled}) =>
         setTotalModal(false);
     };
 
-    // Проверка, есть ли выбранная булка и другие ингредиенты
+    // Checking if there is a selected bun and other ingredients
     const bun = seBun || null;
     const otherIngredientsMemo = useMemo(() => setOther || [], [setOther]);
 
-    // Получение верхней и нижней булки
+    // Getting the upper and lower buns
     const topBun = bun;
     const bottomBun = bun;
 
-    // Вычисление общей стоимости ингредиентов
+    // Calculating the total cost of ingredients
     const ingredientsTotalPrice = useMemo(() => {
         return calculateIngredientsTotalPrice({topBun, bottomBun, otherIngredients: otherIngredientsMemo});
     }, [topBun, bottomBun, otherIngredientsMemo]);
