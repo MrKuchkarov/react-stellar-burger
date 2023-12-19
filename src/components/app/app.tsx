@@ -68,7 +68,7 @@ function App() {
                     <Route
                         path={routes.ingredientsDynamicId}
                         element={
-                            <Modal title={"Детали ингредиентов"} closeModal={handleCloseModal}>
+                            <Modal title="Детали ингредиентов" closeModal={handleCloseModal}>
                                 <IngredientDetails/>
                             </Modal>
                         }
@@ -76,7 +76,7 @@ function App() {
                     <Route
                         path={routes.profileOrderDynamicId}
                         element={
-                            <Modal title={"Информация о заказе"} closeModal={handleCloseModal}>
+                            <Modal title="Информация о заказе" closeModal={handleCloseModal}>
                                 <OnlyAuth component={<FeedDetails/>}/>
                             </Modal>
                         }
@@ -84,7 +84,7 @@ function App() {
                     <Route
                         path={routes.feedId}
                         element={
-                            <Modal title={"Информация о заказе"} closeModal={handleCloseModal}>
+                            <Modal title="Информация о заказе" closeModal={handleCloseModal}>
                                 <FeedDetails/>
                             </Modal>
                         }

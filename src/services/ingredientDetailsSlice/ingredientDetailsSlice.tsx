@@ -1,14 +1,19 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {IIngredient} from "../../types";
 
-const initialState = {
+type TIngredientsDetailsSlice = {
+    ingredientsDetails: IIngredient | null;
+}
+
+const initialState: TIngredientsDetailsSlice = {
     ingredientsDetails: null,
 };
 
 const ingredientsDetailsSlice = createSlice({
-    name: 'ingredientsDetails',
+    name: "ingredientsDetails",
     initialState,
     reducers: {
-        ingredientsDetails: (state, action) => {
+        ingredientsDetails: (state, action: PayloadAction<IIngredient>) => {
             state.ingredientsDetails = action.payload;
         },
     },
