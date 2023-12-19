@@ -31,7 +31,6 @@
     cursor: pointer;
 }
 
-.active {
+.active-link {
     color: var(--text-primary-color);
-
 }

@@ -12,34 +12,39 @@ import {routes} from "../../utils/consts";
 
 function AppHeader() {
     const location = useLocation();
-
-
+    const isHomeActive = location.pathname === "/";
+    const isFeedActive = location.pathname === "/feed"
+    const isProfileActive = location.pathname === "/profile" || location.pathname === "/profile/orders";
     return (
-        <header className={style.header}>
-            <div className={style["header-container"]}>
-                <nav className={style.navigation}>
+        <header className={`${style["header"]}`}>
+            <div className={`${style["header-container"]}`}>
+                <nav className={`${style["navigation"]}`}>
                     <CustomNavLinkButton
                         to={routes.home}
-                        isActive={location.pathname === "/"}
+                        isActive={isHomeActive}
                         className={`${style["header-links"]} pt-5 pr-5 pb-5 text text_type_main-default`}
                     >
                         <BurgerIcon
                             type={location.pathname === "/" ? "primary" : "secondary"}
                         />
-                        <span className={location.pathname === "/" ? style.active : ""}>Конструктор</span>
+                        <span className={isHomeActive ? `${style["active-link"]}` : ""}>
+                            Конструктор
+                        </span>
                     </CustomNavLinkButton>
                     <CustomNavLinkButton
                         to={routes.feed}
                         className={`${style["header-links"]} pt-5 pr-5 pb-5 text text_type_main-default`}
                     >
                         <ListIcon
-                            type={location.pathname === "/feed" ? "primary" : "secondary"}
+                            type={isFeedActive ? "primary" : "secondary"}
                         />
-                        <span className={location.pathname === "/feed" ? style.active : ""}>Лента заказов</span>
+                        <span className={isFeedActive ? `${style["active-link"]}` : ""}>
+                            Лента заказов
+                        </span>
                     </CustomNavLinkButton>
                 </nav>
                 <NavLink
-                    className={style.logo}
+                    className={`${style["logo"]}`}
                     to={"/"}
                 >
                     <Logo/>
@@ -49,9 +54,11 @@ function AppHeader() {
                     className={`${style["header-links"]} pt-5 pr-5 pb-5 text text_type_main-default`}
                 >
                     <ProfileIcon
-                        type={location.pathname === "/profile" || location.pathname === "/profile/orders" ? "primary" : "secondary"}
+                        type={isProfileActive || isProfileActive ? "primary" : "secondary"}
                     />
-                    <span className={location.pathname === "/profile" ? style.active : ""}>Лента заказов</span>
+                    <span className={isProfileActive ? `${style["active-link"]}` : ""}>
+                        Лента заказов
+                    </span>
                 </CustomNavLinkButton>
             </div>
         </header>
