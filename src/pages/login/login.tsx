@@ -5,11 +5,12 @@ import style from "./login.module.css";
 import {fetchLogin} from "../../services/auth/auth-async-thunks";
 import {useForm} from "../../hooks/useForm";
 import {useAppDispatch} from "../../services/store/store";
+import {ILogin} from "../../types";
 
 
 const Login = () => {
     const dispatch = useAppDispatch();
-    const {values, handleChange} = useForm({
+    const {values, handleChange} = useForm<ILogin>({
         email: "",
         password: "",
     });

@@ -25,6 +25,7 @@ import ProfileNavigation from "../profile-navigation/profile-navigation";
 import {OrderList} from "../orderList/order-list";
 import {ExitPage} from "../../pages/exit-Page/exit-page";
 
+
 function App() {
     const navigate = useNavigate();
     const location = useLocation();
@@ -47,11 +48,7 @@ function App() {
             <Routes location={background || location}>
                 <Route path={routes.home} element={<HomePages/>}/>
                 <Route path={routes.login} element={<OnlyUnAuth component={<Login/>}/>}/>
-                <Route path={routes.profile} element={<OnlyAuth component={<ProfilePage/>}/>}>
-                    <Route element={<OnlyAuth component={<ProfileNavigation/>}/>}/>
-                    <Route path={routes.profileOrdersRoute}
-                           element={<OnlyAuth component={<OrderList showStatus={true}/>}/>}/>
-                </Route>
+                <Route path={routes.profile} element={<OnlyAuth component={<ProfilePage/>}/>}/>
                 <Route path={routes.register} element={<OnlyUnAuth component={<Register/>}/>}/>
                 <Route path={routes.ingredientsDynamicId} element={<IngredientsPage/>}/>
                 <Route path={routes.forgotPassword} element={<OnlyUnAuth component={<ForgotPassword/>}/>}/>

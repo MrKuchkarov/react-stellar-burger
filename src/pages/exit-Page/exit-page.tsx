@@ -10,6 +10,7 @@ export const ExitPage = () => {
 
     const confirmExitProfile = () => {
         dispatch(fetchLogout());
+
     };
     return (
         <main className={`${style["exit-confirm-container"]}`}>
