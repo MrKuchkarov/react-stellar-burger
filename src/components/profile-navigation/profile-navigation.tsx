@@ -27,11 +27,10 @@ const ProfileNavigation = () => {
             />
             <CustomNavLinkButton
                 to={routes.profileExit}
-                className={`${style["exit-button"]} text text_type_main-medium text_color_inactive`}
+                text={"Выход"}
+                className={`${style["links"]} text text_type_main-medium text_color_inactive`}
                 isActive={isActiveProfileExit}
-            >
-                Выход
-            </CustomNavLinkButton>
+            />
             <p
                 className={`${style["description"]} text text_type_main-default text_color_inactive`}
             >

@@ -11,6 +11,8 @@ type TIngredientsSlice = {
     visible: boolean;
 }
 
+type TSetIngredientsAction = PayloadAction<IIngredient[]>;
+
 const initialState: TIngredientsSlice = {
     ingredients: [],
     status: "idle",
@@ -23,7 +25,7 @@ const ingredientsSlice = createSlice({
     name: "$$ingredients",
     initialState,
     reducers: {
-        setIngredients(state, action: PayloadAction<IIngredient[]>) {
+        setIngredients(state, action: TSetIngredientsAction) {
             state.ingredients = action.payload;
         },
         showModal(state) {
@@ -48,7 +50,7 @@ const ingredientsSlice = createSlice({
                 state.error = action.payload as string || "Cannot load data";
                 state.isLoading = false;
             })
-            .addCase(fetchIngredients.fulfilled, (state, action) => {
+            .addCase(fetchIngredients.fulfilled, (state, action: PayloadAction<IIngredient[]>) => {
                 state.status = "success";
                 state.ingredients = action.payload;
                 state.error = null;

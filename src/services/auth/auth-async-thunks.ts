@@ -7,7 +7,6 @@ import {
 import {
     Method,
     BURGER_API_URL,
-    refreshToken as token,
 } from "../../utils/consts";
 import {deleteCookie, getCookie, setCookie} from "../../utils/cookie";
 import {setAuthChecked, setUser} from "./auth-slice";
@@ -103,6 +102,7 @@ export const fetchUpdateUser = createAsyncThunk<
 );
 export const fetchLogout = createAsyncThunk<void, void>(
     "$$auth/fetchLogout", async () => {
+        const token = getCookie("refreshToken");
         await request(
             `${BURGER_API_URL}/auth/logout`,
             createOptions(Method.post, {token})

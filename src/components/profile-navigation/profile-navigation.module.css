@@ -11,13 +11,13 @@
     padding: 20px 0;
 }
 
-.exit-button {
-    border: none;
-    background-color: transparent;
-    padding: 20px 0;
-    cursor: pointer;
-    text-decoration: none;
-}
+/*.exit-button {*/
+/*    border: none;*/
+/*    background-color: transparent;*/
+/*    padding: 20px 0;*/
+/*    cursor: pointer;*/
+/*    text-decoration: none;*/
+/*}*/
 
 .description {
     opacity: 0.4;
