@@ -6,6 +6,10 @@
     margin: 0 auto;
 }
 
+.feed__number {
+    justify-self: center;
+}
+
 .order-number {
     text-align: center;
 }
@@ -73,4 +77,10 @@
     align-items: flex-start;
     margin: 40px 0 0 0;
     padding: 0 35px;
+}
+
+.feed-loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
